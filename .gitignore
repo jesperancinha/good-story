@@ -28,3 +28,6 @@ target
 build
 bin
 .idea
+
+# Ignore Gradle project-specific cache directory
+.gradle

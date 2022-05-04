@@ -21,6 +21,12 @@ sdk install java 22.1.0.r17-grl
 sdk use java 22.1.0.r17-grl
 ```
 
+## Playbook
+
+```shell
+gradle init
+```
+
 ## References
 
 - [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
