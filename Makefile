@@ -20,6 +20,10 @@ sdk-unpack:
 	tar -xvzf openjdk-19.tar.gz
 gradle-list:
 	gradle -q projects
+test:
+	./loom-run.sh
+	java -version
+	cd kotlin-good-story && gradle build test
 generic:
 	curl TEST --output TEST
 	curl TEST --output TEST
