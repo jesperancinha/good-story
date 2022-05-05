@@ -14,11 +14,25 @@ If you understand these terms, then I think you'll find this project interesting
 
 ## Environment
 
+
+
+#### Kotlin Corountines
+
+Kotlin's coroutines work on any JDK and they can be used on most JDK's out there.
+
 Since I'm looking for the most efficient and performing solutions, we are going to use GraalVM in this project. Because of this, either you need to install [GraalVM](https://www.graalvm.org/) manually, or use sdk-man to install it:
 
 ```shell
 sdk install java 22.1.0.r17-grl
 sdk use java 22.1.0.r17-grl
+```
+
+#### Java Project Loom
+
+Project Loom is itself a JDK and  in order to use it, you need first to install it
+
+```shell
+
 ```
 
 ## Playbook
