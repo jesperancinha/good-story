@@ -31,3 +31,7 @@ bin
 
 # Ignore Gradle project-specific cache directory
 .gradle
+
+## Loom JDK
+jdk-19.jdk
+loom-jdk
