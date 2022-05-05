@@ -24,12 +24,3 @@ test:
 	./loom-run.sh
 	java -version
 	cd kotlin-good-story && gradle build test
-generic:
-	curl TEST --output TEST
-	curl TEST --output TEST
-	curl TEST --output TEST
-	curl TEST --output TEST
-	curl TEST --output TEST
-	curl TEST --output TEST
-	curl TEST --output TEST
-
