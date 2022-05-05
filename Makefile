@@ -8,6 +8,8 @@ sdk-linux:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_linux-x64_bin.tar.gz --output openjdk-19-loom+6-625_linux-x64_bin.tar.gz
 sdk-linux-arch:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_linux-aarch64_bin.tar.gz --output openjdk-19-loom+6-625_linux-aarch64_bin.tar.gz
+gradle-list:
+	gradle -q projects
 generic:
 	curl TEST --output TEST
 	curl TEST --output TEST

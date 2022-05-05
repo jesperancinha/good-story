@@ -9,4 +9,5 @@
  */
 
 rootProject.name = 'good-story'
-include('lib')
+include('java-good-story')
+include('kotlin-good-story')
