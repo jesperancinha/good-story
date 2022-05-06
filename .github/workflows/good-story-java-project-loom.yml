@@ -1,4 +1,4 @@
-name: GS - Kotlin - Coroutines - GraalVM Native Image Build
+name: GS - Project - Loom
 on:
   push:
     branches: [ master ]
