@@ -1,5 +1,14 @@
 # good-story
 
+---
+
+[![Twitter URL](https://img.shields.io/twitter/url?logoColor=blue&style=social&url=https%3A%2F%2Fimg.shields.io%2Ftwitter%2Furl%3Fstyle%3Dsocial)](https://twitter.com/intent/tweet?text=%20Checkout%20this%20%40github%20repo%20by%20%40joaofse%20%F0%9F%91%A8%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%3A%20https%3A//github.com/jesperancinha/good-story)
+[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Good%20Story%20🐉&color=informational)](https://github.com/jesperancinha/good-story)
+
+[![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
+
+---
+
 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! UNDER CONSTRUCTION !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
 An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
@@ -11,6 +20,8 @@ This project started as an idea to explore differences in performance between di
 I won't dive into style IT discussions in this project. And of course the `elegant` card is not the focal point here.
 
 If you understand these terms, then I think you'll find this project interesting.
+
+The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](./GoodStory.md) file. We will apply algorithms to it, make objects, and explore the limits of our own machines.
 
 ## Environment
 
