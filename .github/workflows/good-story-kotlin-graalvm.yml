@@ -1,4 +1,4 @@
-name: GraalVM Community Edition build
+name: GS - Kotlin - Coroutines - GraalVM Native Image Build
 on: [push, pull_request]
 jobs:
   build:
@@ -11,10 +11,5 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Example step
-        run: |
-          echo "GRAALVM_HOME: $GRAALVM_HOME"
-          echo "JAVA_HOME: $JAVA_HOME"
-          java --version
-          gu --version
-          native-image --version
+      - name: Gradle Build
+        run: kotlin-good-story; gradle build test;
