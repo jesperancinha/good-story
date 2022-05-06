@@ -22,3 +22,10 @@ horizon. It seemed to be approaching shore. Given the unusual shape of it, Lucy 
 
 \[to be continued...\]
 
+## Temporary notes
+
+These are temporary notes/tips for further writing towards completion of this small novel.
+
+> Ik geloof niet dat je dat kan.
+> 
+> Ja pffrrfrfrffrff... Ne ne ne, dat gaan we niet doen! Dat gaan we niet doen!
