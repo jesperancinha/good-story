@@ -1,0 +1,22 @@
+name: GS - Kotlin - Coroutines - GraalVM Native Image Build
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    name: HelloWorld on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.1.0'
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Gradle Build
+          run: kotlin-good-story; gradle build test;
