@@ -4,6 +4,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+            java-version: '17'
+            distribution: 'adopt'
       - uses: actions/checkout@v2
       - name: JEsperancinhaOrg Loom Action
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
@@ -15,4 +20,4 @@ jobs:
         run: gradle -version
 
       - name: Gradle Build
-        run: ./gradlew build test
+        run: cd java-good-story && gradle build test
