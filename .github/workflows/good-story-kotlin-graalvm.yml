@@ -12,4 +12,4 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Gradle Build
-        run: kotlin-good-story; gradle build test;
+        run: cd kotlin-good-story; gradle build test;
