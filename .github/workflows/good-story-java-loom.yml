@@ -6,10 +6,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: JEsperancinhaOrg Loom Action
-        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-d
+        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-e
 
       - name: Java version check
-        run: ls /home/runner/work/good-story/good-story
+        run: java -version
 
       - name: Gradle Build
         run: cd java-good-story; gradle build test;
