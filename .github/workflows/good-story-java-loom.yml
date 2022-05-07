@@ -8,6 +8,8 @@ jobs:
       - name: JEsperancinhaOrg Loom Action
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-a
 
+      - name: Java version check
+        run: java -version
 
       - name: Gradle Build
         run: cd java-good-story; gradle build test;
