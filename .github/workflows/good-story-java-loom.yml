@@ -9,7 +9,7 @@ jobs:
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-d
 
       - name: Java version check
-        run: ls /
+        run: ls /github/workspace
 
       - name: Gradle Build
         run: cd java-good-story; gradle build test;
