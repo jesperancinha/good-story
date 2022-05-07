@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: JEsperancinhaOrg Loom Action
-        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-f
+        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-g
 
       - name: Java version check
         run: java -version
