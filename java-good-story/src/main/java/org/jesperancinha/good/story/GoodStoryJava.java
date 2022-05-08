@@ -4,13 +4,12 @@
 package org.jesperancinha.good.story;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoPeriod;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GoodStoryJava {
     public static void main(String[] args) throws InterruptedException {
+        System.out.println("Welcome to the Java Project Loom Test!");
         final var aiVirtualThread = new AtomicInteger(0);
         final var startTime = LocalDateTime.now();
         Thread virtualThread = null;
@@ -21,7 +20,7 @@ public class GoodStoryJava {
         final var endTime = LocalDateTime.now();
         System.out.println("Imma be the main Thread");
         System.out.println(aiVirtualThread.get());
-        System.out.println("It took me " + Duration.between(startTime, endTime).getSeconds() + " to finish");
+        System.out.println("It took me " + Duration.between(startTime, endTime).getSeconds() + "s to finish");
 
 
         final var startTimeT = LocalDateTime.now();
@@ -35,6 +34,6 @@ public class GoodStoryJava {
         final var endTimeT = LocalDateTime.now();
         System.out.println("Imma be the main Thread");
         System.out.println(aiThread.get());
-        System.out.println("It took me " + Duration.between(startTimeT, endTimeT).getSeconds() + " to finish");
+        System.out.println("It took me " + Duration.between(startTimeT, endTimeT).getSeconds() + "s to finish");
     }
 }

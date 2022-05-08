@@ -13,7 +13,7 @@ val aiVirtualThread = AtomicInteger(0)
 class App {
     val greeting: String
         get() {
-            return "Hello World!"
+            return "Welcome to the Kotlin Coroutines Test!"
         }
 }
 
@@ -31,11 +31,12 @@ suspend fun main() {
     val endTime = LocalDateTime.now()
     println("Imma be the main Thread")
     println(aiVirtualThread.get())
-    println("It took me ${Duration.between(startTime, endTime).seconds} to finish")
+    println("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
 
     val startTimeT = LocalDateTime.now()
     val aiThread = AtomicInteger(0)
     var thread =  Thread { aiThread.getAndIncrement() }
+    thread.start()
     for (i in 1..99999) {
         thread = Thread { aiThread.getAndIncrement() }
         thread.start()
@@ -46,5 +47,5 @@ suspend fun main() {
     val endTimeT = LocalDateTime.now()
     println("Imma be the main Thread")
     println(aiThread.get())
-    println("It took me " + Duration.between(startTimeT, endTimeT).seconds + " to finish")
+    println("It took me ${Duration.between(startTimeT, endTimeT).seconds}s to finish")
 }
