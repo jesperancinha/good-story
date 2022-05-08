@@ -35,3 +35,6 @@ bin
 ## Loom JDK
 jdk-19.jdk
 loom-jdk
+
+## Gradle
+!gradle/**

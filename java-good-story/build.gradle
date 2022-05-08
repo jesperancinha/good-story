@@ -23,7 +23,6 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:31.1-jre'
-    implementation group: 'net.bytebuddy', name: 'byte-buddy-dep', version: '1.12.10'
 }
 
 testing {
