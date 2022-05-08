@@ -15,5 +15,11 @@ jobs:
       - name: Gradle Wrapper
         run: gradle install wrapper --gradle-version 7.4.2
 
+      - name: Java version check
+        run: java -version
+
+      - name: Gradle version check
+        run: gradle -version
+
       - name: Gradle Build
         run: cd kotlin-good-story; gradle build test;
