@@ -16,7 +16,7 @@ jobs:
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
 
       - name: Java version check
-        run: ls /home/runner/work/good-story/good-story/loom-jdk/jdk-19/bin && java -version
+        run: ls /home/runner/work/good-story/good-story/loom-jdk/jdk-19/bin && java -version && /home/runner/work/good-story/good-story/loom-jdk/jdk-19/bin/java --version
 
       - name: Gradle version check
         run: gradle -version
