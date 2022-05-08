@@ -26,6 +26,10 @@ make run
 ```
 ---
 
+## Issues
+
+- [Support Java 19 #20372](https://github.com/gradle/gradle/issues/20372)
+
 ## References
 
 #### Links
