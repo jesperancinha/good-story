@@ -13,4 +13,9 @@
           src="https://img.youtube.com/vi/-CPWbB-Pn14/0.jpg" 
           style="width:20%;">
       </a>
+      <a title="Async Programming and Project Loom by Dr Venkat Subramaniam" href="https://www.youtube.com/watch?v=UqlF6Mfhnz0">
+     <img 
+          src="https://img.youtube.com/vi/UqlF6Mfhnz0/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
