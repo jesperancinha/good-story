@@ -23,10 +23,13 @@ One day, during September, the clouds had fallen into the ground and the air was
 horizon. It seemed to be approaching shore. Given the unusual shape of it, Lucy was intrigued, and she waited...
 
 The shape seemed to blend in, move, and split itself everywhere around the horizon. Like a dark cloud moving between lighter ones.
-Sometimes it seemed like showing off the shape of a dagger, a sword, a bat, a boat, a hammer, a coin...
-Afar, the shape seem to whisper sounds of the wind, but also words. They seemed to be spoken in her native language, Dutch and they seemed to say in a loop:   
+Sometimes it seemed like showing off the shape of a house, a chair, a bat, a boat, a hammer, a coin...
+Afar, the shape seemed to whisper sounds of the wind, but also words. They seemed to be spoken in her native language, Dutch and they seemed to say in a loop:   
 
 <b>Beast</b> - "Ik geloof niet dat je dat kan","Ik geloof niet dat je dat kan","Ik geloof niet dat je dat kan"...
+
+It kept going louder and louder until Lucy screamed as loud as she could. The whole sky then became the same dark colour, and it started to rain. Lucy ran back into her house.
+As it kept on raining, Lucy questioned what she just had experienced. The looping sentence means "I do not believe that you can do it". The voice and the sentence reminded her of something familiar, but she couldn't recall exactly what it was.
 
 \[to be continued...\]
 
