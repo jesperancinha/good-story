@@ -32,6 +32,4 @@ suspend fun main() {
     println("Imma be the main Thread")
     println(aiVirtualThread.get())
     println("It took me ${Duration.between(startTime, endTime).seconds} to finish")
-
-
 }
