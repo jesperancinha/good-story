@@ -6,19 +6,27 @@ NOTE: The story at the bottom does not describe an actual occurrence, but it is 
 
 ## Synopsis
 
-This story finds its inspiration on my personal life. The story revolves around Lucy, a young woman who seeks a meaning in her life, still carrying the weight of the world on her shoulders, but still with a vigorous heart-beat that reminds her that she's not done yet. Life still has a lot to offer Lucy.
+This story finds its inspiration on my personal life. The story revolves around Lucy, a young woman who seeks a meaning in her life, still carrying the weight of the world on her shoulders, but still with a vigorous heart-beat that reminds her that she's not done yet. Life still has a lot to offer
+Lucy.
 The story is told in a metaphoric fashion with imaginary deities and characters. It encompasses the materialization of feelings and how they can manifest.
 
 ## Escaping the Beast
 
 Lucy, was a young woman in her thirties who came to live on a remote island on the coast of Portugal after being diagnosed with a neurological unknown disability. It caused her not to move well, not to coordinate her arms well and this made her eligible to ask for an abrupt early retirement. At the
 same time, all her relatives past way, and she inherited a fortune. Lucy was alone in the world, and she didn't have any friends. In her house, on this island, she spent her days figuring out what further meaning could she give to live. In her home country, The Netherlands, there was no one
-available to help her or to keep her company. Her family wasn't there anymore and for unknown reasons, she had made almost no friends in her life. She would visit main land Portugal to get groceries, but just for that. Her illness seemed to block her, from achieving her goals. Any goal would feel impossible to
+available to help her or to keep her company. Her family wasn't there anymore and for unknown reasons, she had made almost no friends in her life. She would visit main land Portugal to get groceries, but just for that. Her illness seemed to block her, from achieving her goals. Any goal would feel
+impossible to
 achieve. Lucy was alone. She could live, eat, sleep, wash, stare and enjoy the small pleasures of life, but further she had nothing. During the summer months, Lucy could find some sort of happiness under the sun, the warm weather, a stroll at the beach or just looking at the movements of the small
 sea animals that would reach the shore.
 
 One day, during September, the clouds had fallen into the ground and the air was foggy, denser than usual, and it was hard to see. Lucy still wanted to go to the beach. It was almost lunchtime and Lucy still had to cook lunch. She was about to turn back home, when she saw a moving shadow in the
 horizon. It seemed to be approaching shore. Given the unusual shape of it, Lucy was intrigued, and she waited...
+
+The shape seemed to blend in, move, and split itself everywhere around the horizon. Like a dark cloud moving between lighter ones.
+Sometimes it seemed like showing off the shape of a dagger, a sword, a bat, a boat, a hammer, a coin...
+Afar, the shape seem to whisper sounds of the wind, but also words. They seemed to be spoken in her native language, Dutch and they seemed to say in a loop:   
+
+<b>Beast</b> - "Ik geloof niet dat je dat kan","Ik geloof niet dat je dat kan","Ik geloof niet dat je dat kan"...
 
 \[to be continued...\]
 
@@ -27,5 +35,19 @@ horizon. It seemed to be approaching shore. Given the unusual shape of it, Lucy 
 These are temporary notes/tips for further writing towards completion of this small novel.
 
 > Ik geloof niet dat je dat kan.
-> 
+>
 > Ja pffrrfrfrffrff... Ne ne ne, dat gaan we niet doen! Dat gaan we niet doen!
+
+## Inspiring Music
+
+This is the music selection that has inspired the above fiction story:
+
+
+
+<div align="center">
+      <a title="Röyksopp - What Else Is There ?" href="https://www.youtube.com/watch?v=RDADBKdSCbmiM">
+     <img 
+          src="https://img.youtube.com/vi/RDADBKdSCbmiM/0.jpg" 
+          style="width:20%;">
+      </a>
+</div>
