@@ -23,7 +23,7 @@ suspend fun main() {
     val startTime = LocalDateTime.now()
     GlobalScope.launch {
         repeat(10000000) {
-            withContext(Dispatchers.IO) {
+          launch {
                 aiVirtualThread.incrementAndGet()
             }
         }
