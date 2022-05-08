@@ -9,5 +9,5 @@
  */
 
 rootProject.name = 'good-story'
-include('java-good-story')
+//include('java-good-story')
 include('kotlin-good-story')
