@@ -3,7 +3,9 @@
 ## References
 
 #### Links
+
 - [Java Virtual Threads Explained](https://www.javai.net/post/202204/java-virtual-threads-explained/)
+- [Creating Virtual Threads with project Loom](https://www.davidvlijmincx.com/posts/create_virtual_threads_with_project_loom/)
 
 #### Videos
 

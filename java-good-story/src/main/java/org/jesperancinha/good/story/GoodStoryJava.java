@@ -3,19 +3,38 @@
  */
 package org.jesperancinha.good.story;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoPeriod;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GoodStoryJava {
     public static void main(String[] args) throws InterruptedException {
-        final var ai = new AtomicInteger(10);
-        final var virtualThread = Thread.startVirtualThread(
-                () -> {
-                    System.out.println("Imma be a Virtual Thread");
-                    ai.getAndDecrement();
-                }
-        );
+        final var aiVirtualThread = new AtomicInteger(0);
+        final var startTime = LocalDateTime.now();
+        Thread virtualThread = null;
+        for (int i = 0; i < 10000000; i++) {
+            virtualThread = Thread.startVirtualThread(aiVirtualThread::getAndIncrement);
+        }
         virtualThread.join();
+        final var endTime = LocalDateTime.now();
         System.out.println("Imma be the main Thread");
-        System.out.println(ai.get());
+        System.out.println(aiVirtualThread.get());
+        System.out.println("It took me " + Duration.between(startTime, endTime).getSeconds() + " to finish");
+
+
+        final var startTimeT = LocalDateTime.now();
+        final var aiThread = new AtomicInteger(0);
+        Thread thread = null;
+        for (int i = 0; i < 100000; i++) {
+            thread = new Thread(aiThread::getAndIncrement);
+            thread.start();
+        }
+        thread.join();
+        final var endTimeT = LocalDateTime.now();
+        System.out.println("Imma be the main Thread");
+        System.out.println(aiThread.get());
+        System.out.println("It took me " + Duration.between(startTimeT, endTimeT).getSeconds() + " to finish");
     }
 }
