@@ -12,5 +12,5 @@ jobs:
       - name: Java version check
         run: java -version
 
-      - name: Gradle Build
+      - name: Maven Build
         run: cd java-good-story && mvn clean install
