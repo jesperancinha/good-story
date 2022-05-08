@@ -9,16 +9,8 @@ jobs:
       - name: JEsperancinhaOrg Loom Action
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
 
-      - name: Gradle Wrapper
-        run: gradle install wrapper --gradle-version 7.4.2
-        continue-on-error: true
-
-      - name: Gradle version check
-        run: gradle -version
-
       - name: Java version check
         run: java -version
 
       - name: Gradle Build
-        run: cd java-good-story && gradle build test
-        continue-on-error: true
+        run: cd java-good-story && mvn clean install
