@@ -14,10 +14,8 @@ public class GoodStoryJava {
                     ai.getAndDecrement();
                 }
         );
-
-        virtualThread.wait();
+        virtualThread.join();
         System.out.println("Imma be the main Thread");
         System.out.println(ai.get());
-
     }
 }
