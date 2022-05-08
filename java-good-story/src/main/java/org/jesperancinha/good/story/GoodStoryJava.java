@@ -3,10 +3,21 @@
  */
 package org.jesperancinha.good.story;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class GoodStoryJava {
-    public static void main(String[] args) {
-        Thread.startVirtualThread(
-                () -> System.out.println("Hello World")
+    public static void main(String[] args) throws InterruptedException {
+        final var ai = new AtomicInteger(10);
+        final var virtualThread = Thread.startVirtualThread(
+                () -> {
+                    System.out.println("Imma be a Virtual Thread");
+                    ai.getAndDecrement();
+                }
         );
+
+        virtualThread.wait();
+        System.out.println("Imma be the main Thread");
+        System.out.println(ai.get());
+
     }
 }
