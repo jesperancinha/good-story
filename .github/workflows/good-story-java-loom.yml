@@ -9,14 +9,14 @@ jobs:
       - name: JEsperancinhaOrg Loom Action
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
 
-      - name: Java version check
-        run: echo $PATH && ls /home/runner/work/good-story/good-story/loom-jdk/jdk-19/bin && java -version && /home/runner/work/good-story/good-story/loom-jdk/jdk-19/bin/java --version
+      - name: Gradle Wrapper
+        run: gradle install wrapper --gradle-version 7.4.2
 
       - name: Gradle version check
         run: gradle -version
 
-      - name: Gradle Wrapper
-        run: echo $PATH && gradle install wrapper
+      - name: Java version check
+        run: java -version
 
       - name: Gradle Build
         run: cd java-good-story && gradle build test
