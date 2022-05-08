@@ -20,7 +20,7 @@ jobs:
         run: gradle -version
 
       - name: Gradle Wrapper
-        run: gradle install wrapper
+        run: gradle install wrapper --gradle-version 7.4.2
 
       - name: Gradle Build
         run: cd java-good-story && gradle build test

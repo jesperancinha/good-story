@@ -11,5 +11,9 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Gradle Wrapper
+        run: gradle install wrapper --gradle-version 7.4.2
+
       - name: Gradle Build
         run: cd kotlin-good-story; gradle build test;
