@@ -73,4 +73,5 @@ gradle init
 - [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
 - [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main)
 - [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
-- 
+- [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
+- [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
