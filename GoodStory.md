@@ -29,7 +29,7 @@ Afar, the shape seemed to whisper sounds of the wind, but also words. They seeme
 <b>Beast</b> - "Ik geloof niet dat je dat kan","Ik geloof niet dat je dat kan","Ik geloof niet dat je dat kan"...
 
 It kept going louder and louder until Lucy screamed as loud as she could. The whole sky then became the same dark colour, and it started to rain. Lucy ran back into her house.
-As it kept on raining, Lucy questioned what she just had experienced. The looping sentence means "I do not believe that you can do it". The voice and the sentence reminded her of something familiar, but she couldn't recall exactly what it was.
+As it kept on raining, Lucy questioned what she just had experienced. The looping sentence means "I do not believe that you can do that". The voice and the sentence reminded her of something familiar, but she couldn't recall exactly what it was.
 
 \[to be continued...\]
 
@@ -45,12 +45,10 @@ These are temporary notes/tips for further writing towards completion of this sm
 
 This is the music selection that has inspired the above fiction story:
 
-
-
 <div align="center">
-      <a title="Röyksopp - What Else Is There ?" href="https://www.youtube.com/watch?v=RDADBKdSCbmiM">
+      <a title="Röyksopp - What Else Is There ?" href="https://www.youtube.com/watch?v=ADBKdSCbmiM">
      <img 
-          src="https://img.youtube.com/vi/RDADBKdSCbmiM/0.jpg" 
+          src="https://img.youtube.com/vi/ADBKdSCbmiM/0.jpg" 
           style="width:20%;">
       </a>
 </div>
