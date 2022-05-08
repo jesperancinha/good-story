@@ -37,4 +37,4 @@ jdk-19.jdk
 loom-jdk
 
 ## Gradle
-!gradle/**
+gradle/**
