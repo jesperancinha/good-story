@@ -34,5 +34,5 @@ testing {
 
 application {
     // Define the main class for the application.
-    mainClass.set("org.jesperancinha.kotlin.good.story.AppKt")
+    mainClass.set("org.jesperancinha.kotlin.good.story.GoodStoryKotlin")
 }
