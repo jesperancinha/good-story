@@ -1,5 +1,31 @@
 # Java Good Story
 
+---
+
+## How to test and run
+
+1. Make sure you have already installed loom. If not, pickup the root [Makefile](./Makefile) and find the sdk script for your system (I've tested this in Ubuntu and MAC-OS distributions)
+
+2. Setup Java Home temporarily in your console:
+
+```shell
+. ./loom-sdk.sh
+```
+
+3. Make the build and test
+
+```shell
+make build-test
+```
+
+4. (optionally) Build manually
+
+```shell
+mvn clean install
+make run
+```
+---
+
 ## References
 
 #### Links
