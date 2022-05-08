@@ -32,4 +32,19 @@ suspend fun main() {
     println("Imma be the main Thread")
     println(aiVirtualThread.get())
     println("It took me ${Duration.between(startTime, endTime).seconds} to finish")
+
+    val startTimeT = LocalDateTime.now()
+    val aiThread = AtomicInteger(0)
+    var thread =  Thread { aiThread.getAndIncrement() }
+    for (i in 1..99999) {
+        thread = Thread { aiThread.getAndIncrement() }
+        thread.start()
+    }
+    withContext(Dispatchers.IO) {
+        thread.join()
+    }
+    val endTimeT = LocalDateTime.now()
+    println("Imma be the main Thread")
+    println(aiThread.get())
+    println("It took me " + Duration.between(startTimeT, endTimeT).seconds + " to finish")
 }
