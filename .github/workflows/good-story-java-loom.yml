@@ -16,7 +16,7 @@ jobs:
         run: gradle -version
 
       - name: Gradle Wrapper
-        run: echo $PATH && gradle install wrapper --gradle-version 7.4.2
+        run: echo $PATH && gradle install wrapper
 
       - name: Gradle Build
         run: cd java-good-story && gradle build test
