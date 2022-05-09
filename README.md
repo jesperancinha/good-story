@@ -13,7 +13,7 @@
 
 An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
 
-## Introduction
+## 1. Introduction
 
 This project started as an idea to explore differences in performance between different projects. It has grown now into a full fledge comparison between Java and Kotlin and ONLY for <b>engineering purposes</b>.
 
@@ -23,7 +23,7 @@ If you understand these terms, then I think you'll find this project interesting
 
 The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](./GoodStory.md) file. We will apply algorithms to it, make objects, and explore the limits of our own machines.
 
-## Environment
+## 2. Environment
 
 #### [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
 
@@ -45,7 +45,7 @@ Project Loom is itself a JDK and in order to use it, you need first to [install 
 make sdk-install
 ```
 
-## Tech comparisons
+## 3. Tech comparisons
 
 We cannot 100% compare Kotlin and Java in a direct way, but we will compare them using their best performant version:
 
@@ -54,20 +54,26 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 | [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) | [GraalVM](22.1.0)                 | [22.1.0](https://www.graalvm.org/release-notes/22_1/#2210) | 17       | Module |
 | [Project Loom](https://wiki.openjdk.java.net/display/loom/Main)        | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
 
-## Actions
+## 4. Actions
 
 This project makes usage of two imporant actions:
 
 - [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
 - [Jesperancinha GitHub Action for LoomJDK]()
 
-## Playbook
+## 5. Coffee Sessions ☕️
+
+TBD
+
+## 6. Playbook
+
+These are some important steps used in the creation of this project
 
 ```shell
 gradle init
 ```
 
-## References
+## 7. References
 
 - [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
 - [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
