@@ -61,7 +61,7 @@ This project makes usage of two imporant actions:
 -   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
 -   [Jesperancinha GitHub Action for LoomJDK]()
 
-## 5.  Coffee Sessions ☕️
+## 5.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 
 -   [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
 
