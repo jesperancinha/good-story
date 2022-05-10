@@ -63,7 +63,7 @@ This project makes usage of two imporant actions:
 
 ## 5.  Coffee Sessions ☕️
 
-TBD
+-   [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
 
 ## 6.  Playbook
 
