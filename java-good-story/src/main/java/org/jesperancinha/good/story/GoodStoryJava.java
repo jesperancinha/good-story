@@ -3,37 +3,11 @@
  */
 package org.jesperancinha.good.story;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.concurrent.atomic.AtomicInteger;
+import picocli.CommandLine;
 
 public class GoodStoryJava {
-    public static void main(String[] args) throws InterruptedException {
-        System.out.println("Welcome to the Java Project Loom Test!");
-        final var aiVirtualThread = new AtomicInteger(0);
-        final var startTime = LocalDateTime.now();
-        Thread virtualThread = null;
-        for (int i = 0; i < 10000000; i++) {
-            virtualThread = Thread.startVirtualThread(aiVirtualThread::getAndIncrement);
-        }
-        virtualThread.join();
-        final var endTime = LocalDateTime.now();
-        System.out.println("Imma be the main Thread");
-        System.out.println(aiVirtualThread.get());
-        System.out.println("It took me " + Duration.between(startTime, endTime).getSeconds() + "s to finish");
-
-
-        final var startTimeT = LocalDateTime.now();
-        final var aiThread = new AtomicInteger(0);
-        Thread thread = null;
-        for (int i = 0; i < 100000; i++) {
-            thread = new Thread(aiThread::getAndIncrement);
-            thread.start();
-        }
-        thread.join();
-        final var endTimeT = LocalDateTime.now();
-        System.out.println("Imma be the main Thread");
-        System.out.println(aiThread.get());
-        System.out.println("It took me " + Duration.between(startTimeT, endTimeT).getSeconds() + "s to finish");
+    public static void main(String[] args) {
+        int exitCode = new CommandLine(new GoodStoryCommand()).execute(args);
+        System.exit(exitCode);
     }
 }

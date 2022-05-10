@@ -1,5 +1,5 @@
 run:
-	cd target/classes && java --enable-preview org.jesperancinha.good.story.GoodStoryJava
+	bash run.sh
 build-run:
 	mvn clean install
 	make run
