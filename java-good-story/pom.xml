@@ -14,7 +14,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <picocli.version>4.6.3</picocli.version>
         <maven-compiler.release>${java.version}</maven-compiler.release>
-        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
     </properties>
 
     <dependencies>
