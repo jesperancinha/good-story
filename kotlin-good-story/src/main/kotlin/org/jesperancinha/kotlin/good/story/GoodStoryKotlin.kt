@@ -19,11 +19,16 @@ class App {
 
 @DelicateCoroutinesApi
 suspend fun main() {
+    generalTest()
+}
+
+@DelicateCoroutinesApi
+private suspend fun generalTest() {
     println(App().greeting)
     val startTime = LocalDateTime.now()
     GlobalScope.launch {
         repeat(10000000) {
-          launch {
+            launch {
                 aiVirtualThread.incrementAndGet()
             }
         }
@@ -35,7 +40,7 @@ suspend fun main() {
 
     val startTimeT = LocalDateTime.now()
     val aiThread = AtomicInteger(0)
-    var thread =  Thread { aiThread.getAndIncrement() }
+    var thread = Thread { aiThread.getAndIncrement() }
     thread.start()
     for (i in 1..99999) {
         thread = Thread { aiThread.getAndIncrement() }
