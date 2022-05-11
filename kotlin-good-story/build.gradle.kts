@@ -29,6 +29,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.0-alpha7")
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-framework-engine-jvm:$kotestVersion")
+    testImplementation ("io.kotest:kotest-assertions-core-jvm:5.3.0")
 }
 
 testing {

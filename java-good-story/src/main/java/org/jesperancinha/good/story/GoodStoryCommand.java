@@ -24,10 +24,10 @@ import static java.util.function.Function.identity;
 /**
  * Created by jofisaes on 10/05/2022
  */
-@Command(name = "checksum",
+@Command(name = "GoodStory Java Algorithms",
         mixinStandardHelpOptions = true,
         version = "checksum 4.0",
-        description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
+        description = "Test Algorithms and measures their performance time")
 class GoodStoryCommand implements Callable<Integer> {
 
     private static Logger log = LoggerFactory.getLogger(GoodStoryCommand.class);
@@ -45,7 +45,7 @@ class GoodStoryCommand implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception { // your business logic goes here...
+    public Integer call() throws Exception {
 
         log.info(String.format("File 0 is %s", file));
         log.info(String.format("File to read is %s", textFile));

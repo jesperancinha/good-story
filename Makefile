@@ -24,3 +24,5 @@ test:
 	./loom-run.sh
 	java -version
 	cd kotlin-good-story && gradle build test
+gradle-build-test:
+	gradle build test
