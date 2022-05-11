@@ -7,6 +7,10 @@
 
 [![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
+[![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/good-story.svg)](#)
+[![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/good-story.svg)](#)
+[![GitHub top language](https://img.shields.io/github/languages/code-size/jesperancinha/good-story.svg)](#)
+
 ---
 
 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! UNDER CONSTRUCTION !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
