@@ -10,11 +10,14 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.21"
     application
+    id("io.kotest") version "0.3.8"
 }
 
 repositories {
     mavenCentral()
 }
+
+val kotestVersion = "0.3.8"
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
@@ -24,6 +27,8 @@ dependencies {
     implementation("info.picocli:picocli:4.6.3")
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
     implementation("org.slf4j:slf4j-simple:2.0.0-alpha7")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
+    testImplementation("io.kotest:kotest-framework-engine-jvm:$kotestVersion")
 }
 
 testing {
