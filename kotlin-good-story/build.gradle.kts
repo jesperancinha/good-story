@@ -21,6 +21,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("com.google.guava:guava:31.1-jre")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("info.picocli:picocli:4.6.3")
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
+    implementation("org.slf4j:slf4j-simple:2.0.0-alpha7")
 }
 
 testing {
