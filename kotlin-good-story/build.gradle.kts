@@ -10,14 +10,14 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.21"
     application
-    id("io.kotest") version "0.3.8"
+    id("io.kotest") version "0.3.9"
 }
 
 repositories {
     mavenCentral()
 }
 
-val kotestVersion = "0.3.8"
+val kotestVersion = "5.3.0"
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
