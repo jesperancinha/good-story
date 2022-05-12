@@ -17,7 +17,7 @@ repositories {
     mavenCentral()
 }
 
-val kotestVersion = "0.3.8"
+val kotestVersion = "5.3.0"
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
