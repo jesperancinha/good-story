@@ -60,10 +60,10 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 
 ## 4.  Actions
 
-This project makes usage of two imporant actions:
+This project makes usage of two important actions:
 
 -   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
--   [Jesperancinha GitHub Action for LoomJDK]()
+-   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
 
 ## 5.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 

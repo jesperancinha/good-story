@@ -38,7 +38,7 @@ class GoodStoryCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed",
-            defaultValue = "")
+            defaultValue = "", required = true)
     private File textFile = null;
 
     GoodStoryCommand() {

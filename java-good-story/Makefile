@@ -1,3 +1,5 @@
+include ../Makefile
+
 run:
 	bash run.sh
 build-run:

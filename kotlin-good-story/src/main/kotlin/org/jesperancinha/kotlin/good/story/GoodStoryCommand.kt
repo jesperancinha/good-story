@@ -25,7 +25,7 @@ class GoodStoryCommand() : Callable<Int> {
     @Parameters(index = "0", description = ["The file whose checksum to calculate."], defaultValue = "")
     private var file: File? = null
 
-    @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], defaultValue = "")
+    @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
 
     override fun call(): Int = let {
@@ -42,7 +42,9 @@ class GoodStoryCommand() : Callable<Int> {
         log.info("===> All Words: {}", allUniqueWords)
         log.info("===> All Words with count: {}", allUniqueWordsWithCount)
 
-        GlobalScope.launch { generalTest() }
+        runBlocking {
+            generalTest()
+        }
         0
     }
 

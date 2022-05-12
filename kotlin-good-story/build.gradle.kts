@@ -45,3 +45,23 @@ application {
     // Define the main class for the application.
     mainClass.set("org.jesperancinha.kotlin.good.story.GoodStoryKotlin")
 }
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = "org.jesperancinha.kotlin.good.story.GoodStoryKotlinKt"
+    manifest.attributes["Class-Path"] = configurations
+    val dependencies = configurations
+        .runtimeClasspath
+        .get()
+        .map(::zipTree) // OR .map { zipTree(it) }
+    from(dependencies)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+//tasks.jar {
+//    manifest.attributes["Main-Class"] = "org.jesperancinha.kotlin.good.story.GoodStoryKotlinKt"
+//    manifest.attributes["Class-Path"] = configurations
+//        .runtimeClasspath
+//        .get()
+//        .joinToString(separator = " ") { file ->
+//            "target/${file.name}"
+//        }
+//}
