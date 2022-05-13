@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger
     description = ["Test Algorithms and measures their performance time"]
 )
 @DelicateCoroutinesApi
-class GoodStoryCommand() : Callable<Int> {
+class GoodStoryCommand : Callable<Int> {
     private val log: Logger = LoggerFactory.getLogger(GoodStoryCommand::class.java)
 
     @Parameters(index = "0", description = ["The file whose checksum to calculate."], defaultValue = "")
@@ -27,6 +27,9 @@ class GoodStoryCommand() : Callable<Int> {
 
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
+
+    @Option(names = ["-r", "--repeats"], description = ["Text.md file to be processed"], defaultValue = "10000000")
+    private var repeats: Int? = null
 
     override fun call(): Int = let {
         log.info(String.format("File 0 is %s", file))
@@ -39,9 +42,24 @@ class GoodStoryCommand() : Callable<Int> {
         val allUniqueWordsWithCount: Map<String, Int> = findAllUniqueWordsWithCount(content)
 
         log.info("===> Text size is {}", content.length)
+
         log.info("===> All Words: {}", allUniqueWords)
+        GlobalScope.launch {
+            repeat(repeats ?: 0) {
+                launch {
+                    findAllUniqueWords(content)
+                }
+            }
+        }
         log.info("===> All Words with count: {}", allUniqueWordsWithCount)
 
+        GlobalScope.launch {
+            repeat(repeats ?: 0) {
+                launch {
+                    findAllUniqueWordsWithCount(content)
+                }
+            }
+        }
         runBlocking {
             generalTest()
         }
@@ -54,7 +72,7 @@ class GoodStoryCommand() : Callable<Int> {
         println(App().greeting)
         val startTime = LocalDateTime.now()
         GlobalScope.launch {
-            repeat(10000000) {
+            repeat(repeats ?: 0) {
                 launch {
                     aiVirtualThread.incrementAndGet()
                 }
@@ -83,12 +101,12 @@ class GoodStoryCommand() : Callable<Int> {
     }
 
 
-    fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
+    private fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
         .sorted()
         .groupingBy { it }
         .eachCount()
 
-    fun findAllUniqueWords(content: String): List<String> =
+    private fun findAllUniqueWords(content: String): List<String> =
         makeWordsList(content)
             .distinct()
 
