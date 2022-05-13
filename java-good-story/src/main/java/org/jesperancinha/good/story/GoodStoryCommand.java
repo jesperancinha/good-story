@@ -31,10 +31,6 @@ import static java.util.function.Function.identity;
 class GoodStoryCommand implements Callable<Integer> {
 
     private static Logger log = LoggerFactory.getLogger(GoodStoryCommand.class);
-    @Parameters(index = "0",
-            description = "The file whose checksum to calculate.",
-            defaultValue = "")
-    private File file;
 
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed",
@@ -47,11 +43,9 @@ class GoodStoryCommand implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
 
-        log.info(String.format("File 0 is %s", file));
         log.info(String.format("File to read is %s", textFile));
 
         final var content = readFullContent();
-
         final var allUniqueWords = findAllUniqueWords(content);
         final var allUniqueWordsWithCount = findAllUniqueWordsWithCount(content);
 

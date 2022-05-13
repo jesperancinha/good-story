@@ -3,13 +3,15 @@ package org.jesperancinha.kotlin.good.story
 import kotlinx.coroutines.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import picocli.CommandLine.*
+import picocli.CommandLine.Command
+import picocli.CommandLine.Option
 import java.io.File
 import java.nio.file.Files
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.system.measureTimeMillis
 
 
 @Command(
@@ -22,9 +24,6 @@ import java.util.concurrent.atomic.AtomicInteger
 class GoodStoryCommand : Callable<Int> {
     private val log: Logger = LoggerFactory.getLogger(GoodStoryCommand::class.java)
 
-    @Parameters(index = "0", description = ["The file whose checksum to calculate."], defaultValue = "")
-    private var file: File? = null
-
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
 
@@ -32,44 +31,65 @@ class GoodStoryCommand : Callable<Int> {
     private var repeats: Int? = null
 
     override fun call(): Int = let {
-        log.info(String.format("File 0 is %s", file))
-        log.info(String.format("File to read is %s", textFile))
 
-
-        val content = textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
-
-        val allUniqueWords = findAllUniqueWords(content)
-        val allUniqueWordsWithCount: Map<String, Int> = findAllUniqueWordsWithCount(content)
-
-        log.info("===> Text size is {}", content.length)
-
-        log.info("===> All Words: {}", allUniqueWords)
-        GlobalScope.launch {
-            repeat(repeats ?: 0) {
-                launch {
-                    findAllUniqueWords(content)
-                }
-            }
-        }
-        log.info("===> All Words with count: {}", allUniqueWordsWithCount)
-
-        GlobalScope.launch {
-            repeat(repeats ?: 0) {
-                launch {
-                    findAllUniqueWordsWithCount(content)
-                }
-            }
-        }
         runBlocking {
-            generalTest()
+            log.info(App().greeting)
+
+            log.info(String.format("File to read is %s", textFile))
+            log.info(String.format("Configured repeats are %s", repeats))
+
+
+            val content =
+                textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
+
+            val allUniqueWords = findAllUniqueWords(content)
+            val allUniqueWordsWithCount: Map<String, Int> = findAllUniqueWordsWithCount(content)
+
+            log.info("===> Text size is {}", content.length)
+
+            log.info("===> All Words: {} (first 10)", allUniqueWords.subList(0, 10))
+            log.info(
+                "***> Processing took ${
+                    measureTimeMillis {
+                        repeat(repeats ?: 0) {
+                            launch {
+                                findAllUniqueWords(content)
+                            }
+                        }
+                    }
+                } milliseconds"
+            )
+
+            log.info("===> All Words with count: {} (first 10)", allUniqueWordsWithCount.keys.take(10))
+            log.info(
+                "***> Processing took ${
+                    measureTimeMillis {
+                        repeat(repeats ?: 0) {
+                            launch {
+                                findAllUniqueWordsWithCount(content)
+                            }
+                        }
+                    }
+                } milliseconds"
+            )
+
+            log.info("===> Log Counter Test...")
+            log.info(
+                "***> Processing took ${
+                    measureTimeMillis {
+                        coroutineScope {
+                            generalTest()
+                        }
+                    }
+                } milliseconds"
+            )
+            0
         }
-        0
     }
 
 
     @DelicateCoroutinesApi
     private suspend fun generalTest() {
-        println(App().greeting)
         val startTime = LocalDateTime.now()
         GlobalScope.launch {
             repeat(repeats ?: 0) {
@@ -79,9 +99,9 @@ class GoodStoryCommand : Callable<Int> {
             }
         }.join()
         val endTime = LocalDateTime.now()
-        println("Imma be the main Thread")
-        println(aiVirtualThread.get())
-        println("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
+        log.info("Imma be the main Thread")
+        log.info(aiVirtualThread.get().toString())
+        log.info("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
 
         val startTimeT = LocalDateTime.now()
         val aiThread = AtomicInteger(0)
@@ -95,27 +115,27 @@ class GoodStoryCommand : Callable<Int> {
             thread.join()
         }
         val endTimeT = LocalDateTime.now()
-        println("Imma be the main Thread")
-        println(aiThread.get())
-        println("It took me ${Duration.between(startTimeT, endTimeT).seconds}s to finish")
+        log.info("Imma be the main Thread")
+        log.info(aiThread.get().toString())
+        log.info("It took me ${Duration.between(startTimeT, endTimeT).seconds}s to finish")
     }
 
 
-    private fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
+    private suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
         .sorted()
         .groupingBy { it }
         .eachCount()
 
-    private fun findAllUniqueWords(content: String): List<String> =
+    private suspend fun findAllUniqueWords(content: String): List<String> =
         makeWordsList(content)
             .distinct()
 
-    private fun makeWordsList(content: String): List<String> =
+    private suspend fun makeWordsList(content: String): List<String> =
         content.split(" ")
             .sorted()
             .filter { it.filterWords() }
 
-    private fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
+    private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
 
-    private fun readFullContent(textFile: File): String = String(Files.readAllBytes(textFile.toPath()))
+    private suspend fun readFullContent(textFile: File): String = String(Files.readAllBytes(textFile.toPath()))
 }

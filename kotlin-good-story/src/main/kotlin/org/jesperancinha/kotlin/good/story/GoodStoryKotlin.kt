@@ -24,7 +24,7 @@ class App {
 }
 
 @DelicateCoroutinesApi
-fun main(args: Array<String>) {
+suspend fun main(args: Array<String>) {
     val exitCode = CommandLine(GoodStoryCommand()).execute(*args)
     exitProcess(exitCode)
 
