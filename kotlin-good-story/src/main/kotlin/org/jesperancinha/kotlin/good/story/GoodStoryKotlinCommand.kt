@@ -21,7 +21,7 @@ import kotlin.system.measureTimeMillis
     description = ["Test Algorithms and measures their performance time"]
 )
 @DelicateCoroutinesApi
-class GoodStoryCommand : Callable<Int> {
+class GoodStoryKotlinCommand : Callable<Int> {
 
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
@@ -40,62 +40,67 @@ class GoodStoryCommand : Callable<Int> {
     )
     private var algoRepeats: Int? = null
 
-    override fun call(): Int = let {
+    override fun call(): Int = runBlocking {
+        log.info(App().greeting)
 
-        runBlocking {
-            log.info(App().greeting)
-
-            log.info(String.format("File to read is %s", textFile))
-            log.info(String.format("Configured repeats are %s", massiveRepeats))
+        log.info(String.format("File to read is %s", textFile))
+        log.info(String.format("Configured repeats are %s", massiveRepeats))
 
 
-            val content =
-                textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
+        val content =
+            textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
 
-            val allUniqueWords = findAllUniqueWords(content)
-            val allUniqueWordsWithCount: Map<String, Int> = findAllUniqueWordsWithCount(content)
+        val allUniqueWords = findAllUniqueWords(content)
+        val allUniqueWordsWithCount: Map<String, Int> = findAllUniqueWordsWithCount(content)
 
-            log.info("===> Text size is {}", content.length)
+        log.info("===> Text size is {}", content.length)
 
-            log.info("===> All Words: {} (first 10)", allUniqueWords.subList(0, 10))
-            log.info(
-                "***> Processing took ${
-                    measureTimeMillis {
+        log.info("===> All Words: {} (first 10)", allUniqueWords.subList(0, 10))
+        log.info(
+            "***> Processing took ${
+                measureTimeMillis {
+                    GlobalScope.launch {
                         repeat(algoRepeats ?: 0) {
                             launch {
                                 findAllUniqueWords(content)
                             }
                         }
-                    }
-                } milliseconds"
-            )
+                    }.join()
+                    log.info("Just sent {} threads", algoRepeats)
+                }
+            } milliseconds"
+        )
 
-            log.info("===> All Words with count: {} (first 10)", allUniqueWordsWithCount.keys.take(10))
-            log.info(
-                "***> Processing took ${
-                    measureTimeMillis {
+        log.info("===> All Words with count: {} (first 10)", allUniqueWordsWithCount.keys.take(10))
+        log.info(
+            "***> Processing took ${
+                measureTimeMillis {
+                    GlobalScope.launch {
                         repeat(algoRepeats ?: 0) {
                             launch {
                                 findAllUniqueWordsWithCount(content)
                             }
                         }
-                    }
-                } milliseconds"
-            )
+                    }.join()
+                    log.info("Just sent {} threads", algoRepeats)
+                }
+            } milliseconds"
+        )
 
-            System.gc()
-            log.info("===> Log Counter Test...")
-            log.info(
-                "***> Processing took ${
-                    measureTimeMillis {
+        System.gc()
+        log.info("===> Log Counter Test...")
+        log.info(
+            "***> Processing took ${
+                measureTimeMillis {
+                    GlobalScope.launch {
                         launch {
                             generalTest(massiveRepeats ?: 0)
                         }
-                    }
-                } milliseconds"
-            )
-            0
-        }
+                    }.join()
+                }
+            } milliseconds"
+        )
+        0
     }
 
     private suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
@@ -120,9 +125,9 @@ class GoodStoryCommand : Callable<Int> {
 
     companion object {
 
-        private val log: Logger = LoggerFactory.getLogger(GoodStoryCommand::class.java)
+        private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinCommand::class.java)
         const val DEFAULT_MASSIVE_REPEATS = "10000000"
-        const val DEFAULT_ALGORITHM_REPEATS = "1000"
+        const val DEFAULT_ALGORITHM_REPEATS = "100000"
 
         @DelicateCoroutinesApi
         suspend fun generalTest(repeats: Int) {

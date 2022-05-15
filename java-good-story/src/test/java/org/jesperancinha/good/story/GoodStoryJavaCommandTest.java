@@ -7,13 +7,13 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GoodStoryCommandTest {
+public class GoodStoryJavaCommandTest {
 
-    private final GoodStoryCommand goodStoryCommand = new GoodStoryCommand();
+    private final GoodStoryJavaCommand goodStoryJavaCommand = new GoodStoryJavaCommand();
 
     @Test
     public void testFindAllUniqueWordsWithCountWhenTextThenMakeCount() {
-        final Map<String, Long> aa_bb_cc_aa = goodStoryCommand.findAllUniqueWordsWithCount("aa bb cc aa");
+        final Map<String, Long> aa_bb_cc_aa = goodStoryJavaCommand.findAllUniqueWordsWithCount("aa bb cc aa");
 
         assertThat(aa_bb_cc_aa.get("aa")).isEqualTo(2);
         assertThat(aa_bb_cc_aa.get("bb")).isEqualTo(1);
@@ -22,7 +22,7 @@ public class GoodStoryCommandTest {
 
     @Test
     public void testFindAllUniqueWordsWhenTextThenMakeCount() {
-        final List<String> allWords = goodStoryCommand.findAllUniqueWords("aa bb cc aa");
+        final List<String> allWords = goodStoryJavaCommand.findAllUniqueWords("aa bb cc aa");
 
         assertThat(allWords).containsExactlyInAnyOrder("aa", "bb", "cc");
     }

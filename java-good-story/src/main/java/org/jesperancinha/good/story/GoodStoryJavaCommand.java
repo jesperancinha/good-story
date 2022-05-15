@@ -27,7 +27,7 @@ import static java.util.function.Function.identity;
         mixinStandardHelpOptions = true,
         version = "checksum 4.0",
         description = "Test Algorithms and measures their performance time")
-class GoodStoryCommand implements Callable<Integer> {
+class GoodStoryJavaCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed",
@@ -35,18 +35,14 @@ class GoodStoryCommand implements Callable<Integer> {
             required = true)
     private File textFile = null;
 
-    @Option(
-            names = {"-r", "--repeats"},
+    @Option(names = {"-r", "--repeats"},
             description = {"Massive repeats"},
-            defaultValue = DEFAULT_MASSIVE_REPEATS
-    )
+            defaultValue = DEFAULT_MASSIVE_REPEATS)
     private Integer massiveRepeats = null;
 
-    @Option(
-            names = {"-ar", "--algo-repeats"},
+    @Option(names = {"-ar", "--algo-repeats"},
             description = {"Algorithm repeats"},
-            defaultValue = DEFAULT_ALGORITHM_REPEATS
-    )
+            defaultValue = DEFAULT_ALGORITHM_REPEATS)
     private Integer algoRepeats = null;
 
     @Override
@@ -60,29 +56,63 @@ class GoodStoryCommand implements Callable<Integer> {
 
         log.info("===> Text size is {}", content.length());
         log.info("===> All Words: {}", allUniqueWords.subList(0, 10));
+        log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
+            Thread virtualThread = null;
+            for (int i = 0; i < algoRepeats; i++) {
+                virtualThread = Thread.startVirtualThread(() -> {
+                    findAllUniqueWords(content);
+                });
+            }
+            log.info("Just sent {} threads", algoRepeats);
+            try {
+                virtualThread.join();
+            } catch (InterruptedException e) {
+                log.error("Error", e);
+                throw new RuntimeException(e);
+            }
+        }));
         log.info("===> All Words with count: {}", allUniqueWordsWithCount.entrySet().stream().toList().subList(0, 10));
-
-        generalTest();
+        log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
+            Thread virtualThread = null;
+            for (int i = 0; i < algoRepeats; i++) {
+                virtualThread = Thread.startVirtualThread(() -> {
+                    findAllUniqueWordsWithCount(content);
+                });
+            }
+            log.info("Just sent {} threads", algoRepeats);
+            try {
+                virtualThread.join();
+            } catch (InterruptedException e) {
+                log.error("Error", e);
+                throw new RuntimeException(e);
+            }
+        }));
+        generalTest(massiveRepeats);
         return 0;
     }
 
+    private long measureTimeMillis(VoidSupplier functionalInterface) {
+        final var startTime = LocalDateTime.now();
+        functionalInterface.calculate();
+        final var endTime = LocalDateTime.now();
+        return Duration.between(startTime, endTime).getNano() / 1000000;
+    }
+
+    @FunctionalInterface
+    private interface VoidSupplier {
+        void calculate();
+    }
+
     Map<String, Long> findAllUniqueWordsWithCount(String content) {
-        return makeWordsList(content)
-                .sorted()
-                .collect(Collectors.groupingBy(
-                        identity(), Collectors.counting()));
+        return makeWordsList(content).sorted().collect(Collectors.groupingBy(identity(), Collectors.counting()));
     }
 
     List<String> findAllUniqueWords(String content) {
-        return makeWordsList(content)
-                .distinct()
-                .collect(Collectors.toList());
+        return makeWordsList(content).distinct().collect(Collectors.toList());
     }
 
     private Stream<String> makeWordsList(String content) {
-        return Arrays.stream(content.split(" "))
-                .sorted()
-                .filter(GoodStoryCommand::filterWords);
+        return Arrays.stream(content.split(" ")).sorted().filter(GoodStoryJavaCommand::filterWords);
     }
 
     private static boolean filterWords(String possibleWord) {
@@ -93,12 +123,13 @@ class GoodStoryCommand implements Callable<Integer> {
         return new String(Files.readAllBytes(textFile.toPath()));
     }
 
-    private void generalTest() throws InterruptedException {
+    private static void generalTest(Integer massiveRepeats) throws InterruptedException {
         log.info("Welcome to the Java Project Loom Test!");
+        log.info("----====>>>> Starting generalTest <<<<====----");
         final var aiVirtualThread = new AtomicInteger(0);
         final var startTime = LocalDateTime.now();
         Thread virtualThread = null;
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < massiveRepeats; i++) {
             virtualThread = Thread.startVirtualThread(aiVirtualThread::getAndIncrement);
         }
         virtualThread.join();
@@ -122,7 +153,7 @@ class GoodStoryCommand implements Callable<Integer> {
         log.info("It took me " + Duration.between(startTimeT, endTimeT).getSeconds() + "s to finish");
     }
 
-    private static final Logger log = LoggerFactory.getLogger(GoodStoryCommand.class);
+    private static final Logger log = LoggerFactory.getLogger(GoodStoryJavaCommand.class);
     private final String DEFAULT_MASSIVE_REPEATS = "10000000";
-    private final String DEFAULT_ALGORITHM_REPEATS = "1000";
+    private final String DEFAULT_ALGORITHM_REPEATS = "100000";
 }
