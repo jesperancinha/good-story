@@ -3,6 +3,7 @@
 <ins>2022/05/13</ins>
 
 1. There is something different about `fun suspend main`. It reflects itself on the duration of coroutines. Figure it out!
+>Nothing is wrong with it, actually. It's just that no clear exception is given in the logs. The latency for the next coroutine just gets longer and longer
 
 <ins>2022/05/08</ins>
 

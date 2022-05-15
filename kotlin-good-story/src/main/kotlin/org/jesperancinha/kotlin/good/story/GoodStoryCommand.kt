@@ -22,13 +22,23 @@ import kotlin.system.measureTimeMillis
 )
 @DelicateCoroutinesApi
 class GoodStoryCommand : Callable<Int> {
-    private val log: Logger = LoggerFactory.getLogger(GoodStoryCommand::class.java)
 
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
 
-    @Option(names = ["-r", "--repeats"], description = ["Text.md file to be processed"], defaultValue = "10000000")
-    private var repeats: Int? = null
+    @Option(
+        names = ["-r", "--repeats"],
+        description = ["Text.md file to be processed"],
+        defaultValue = DEFAULT_MASSIVE_REPEATS
+    )
+    private var massiveRepeats: Int? = null
+
+    @Option(
+        names = ["-ar", "--algo-repeats"],
+        description = ["Text.md file to be processed"],
+        defaultValue = DEFAULT_ALGORITHM_REPEATS
+    )
+    private var algoRepeats: Int? = null
 
     override fun call(): Int = let {
 
@@ -36,7 +46,7 @@ class GoodStoryCommand : Callable<Int> {
             log.info(App().greeting)
 
             log.info(String.format("File to read is %s", textFile))
-            log.info(String.format("Configured repeats are %s", repeats))
+            log.info(String.format("Configured repeats are %s", massiveRepeats))
 
 
             val content =
@@ -51,7 +61,7 @@ class GoodStoryCommand : Callable<Int> {
             log.info(
                 "***> Processing took ${
                     measureTimeMillis {
-                        repeat(repeats ?: 0) {
+                        repeat(algoRepeats ?: 0) {
                             launch {
                                 findAllUniqueWords(content)
                             }
@@ -64,7 +74,7 @@ class GoodStoryCommand : Callable<Int> {
             log.info(
                 "***> Processing took ${
                     measureTimeMillis {
-                        repeat(repeats ?: 0) {
+                        repeat(algoRepeats ?: 0) {
                             launch {
                                 findAllUniqueWordsWithCount(content)
                             }
@@ -73,12 +83,13 @@ class GoodStoryCommand : Callable<Int> {
                 } milliseconds"
             )
 
+            System.gc()
             log.info("===> Log Counter Test...")
             log.info(
                 "***> Processing took ${
                     measureTimeMillis {
-                        coroutineScope {
-                            generalTest()
+                        launch {
+                            generalTest(massiveRepeats ?: 0)
                         }
                     }
                 } milliseconds"
@@ -86,40 +97,6 @@ class GoodStoryCommand : Callable<Int> {
             0
         }
     }
-
-
-    @DelicateCoroutinesApi
-    private suspend fun generalTest() {
-        val startTime = LocalDateTime.now()
-        GlobalScope.launch {
-            repeat(repeats ?: 0) {
-                launch {
-                    aiVirtualThread.incrementAndGet()
-                }
-            }
-        }.join()
-        val endTime = LocalDateTime.now()
-        log.info("Imma be the main Thread")
-        log.info(aiVirtualThread.get().toString())
-        log.info("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
-
-        val startTimeT = LocalDateTime.now()
-        val aiThread = AtomicInteger(0)
-        var thread = Thread { aiThread.getAndIncrement() }
-        thread.start()
-        for (i in 1..99999) {
-            thread = Thread { aiThread.getAndIncrement() }
-            thread.start()
-        }
-        withContext(Dispatchers.IO) {
-            thread.join()
-        }
-        val endTimeT = LocalDateTime.now()
-        log.info("Imma be the main Thread")
-        log.info(aiThread.get().toString())
-        log.info("It took me ${Duration.between(startTimeT, endTimeT).seconds}s to finish")
-    }
-
 
     private suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
         .sorted()
@@ -133,9 +110,52 @@ class GoodStoryCommand : Callable<Int> {
     private suspend fun makeWordsList(content: String): List<String> =
         content.split(" ")
             .sorted()
-            .filter { it.filterWords() }
+            .filter {
+                it.filterWords()
+            }
 
     private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
 
     private suspend fun readFullContent(textFile: File): String = String(Files.readAllBytes(textFile.toPath()))
+
+    companion object {
+
+        private val log: Logger = LoggerFactory.getLogger(GoodStoryCommand::class.java)
+        const val DEFAULT_MASSIVE_REPEATS = "10000000"
+        const val DEFAULT_ALGORITHM_REPEATS = "1000"
+
+        @DelicateCoroutinesApi
+        suspend fun generalTest(repeats: Int) {
+            log.info("----====>>>> Starting generalTest <<<<====----")
+            val startTime = LocalDateTime.now()
+            GlobalScope.launch {
+                repeat(repeats) {
+                    launch {
+                        aiVirtualThread.incrementAndGet()
+                    }
+                }
+            }.join()
+            val endTime = LocalDateTime.now()
+            log.info("Imma be the main Thread")
+            log.info(aiVirtualThread.get().toString())
+            log.info("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
+
+            val startTimeT = LocalDateTime.now()
+            val aiThread = AtomicInteger(0)
+            var thread = Thread { aiThread.getAndIncrement() }
+            thread.start()
+            for (i in 1..99999) {
+                thread = Thread { aiThread.getAndIncrement() }
+                thread.start()
+            }
+            withContext(Dispatchers.IO) {
+                thread.join()
+            }
+            val endTimeT = LocalDateTime.now()
+            log.info("Imma be the main Thread")
+            log.info(aiThread.get().toString())
+            log.info("It took me ${Duration.between(startTimeT, endTimeT).seconds}s to finish")
+        }
+
+    }
 }

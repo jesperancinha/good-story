@@ -4,6 +4,7 @@
 package org.jesperancinha.kotlin.good.story
 
 import kotlinx.coroutines.*
+import org.jesperancinha.kotlin.good.story.GoodStoryCommand.Companion.DEFAULT_MASSIVE_REPEATS
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine
@@ -25,7 +26,7 @@ class App {
 
 @DelicateCoroutinesApi
 suspend fun main(args: Array<String>) {
+    GoodStoryCommand.generalTest(DEFAULT_MASSIVE_REPEATS.toInt())
     val exitCode = CommandLine(GoodStoryCommand()).execute(*args)
     exitProcess(exitCode)
-
 }
