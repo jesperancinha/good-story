@@ -29,16 +29,25 @@ import static java.util.function.Function.identity;
         description = "Test Algorithms and measures their performance time")
 class GoodStoryCommand implements Callable<Integer> {
 
-    private static Logger log = LoggerFactory.getLogger(GoodStoryCommand.class);
-
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed",
             defaultValue = "",
             required = true)
     private File textFile = null;
 
-    GoodStoryCommand() {
-    }
+    @Option(
+            names = {"-r", "--repeats"},
+            description = {"Massive repeats"},
+            defaultValue = DEFAULT_MASSIVE_REPEATS
+    )
+    private Integer massiveRepeats = null;
+
+    @Option(
+            names = {"-ar", "--algo-repeats"},
+            description = {"Algorithm repeats"},
+            defaultValue = DEFAULT_ALGORITHM_REPEATS
+    )
+    private Integer algoRepeats = null;
 
     @Override
     public Integer call() throws Exception {
@@ -50,8 +59,8 @@ class GoodStoryCommand implements Callable<Integer> {
         final var allUniqueWordsWithCount = findAllUniqueWordsWithCount(content);
 
         log.info("===> Text size is {}", content.length());
-        log.info("===> All Words: {}", allUniqueWords);
-        log.info("===> All Words with count: {}", allUniqueWordsWithCount);
+        log.info("===> All Words: {}", allUniqueWords.subList(0, 10));
+        log.info("===> All Words with count: {}", allUniqueWordsWithCount.entrySet().stream().toList().subList(0, 10));
 
         generalTest();
         return 0;
@@ -113,4 +122,7 @@ class GoodStoryCommand implements Callable<Integer> {
         log.info("It took me " + Duration.between(startTimeT, endTimeT).getSeconds() + "s to finish");
     }
 
+    private static final Logger log = LoggerFactory.getLogger(GoodStoryCommand.class);
+    private final String DEFAULT_MASSIVE_REPEATS = "10000000";
+    private final String DEFAULT_ALGORITHM_REPEATS = "1000";
 }

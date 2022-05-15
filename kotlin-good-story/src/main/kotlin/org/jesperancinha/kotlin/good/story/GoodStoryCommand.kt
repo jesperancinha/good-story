@@ -28,14 +28,14 @@ class GoodStoryCommand : Callable<Int> {
 
     @Option(
         names = ["-r", "--repeats"],
-        description = ["Text.md file to be processed"],
+        description = ["Massive repeats"],
         defaultValue = DEFAULT_MASSIVE_REPEATS
     )
     private var massiveRepeats: Int? = null
 
     @Option(
         names = ["-ar", "--algo-repeats"],
-        description = ["Text.md file to be processed"],
+        description = ["Algorithm repeats"],
         defaultValue = DEFAULT_ALGORITHM_REPEATS
     )
     private var algoRepeats: Int? = null

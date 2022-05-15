@@ -18,15 +18,11 @@ class App {
         get() {
             return "Welcome to the Kotlin Coroutines Test!"
         }
-
-    companion object {
-        val log: Logger = LoggerFactory.getLogger(App::class.java)
-    }
 }
 
 @DelicateCoroutinesApi
 suspend fun main(args: Array<String>) {
-    GoodStoryCommand.generalTest(DEFAULT_MASSIVE_REPEATS.toInt())
+//    GoodStoryCommand.generalTest(DEFAULT_MASSIVE_REPEATS.toInt())
     val exitCode = CommandLine(GoodStoryCommand()).execute(*args)
     exitProcess(exitCode)
 }
