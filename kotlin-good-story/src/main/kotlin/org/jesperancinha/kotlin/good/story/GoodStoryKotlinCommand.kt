@@ -6,9 +6,13 @@ import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
 import java.time.LocalDateTime
+import java.util.*
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.measureTimeMillis
@@ -25,6 +29,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
+
+    @Option(
+        names = ["-lf", "--log-file"],
+        description = ["Log.md file to record results"],
+        defaultValue = "",
+        required = true
+    )
+    val logFile: File? = null
 
     @Option(
         names = ["-r", "--repeats"],
@@ -58,7 +70,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> All Words: {} (first 10)", allUniqueWords.subList(0, 10))
         log.info(
             "***> Processing took ${
-                measureTimeMillis {
+                measureTimeMillisSave("findAllUniqueWords", algoRepeats ?: 0) {
                     GlobalScope.launch {
                         repeat(algoRepeats ?: 0) {
                             launch {
@@ -74,7 +86,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> All Words with count: {} (first 10)", allUniqueWordsWithCount.keys.take(10))
         log.info(
             "***> Processing took ${
-                measureTimeMillis {
+                measureTimeMillisSave("findAllUniqueWordsWithCount", algoRepeats ?: 0) {
                     GlobalScope.launch {
                         repeat(algoRepeats ?: 0) {
                             launch {
@@ -91,7 +103,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log Counter Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillis {
+                measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
                     GlobalScope.launch {
                         launch {
                             generalTest(massiveRepeats ?: 0)
@@ -101,6 +113,24 @@ class GoodStoryKotlinCommand : Callable<Int> {
             } milliseconds"
         )
         0
+    }
+
+    inline fun measureTimeMillisSave(name: String, repeats: Int, function: () -> Unit): Long {
+        val totalDurationMillis = measureTimeMillis { function() }
+        logFile?.let {
+            FileOutputStream(logFile, true).use { objectOutputStream ->
+                objectOutputStream.write(
+                    String.format(
+                        "| Kotlin Coroutines | %s | %d | %d |\n",
+                        name,
+                        repeats,
+                        totalDurationMillis
+                    ).toByteArray(StandardCharsets.UTF_8)
+                )
+                objectOutputStream.flush()
+            }
+        }
+        return totalDurationMillis
     }
 
     private suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
@@ -164,3 +194,5 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
     }
 }
+
+

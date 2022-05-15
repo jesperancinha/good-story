@@ -29,6 +29,8 @@ test:
 gradle-build-test:
 	gradle build test
 build-run:
+	echo "| Module | Method | Repetitions | Measured Duration |" > Log.md
+	echo "|---|---|---|---|" >> Log.md
 	$(foreach module,$(MODULES), \
 			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run && \
 			cd ..)

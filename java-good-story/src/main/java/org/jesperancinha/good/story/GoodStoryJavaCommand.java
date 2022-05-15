@@ -5,14 +5,20 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -30,10 +36,14 @@ import static java.util.function.Function.identity;
 class GoodStoryJavaCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--file"},
-            description = "Text.md file to be processed",
+            description = "Text.md file to be processed")
+    private File textFile = null;
+
+    @Option(names = {"-lf", "--log-file"},
+            description = "Log.md file to record results",
             defaultValue = "",
             required = true)
-    private File textFile = null;
+    private File logFile = null;
 
     @Option(names = {"-r", "--repeats"},
             description = {"Massive repeats"},
@@ -68,7 +78,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 log.error("Error", e);
                 throw new RuntimeException(e);
             }
-        }));
+        }, "findAllUniqueWords", algoRepeats));
         log.info("===> All Words with count: {}", allUniqueWordsWithCount.entrySet().stream().toList().subList(0, 10));
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             Thread virtualThread = null;
@@ -82,16 +92,32 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 log.error("Error", e);
                 throw new RuntimeException(e);
             }
-        }));
-        generalTest(massiveRepeats);
+        }, "findAllUniqueWordsWithCount", algoRepeats));
+
+        measureTimeMillis(() -> {
+            try {
+                generalTest(massiveRepeats);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }, "generalTest", massiveRepeats);
         return 0;
     }
 
-    private long measureTimeMillis(VoidSupplier functionalInterface) {
+    private long measureTimeMillis(VoidSupplier functionalInterface, String name, Integer repeats) {
         final var startTime = LocalDateTime.now();
         functionalInterface.calculate();
         final var endTime = LocalDateTime.now();
-        return Duration.between(startTime, endTime).getNano() / 1000000;
+        final int totalDurationMillis = Duration.between(startTime, endTime).getNano() / 1000000;
+        if (Objects.nonNull(logFile)) {
+            try (var objectOutputStream = new FileOutputStream(logFile, true)) {
+                objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d |\n", name, repeats, totalDurationMillis).getBytes(StandardCharsets.UTF_8));
+                objectOutputStream.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return totalDurationMillis;
     }
 
     @FunctionalInterface

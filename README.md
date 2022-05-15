@@ -58,6 +58,8 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 | [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) | [GraalVM](22.1.0)                 | [22.1.0](https://www.graalvm.org/release-notes/22_1/#2210) | 17       | Module |
 | [Project Loom](https://wiki.openjdk.java.net/display/loom/Main)        | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
 
+Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the comparisons. It gets updated per commit.
+
 ## 4.  Actions
 
 This project makes usage of two important actions:
