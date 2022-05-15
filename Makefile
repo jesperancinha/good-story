@@ -1,3 +1,5 @@
+MODULES := java-good-story kotlin-good-story
+
 sdk-macos:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_macos-x64_bin.tar.gz --output openjdk-19.tar.gz
 	make sdk-unpack
@@ -26,3 +28,7 @@ test:
 	cd kotlin-good-story && gradle build test
 gradle-build-test:
 	gradle build test
+build-run:
+	$(foreach module,$(MODULES), \
+			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run && \
+			cd ..)

@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +33,8 @@ class GoodStoryCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed",
-            defaultValue = "", required = true)
+            defaultValue = "",
+            required = true)
     private File textFile = null;
 
     GoodStoryCommand() {

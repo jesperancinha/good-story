@@ -65,11 +65,21 @@ This project makes usage of two important actions:
 -   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
 -   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
 
-## 5.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
+## 5. How top run
+
+You can run the whole test in one go by running:
+
+```shell
+make build-run
+```
+
+Just make sure that you have GraalVM installed in your SDK-Man distribution and that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in the [Makefile](./Makefile) for distribution choices for the Loom JDK.
+
+## 6.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 
 -   [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
 
-## 6.  Playbook
+## 7.  Playbook
 
 These are some important steps used in the creation of this project
 
@@ -77,7 +87,7 @@ These are some important steps used in the creation of this project
 gradle init
 ```
 
-## 7.  References
+## 8.  References
 
 - [Picocli](https://picocli.info/)
 - [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
