@@ -47,7 +47,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-
+        log.info("Welcome to the Java Project Loom Test!");
         log.info(String.format("File to read is %s", textFile));
 
         final var content = readFullContent();
@@ -59,9 +59,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             Thread virtualThread = null;
             for (int i = 0; i < algoRepeats; i++) {
-                virtualThread = Thread.startVirtualThread(() -> {
-                    findAllUniqueWords(content);
-                });
+                virtualThread = Thread.startVirtualThread(() -> findAllUniqueWords(content));
             }
             log.info("Just sent {} threads", algoRepeats);
             try {
@@ -75,9 +73,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             Thread virtualThread = null;
             for (int i = 0; i < algoRepeats; i++) {
-                virtualThread = Thread.startVirtualThread(() -> {
-                    findAllUniqueWordsWithCount(content);
-                });
+                virtualThread = Thread.startVirtualThread(() -> findAllUniqueWordsWithCount(content));
             }
             log.info("Just sent {} threads", algoRepeats);
             try {
@@ -124,7 +120,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
     }
 
     private static void generalTest(Integer massiveRepeats) throws InterruptedException {
-        log.info("Welcome to the Java Project Loom Test!");
         log.info("----====>>>> Starting generalTest <<<<====----");
         final var aiVirtualThread = new AtomicInteger(0);
         final var startTime = LocalDateTime.now();
