@@ -67,7 +67,7 @@ This project makes usage of two important actions:
 -   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
 -   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
 
-## 5. How top run
+## 5.  How top run
 
 You can run the whole test in one go by running:
 
@@ -91,14 +91,14 @@ gradle init
 
 ## 8.  References
 
-- [VisualVM](https://visualvm.github.io/)
-- [Picocli](https://picocli.info/)
-- [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
-- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
-- [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main)
-- [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
-- [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
-- [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
+-   [VisualVM](https://visualvm.github.io/)
+-   [Picocli](https://picocli.info/)
+-   [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
+-   [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
+-   [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main)
+-   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
+-   [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
+-   [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
