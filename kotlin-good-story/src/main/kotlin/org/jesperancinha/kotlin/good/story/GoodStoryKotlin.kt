@@ -18,7 +18,7 @@ class App {
 }
 
 @DelicateCoroutinesApi
-suspend fun main(args: Array<String>) {
+fun main(args: Array<String>) {
 //    GoodStoryCommand.generalTest(DEFAULT_MASSIVE_REPEATS.toInt())
     val exitCode = CommandLine(GoodStoryKotlinCommand()).execute(*args)
     exitProcess(exitCode)

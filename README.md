@@ -91,6 +91,7 @@ gradle init
 
 ## 8.  References
 
+- [VisualVM](https://visualvm.github.io/)
 - [Picocli](https://picocli.info/)
 - [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
 - [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
