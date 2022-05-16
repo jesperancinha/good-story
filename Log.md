@@ -1,8 +1,8 @@
 | Module | Method | Repetitions | Measured Duration |
 |---|---|---|---|
-| Java Project Loom | findAllUniqueWords | 100000 | 787 |
-| Java Project Loom | findAllUniqueWordsWithCount | 100000 | 358 |
-| Java Project Loom | generalTest | 10000000 | 493 |
-| Kotlin Coroutines | findAllUniqueWords | 100000 | 8593 |
-| Kotlin Coroutines | findAllUniqueWordsWithCount | 100000 | 8967 |
-| Kotlin Coroutines | generalTest | 10000000 | 13466 |
+| Java Project Loom | findAllUniqueWords | 100000 | 30 |
+| Java Project Loom | findAllUniqueWordsWithCount | 100000 | 832 |
+| Java Project Loom | generalTest | 10000000 | 190 |
+| Kotlin Coroutines | findAllUniqueWords | 100000 | 8703 |
+| Kotlin Coroutines | findAllUniqueWordsWithCount | 100000 | 8544 |
+| Kotlin Coroutines | generalTest | 10000000 | 13740 |
