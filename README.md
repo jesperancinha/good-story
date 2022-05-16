@@ -25,7 +25,7 @@ I won't dive into style IT discussions in this project. And of course the `elega
 
 If you understand these terms, then I think you'll find this project interesting.
 
-The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](./GoodStory.md) file. We will apply algorithms to it, make objects, and explore the limits of our own machines.
+The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](https://jesperancinha.github.io/good-story/good.story/GoodStory.html) file. We will apply algorithms to it, make objects, and explore the limits of our own machines.
 
 ## 2.  Environment
 
