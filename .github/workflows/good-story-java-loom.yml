@@ -1,7 +1,7 @@
 name: GS - Java - Loom Native Image Build
 on: [push, pull_request]
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,9 +12,5 @@ jobs:
       - name: Java version check
         run: java -version
 
-  build:
-    needs: setup
-    runs-on: setup
-    steps:
       - name: Maven Build
         run: cd java-good-story && mvn clean install
