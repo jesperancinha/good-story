@@ -4,7 +4,7 @@
 
 Using Visual VM, it is seen that only 12 Dispatchers are generated per Thread. Is this fixed? Why? What does it mean? Can it be higher? The dispatchers seem to match coroutines.
 
-![alt text](./docs/20220516/VisualVMCatch20220516075334.png")
+![alt text](./docs/20220516/VisualVMCatch20220516075334.png)
 
 
 <ins>2022/05/13</ins>
