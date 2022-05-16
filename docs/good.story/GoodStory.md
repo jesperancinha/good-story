@@ -41,6 +41,14 @@ These are temporary notes/tips for further writing towards completion of this sm
 >
 > Ja pffrrfrfrffrff... Ne ne ne, dat gaan we niet doen! Dat gaan we niet doen!
 
+## Character List
+
+1. Lucy - Main character
+2. Joseph No: TBD
+3. Pete the Wolf: TBD
+4. Menna the Fish: TBD
+5. Usa Peta: TBD
+
 ## Inspiring Music
 
 This is the music selection that has inspired the above fiction story:
@@ -49,6 +57,11 @@ This is the music selection that has inspired the above fiction story:
       <a title="Röyksopp - What Else Is There ?" href="https://www.youtube.com/watch?v=ADBKdSCbmiM">
      <img 
           src="https://img.youtube.com/vi/ADBKdSCbmiM/0.jpg" 
+          style="width:20%;">
+      </a>
+      <a title="Florence + The Machine - Never Let Me Go" href="https://www.youtube.com/watch?v=zMBTvuUlm98">
+     <img 
+          src="https://img.youtube.com/vi/zMBTvuUlm98/0.jpg" 
           style="width:20%;">
       </a>
 </div>
