@@ -33,8 +33,6 @@ class GoodStoryKotlinCommand : Callable<Int> {
     @Option(
         names = ["-lf", "--log-file"],
         description = ["Log.md file to record results"],
-        defaultValue = "",
-        required = true
     )
     val logFile: File? = null
 

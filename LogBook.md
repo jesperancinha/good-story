@@ -1,5 +1,12 @@
 # Good Story Log Book
 
+<ins>2022/05/16</ins>
+
+Using Visual VM, it is seen that only 12 Dispatchers are generated per Thread. Is this fixed? Why? What does it mean? Can it be higher? The dispatchers seem to match coroutines.
+
+![alt text](./docs/20220516/VisualVMCatch20220516075334.png")
+
+
 <ins>2022/05/13</ins>
 
 1. There is something different about `fun suspend main`. It reflects itself on the duration of coroutines. Figure it out!
