@@ -6,3 +6,6 @@
 | Kotlin Coroutines | findAllUniqueWords | 100000 | 8703 |
 | Kotlin Coroutines | findAllUniqueWordsWithCount | 100000 | 8544 |
 | Kotlin Coroutines | generalTest | 10000000 | 13740 |
+| Java Project Loom | findAllUniqueWords | 100000 | 718 |
+| Java Project Loom | findAllUniqueWordsWithCount | 100000 | 169 |
+| Java Project Loom | generalTest | 10000000 | 201 |

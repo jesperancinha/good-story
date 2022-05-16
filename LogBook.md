@@ -8,7 +8,13 @@ Using Visual VM, it is seen that only 12 Dispatchers are generated per Thread. I
 
 >12 is the number of cores available. Coroutines make use of all available cores, as needed, in order to segment a system Thread into different separate suspended executions.
 
-   <ins>2022/05/13</ins>
+Look exactly the same as virtual threads! Except that in Java they are called workers of a ForkJoinPool:
+
+![alt text](./docs/20220516/VisualVMCatch20220516225609.png)
+
+Sounds like the same, only that workers seem to work much faster than coroutines. I guess because they work? And coroutines are like routines? Dunno, but something to investigate further.
+
+<ins>2022/05/13</ins>
 
 1. There is something different about `fun suspend main`. It reflects itself on the duration of coroutines. Figure it out!
 >Nothing is wrong with it, actually. It's just that no clear exception is given in the logs. The latency for the next coroutine just gets longer and longer
