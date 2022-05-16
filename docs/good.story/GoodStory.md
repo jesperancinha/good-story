@@ -31,6 +31,9 @@ Afar, the shape seemed to whisper sounds of the wind, but also words. They seeme
 It kept going louder and louder until Lucy screamed as loud as she could. The whole sky then became the same dark colour, and it started to rain. Lucy ran back into her house.
 As it kept on raining, Lucy questioned what she just had experienced. The looping sentence means "I do not believe that you can do that". The voice and the sentence reminded her of something familiar, but she couldn't recall exactly what it was.
 
+It was getting late and Lucy wanted to go through photos she had kept with her of her long-lost days of her Life in the Netherlands. It was unusual for her to experience such a vivid experience, as if some force reminded her of something to do. Something she never achieved but always had the chance to. And that chance was not gone yet.
+Flipping through her photos, Lucy came across an old photo of her colleagues where she used to work. This was a big retail store called `Blue Round Grachten Roses Dot Com`, known as `BeRGees` in street language. They sold practically anything online and Lucy worked there as a Technical Support assistance. This was almost 10 years ago.
+
 \[to be continued...\]
 
 ## Temporary notes
@@ -62,6 +65,11 @@ This is the music selection that has inspired the above fiction story:
       <a title="Florence + The Machine - Never Let Me Go" href="https://www.youtube.com/watch?v=zMBTvuUlm98">
      <img 
           src="https://img.youtube.com/vi/zMBTvuUlm98/0.jpg" 
+          style="width:20%;">
+      </a>
+      <a title="Hurt - Nine Inch Nails" href="https://www.youtube.com/watch?v=ZHd5f_HkT44">
+     <img 
+          src="https://img.youtube.com/vi/ZHd5f_HkT44/0.jpg" 
           style="width:20%;">
       </a>
 </div>
