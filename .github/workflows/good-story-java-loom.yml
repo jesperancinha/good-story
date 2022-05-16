@@ -14,7 +14,7 @@ jobs:
 
   build:
     needs: setup
-    runs-on: ubuntu-latest
+    runs-on: setup
     steps:
       - name: Maven Build
         run: cd java-good-story && mvn clean install
