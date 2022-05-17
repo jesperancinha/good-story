@@ -93,7 +93,8 @@ gradle wrapper
 #### 7.1. Linux
 
 ```shell
-sudo apt-get install gradle
+sdk install gradle 7.4.2
+sdk use gradle 7.4.2
 ```
 
 ## 8.  References
