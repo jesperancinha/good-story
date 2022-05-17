@@ -87,6 +87,7 @@ These are some important steps used in the creation of this project
 
 ```shell
 gradle init
+gradle wrapper
 ```
 
 #### 7.1. Linux

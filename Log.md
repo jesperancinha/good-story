@@ -1,5 +1,5 @@
 | Module | Method | Repetitions | Measured Duration |
 |---|---|---|---|
-| Java Project Loom | findAllUniqueWords | 100000 | 315 |
-| Java Project Loom | findAllUniqueWordsWithCount | 100000 | 956 |
-| Java Project Loom | generalTest | 10000000 | 461 |
+| Java Project Loom | findAllUniqueWords | 100000 | 487 |
+| Java Project Loom | findAllUniqueWordsWithCount | 100000 | 683 |
+| Java Project Loom | generalTest | 10000000 | 397 |
