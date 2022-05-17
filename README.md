@@ -89,6 +89,12 @@ These are some important steps used in the creation of this project
 gradle init
 ```
 
+#### 7.1. Linux
+
+```shell
+sudo apt-get install gradle
+```
+
 ## 8.  References
 
 - [Kotlin Coroutines dispatchers](https://kt.academy/article/cc-dispatchers)

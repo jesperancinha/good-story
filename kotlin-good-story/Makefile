@@ -1,5 +1,6 @@
 include ../Makefile
 .SILENT: build-run
+SHELL := /bin/bash
 
 run:
 	bash run.sh
