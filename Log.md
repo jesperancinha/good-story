@@ -9,3 +9,6 @@
 | Kotlin Coroutines | findAllUniqueWords | 100000 | 15688 | Prototype Phase |
 | Kotlin Coroutines | findAllUniqueWordsWithCount | 100000 | 17127 | Prototype Phase |
 | Kotlin Coroutines | generalTest | 10000000 | 13266 | Prototype Phase |
+| Kotlin Coroutines | findAllUniqueWords | 100000 | 16737 | Prototype Phase |
+| Kotlin Coroutines | findAllUniqueWordsWithCount | 100000 | 19310 | Prototype Phase |
+| Kotlin Coroutines | generalTest | 10000000 | 16068 | Prototype Phase |

@@ -83,13 +83,13 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info(
             "***> Processing took ${
                 measureTimeMillisSave("findAllUniqueWordsWithCount", algoRepeats ?: 0) {
-                    GlobalScope.launch {
+                   withContext(Dispatchers.Default) {
                         (0..(algoRepeats ?: 0)).map {
                             async {
                                 findAllUniqueWordsWithCount(content)
                             }
                         }.awaitAll()
-                    }.join()
+                    }
                     log.info("Just sent {} threads", algoRepeats)
                 }
             } milliseconds"
