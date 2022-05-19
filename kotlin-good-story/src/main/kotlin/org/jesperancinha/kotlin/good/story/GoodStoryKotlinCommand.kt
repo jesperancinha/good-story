@@ -68,7 +68,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave("findAllUniqueWords", algoRepeats ?: 0) {
                     GlobalScope.launch {
-                        repeat(algoRepeats ?: 0) {
+                        (0..(algoRepeats ?: 0)).map {
                             async {
                                 findAllUniqueWords(content)
                             }
@@ -83,7 +83,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info(
             "***> Processing took ${
                 measureTimeMillisSave("findAllUniqueWordsWithCount", algoRepeats ?: 0) {
-                   withContext(Dispatchers.Default) {
+                    withContext(Dispatchers.Default) {
                         (0..(algoRepeats ?: 0)).map {
                             async {
                                 findAllUniqueWordsWithCount(content)
@@ -100,11 +100,9 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info(
             "***> Processing took ${
                 measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
-                    GlobalScope.launch {
-                        async {
-                            generalTest(massiveRepeats ?: 0)
-                        }
-                    }.join()
+                    withContext(Dispatchers.Default) {
+                        generalTest(massiveRepeats ?: 0)
+                    }
                 }
             } milliseconds"
         )
