@@ -7,12 +7,10 @@ import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
 import java.time.LocalDateTime
-import java.util.*
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.measureTimeMillis
@@ -103,9 +101,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
                     GlobalScope.launch {
-                        launch {
-                            generalTest(massiveRepeats ?: 0)
-                        }
+                        generalTest(massiveRepeats ?: 0)
                     }.join()
                 }
             } milliseconds"
@@ -119,10 +115,11 @@ class GoodStoryKotlinCommand : Callable<Int> {
             FileOutputStream(logFile, true).use { objectOutputStream ->
                 objectOutputStream.write(
                     String.format(
-                        "| Kotlin Coroutines | %s | %d | %d |\n",
+                        "| Kotlin Coroutines | %s | %d | %d | %s |\n",
                         name,
                         repeats,
-                        totalDurationMillis
+                        totalDurationMillis,
+                        getSystemRunningData()
                     ).toByteArray(StandardCharsets.UTF_8)
                 )
                 objectOutputStream.flush()
@@ -149,7 +146,9 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
     private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
 
-    private suspend fun readFullContent(textFile: File): String = String(Files.readAllBytes(textFile.toPath()))
+    private suspend fun readFullContent(textFile: File): String = String(withContext(Dispatchers.IO) {
+        Files.readAllBytes(textFile.toPath())
+    })
 
     companion object {
 

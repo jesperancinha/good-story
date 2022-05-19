@@ -111,7 +111,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final int totalDurationMillis = Duration.between(startTime, endTime).getNano() / 1000000;
         if (Objects.nonNull(logFile)) {
             try (var objectOutputStream = new FileOutputStream(logFile, true)) {
-                objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d |\n", name, repeats, totalDurationMillis).getBytes(StandardCharsets.UTF_8));
+                objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s |\n", name, repeats, totalDurationMillis, SystemDomain.getSystemRunningData()).getBytes(StandardCharsets.UTF_8));
                 objectOutputStream.flush();
             } catch (IOException e) {
                 throw new RuntimeException(e);
