@@ -1,5 +1,22 @@
 # Good Story Log Book
 
+
+<ins>2022/05/18</ins>
+
+A bizarre world. If we use `Tools`->`Kotlin`->`Decompile to Java`, we get mega classes in Java that do not compile, have errors and are honestly not Java anyway. Or better yet, it is a Java version of the Kotlin classes who just had too much to drink.
+
+The reality though, is that IntelliJ doesn't really let you see what is happening under the hood. What's really happening is that the Kotlin Compiler has created a bunch of classes:
+
+```shell
+ls kotlin-good-story/build/classes/kotlin/main/org/jesperancinha/kotlin/good/story 
+```
+
+This is where we can see all classes that have been created:
+
+![alt text](./docs/20220519/FileListing.png)
+
+This IS the place where the actual Java Bytecode exists    
+
 <ins>2022/05/16</ins>
 
 Using Visual VM, it is seen that only 12 Dispatchers are generated per Thread. Is this fixed? Why? What does it mean? Can it be higher? The dispatchers seem to match coroutines.
@@ -23,3 +40,7 @@ Sounds like the same, only that workers seem to work much faster than coroutines
 
 3. There seems to be an improvement in performance between Java Project Loom and Kotlin Coroutines. In a simple start and stop of processes to increase the value of an atomic integer, 10000000 Virtual Threads took 3 second to complete. The same number of their counterparts in kotlin coroutines took
    on average 6 seconds. It's too early to draw any conclusions, but the results match my expectations.
+
+## TODO List
+
+1. Parse .class generated files and make a text file with all the byte unrecognizable characters removed.
