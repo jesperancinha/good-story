@@ -87,6 +87,14 @@ These are some important steps used in the creation of this project
 
 ```shell
 gradle init
+gradle wrapper
+```
+
+#### 7.1. Linux
+
+```shell
+sdk install gradle 7.4.2
+sdk use gradle 7.4.2
 ```
 
 ## 8.  References

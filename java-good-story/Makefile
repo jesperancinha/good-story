@@ -1,8 +1,9 @@
 include ../Makefile
 .SILENT: build-run
+SHELL := /bin/bash
 
 run:
-	bash run.sh
+	bash running.sh
 set-jdk:
 	cd .. && source loom-jdk.sh
 build-run:
