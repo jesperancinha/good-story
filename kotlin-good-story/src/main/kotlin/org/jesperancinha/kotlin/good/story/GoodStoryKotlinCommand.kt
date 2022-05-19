@@ -69,7 +69,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 measureTimeMillisSave("findAllUniqueWords", algoRepeats ?: 0) {
                     GlobalScope.launch {
                         repeat(algoRepeats ?: 0) {
-                            launch {
+                            async {
                                 findAllUniqueWords(content)
                             }
                         }
@@ -84,11 +84,11 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave("findAllUniqueWordsWithCount", algoRepeats ?: 0) {
                     GlobalScope.launch {
-                        repeat(algoRepeats ?: 0) {
-                            launch {
+                        (0..(algoRepeats ?: 0)).map {
+                            async {
                                 findAllUniqueWordsWithCount(content)
                             }
-                        }
+                        }.awaitAll()
                     }.join()
                     log.info("Just sent {} threads", algoRepeats)
                 }
@@ -101,7 +101,9 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
                     GlobalScope.launch {
-                        generalTest(massiveRepeats ?: 0)
+                        async {
+                            generalTest(massiveRepeats ?: 0)
+                        }
                     }.join()
                 }
             } milliseconds"
@@ -162,7 +164,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             val startTime = LocalDateTime.now()
             GlobalScope.launch {
                 repeat(repeats) {
-                    launch {
+                    async {
                         aiVirtualThread.incrementAndGet()
                     }
                 }
