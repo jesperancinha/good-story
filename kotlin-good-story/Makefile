@@ -10,5 +10,5 @@ build-run:
 	echo "╔═══════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Kotlin Good Story Performance Test ║"
 	echo "╚═══════════════════════════════════════════════════╝"
-	gradle build test
+	gradle build
 	make run
