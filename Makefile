@@ -14,8 +14,7 @@ sdk-windows:
 	make sdk-unpack
 sdk-linux:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_linux-x64_bin.tar.gz --output openjdk-19.tar.gz
-	tar -xvzf openjdk-19.tar.gz
-	mv jdk-19 loom-jdk
+	tar -xvzf openjdk-19.tar.gz -C loom-jdk
 	rm *.tar.gz
 sdk-linux-arch:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_linux-aarch64_bin.tar.gz --output openjdk-19.tar.gz
