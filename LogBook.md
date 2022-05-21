@@ -1,5 +1,14 @@
 # Good Story Log Book
 
+<ins>2022/05/21</ins
+
+Nothing to do with this project but very cool that we can make math like this now:
+
+**The Cauchy-Schwarz Inequality**
+
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+
+[Render mathematical expressions in Markdown](https://github.blog/changelog/2022-05-19-render-mathematical-expressions-in-markdown/)
 
 <ins>2022/05/18</ins>
 
