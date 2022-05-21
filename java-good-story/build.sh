@@ -2,5 +2,5 @@
 source loom-jdk.sh
 echo "$JAVA_HOME"
 java -version
-mvn clean install
+mvn clean install -DskipTests
 source run.sh
