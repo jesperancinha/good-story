@@ -201,6 +201,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
     }
 
     private static final Logger log = LoggerFactory.getLogger(GoodStoryJavaCommand.class);
-    private final String DEFAULT_MASSIVE_REPEATS = "10000000";
+    private final String DEFAULT_MASSIVE_REPEATS = "1000000";
     private final String DEFAULT_ALGORITHM_REPEATS = "100000";
 }
