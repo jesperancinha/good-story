@@ -13,4 +13,4 @@ jobs:
         run: make sdk-linux
 
       - name: Local installation of GraalVM JDK
-        run: curl -s "https://get.sdkman.io" | bash && . ./graalVM.sh && source "$HOME/.sdkman/bin/sdkman-init.sh" && ./graalVM.sh
+        run: (curl -s "https://get.sdkman.io" | bash) && . ./graalVM.sh && source "$HOME/.sdkman/bin/sdkman-init.sh" && ./graalVM.sh
