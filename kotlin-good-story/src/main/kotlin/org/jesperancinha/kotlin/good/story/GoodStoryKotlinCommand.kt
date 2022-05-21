@@ -176,8 +176,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
     companion object {
 
         private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinCommand::class.java)
-        const val DEFAULT_MASSIVE_REPEATS = "100000"
-        const val DEFAULT_ALGORITHM_REPEATS = "100000"
+        const val DEFAULT_MASSIVE_REPEATS = "10000"
+        const val DEFAULT_ALGORITHM_REPEATS = "10000"
 
         @DelicateCoroutinesApi
         suspend fun generalTest(repeats: Int) {
