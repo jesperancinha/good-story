@@ -6,5 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Maven Build
+      - name: Coroutines Run (Epoxy Phase)
         run: cd cpp-coroutines-intro && make epoxy-table-example
