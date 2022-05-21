@@ -8,7 +8,7 @@ import picocli.CommandLine
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.exitProcess
 
-val aiVirtualThread = AtomicInteger(0)
+val virtualCounter = AtomicInteger(0)
 
 class App {
     val greeting: String

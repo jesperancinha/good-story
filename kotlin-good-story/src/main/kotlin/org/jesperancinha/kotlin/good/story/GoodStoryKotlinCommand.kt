@@ -95,8 +95,17 @@ class GoodStoryKotlinCommand : Callable<Int> {
             } milliseconds"
         )
 
-        System.gc()
-        log.info("===> Log Counter Test...")
+        log.info("===> Log Control Test...")
+        log.info(
+            "***> Processing took ${
+                measureTimeMillisSave("controlTest", massiveRepeats ?: 0) {
+                    withContext(Dispatchers.Default) {
+                        controlTest(massiveRepeats ?: 0)
+                    }
+                }
+            } milliseconds"
+        )
+        log.info("===> Log General Test...")
         log.info(
             "***> Processing took ${
                 measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
@@ -163,20 +172,24 @@ class GoodStoryKotlinCommand : Callable<Int> {
             GlobalScope.launch {
                 repeat(repeats) {
                     async {
-                        aiVirtualThread.incrementAndGet()
+                        virtualCounter.incrementAndGet()
                     }
                 }
             }.join()
             val endTime = LocalDateTime.now()
             log.info("Imma be the main Thread")
-            log.info(aiVirtualThread.get().toString())
+            log.info(virtualCounter.get().toString())
             log.info("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
+        }
 
+        @DelicateCoroutinesApi
+        suspend fun controlTest(repeats: Int) {
+            log.info("----====>>>> Starting controlTest <<<<====----")
             val startTimeT = LocalDateTime.now()
             val aiThread = AtomicInteger(0)
             var thread = Thread { aiThread.getAndIncrement() }
             thread.start()
-            for (i in 1..99999) {
+            for (i in 0..repeats) {
                 thread = Thread { aiThread.getAndIncrement() }
                 thread.start()
             }
