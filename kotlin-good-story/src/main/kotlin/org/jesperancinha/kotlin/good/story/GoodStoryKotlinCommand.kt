@@ -65,9 +65,16 @@ class GoodStoryKotlinCommand : Callable<Int> {
     override fun call(): Int = runBlocking {
         log.info(App().greeting)
 
-        log.info(String.format("File to read is %s", textFile))
-        log.info(String.format("Configured repeats are %s", massiveRepeats))
+        log.info("File to read is {}", textFile)
+        log.info("Configured repeats are {}", massiveRepeats)
+        log.info("Dump directory: {}", dumpDir)
 
+        dumpDir?.let {
+            val root = File(it)
+            root.mkdirs()
+            File(root, "java").mkdirs()
+            File(root, "kotlin").mkdirs()
+        }
 
         val content =
             textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
@@ -99,9 +106,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 measureTimeMillisSave("findAllUniqueWordsWithCount", algoRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         (0..(algoRepeats ?: 0)).map {
-                            async {
-                                findAllUniqueWordsWithCount(content)
-                            }
+                            deferredAsync(content)
                         }.awaitAll()
                     }
                     log.info("Just sent {} threads", algoRepeats)
@@ -132,7 +137,11 @@ class GoodStoryKotlinCommand : Callable<Int> {
         0
     }
 
-    inline fun measureTimeMillisSave(name: String, repeats: Int, function: () -> Unit): Long {
+    private fun CoroutineScope.deferredAsync(content: String) = async {
+        findAllUniqueWordsWithCount(content)
+    }
+
+    private inline fun measureTimeMillisSave(name: String, repeats: Int, function: () -> Unit): Long {
         val totalDurationMillis = measureTimeMillis { function() }
         logFile?.let {
             FileOutputStream(logFile, true).use { objectOutputStream ->
@@ -213,7 +222,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             val endTimeT = LocalDateTime.now()
             log.info("Imma be the main Thread")
             log.info(aiThread.get().toString())
-            log.info("It took me {} ms to finish", Duration.between(startTimeT, endTimeT).toMillis()    )
+            log.info("It took me {} ms to finish", Duration.between(startTimeT, endTimeT).toMillis())
         }
 
     }
