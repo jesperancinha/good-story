@@ -1,0 +1,10 @@
+name: GS - Coroutines Intro
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Maven Build
+        run: cd cpp-coroutines-intro && make epoxy-table-example
