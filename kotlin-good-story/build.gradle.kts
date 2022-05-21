@@ -56,12 +56,3 @@ tasks.jar {
     from(dependencies)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
-//tasks.jar {
-//    manifest.attributes["Main-Class"] = "org.jesperancinha.kotlin.good.story.GoodStoryKotlinKt"
-//    manifest.attributes["Class-Path"] = configurations
-//        .runtimeClasspath
-//        .get()
-//        .joinToString(separator = " ") { file ->
-//            "target/${file.name}"
-//        }
-//}

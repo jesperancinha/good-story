@@ -1,6 +1,6 @@
 # Good Story Log Book
 
-<ins>2022/05/21</ins
+<ins>2022/05/21</ins>
 
 Nothing to do with this project but very cool that we can make math like this now:
 
