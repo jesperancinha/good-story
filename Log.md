@@ -32,3 +32,11 @@
 | Kotlin Coroutines | findAllUniqueWordsWithCount | 10000 | 2509 | Prototype Phase |
 | Kotlin Coroutines | controlTest | 10000 | 781 | Prototype Phase |
 | Kotlin Coroutines | generalTest | 10000 | 67 | Prototype Phase |
+| Kotlin Coroutines | findAllUniqueWords | 10000 | 3952 | Prototype Phase |
+| Kotlin Coroutines | findAllUniqueWordsWithCount | 10000 | 2063 | Prototype Phase |
+| Kotlin Coroutines | controlTest | 10000 | 595 | Prototype Phase |
+| Kotlin Coroutines | generalTest | 10000 | 38 | Prototype Phase |
+| Kotlin Coroutines | findAllUniqueWords | 10000 | 2122 | Prototype Phase |
+| Kotlin Coroutines | findAllUniqueWordsWithCount | 10000 | 2668 | Prototype Phase |
+| Kotlin Coroutines | controlTest | 10000 | 599 | Prototype Phase |
+| Kotlin Coroutines | generalTest | 10000 | 26 | Prototype Phase |

@@ -138,7 +138,18 @@ class GoodStoryKotlinCommand : Callable<Int> {
     }
 
     private fun CoroutineScope.deferredAsync(content: String) = async {
+        val start = LocalDateTime.now()
         findAllUniqueWordsWithCount(content)
+        val end = LocalDateTime.now()
+        dumpDir?.let {
+            FileOutputStream(File(File(it, "kotlin"),"test.csv"), true).use { oos ->
+                oos.write(
+                    "$start,$end\n".toByteArray(StandardCharsets.UTF_8)
+                )
+                oos.flush()
+            }
+        }
+
     }
 
     private inline fun measureTimeMillisSave(name: String, repeats: Int, function: () -> Unit): Long {
@@ -146,13 +157,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
         logFile?.let {
             FileOutputStream(logFile, true).use { objectOutputStream ->
                 objectOutputStream.write(
-                    String.format(
-                        "| Kotlin Coroutines | %s | %d | %d | %s |\n",
-                        name,
-                        repeats,
-                        totalDurationMillis,
-                        getSystemRunningData()
-                    ).toByteArray(StandardCharsets.UTF_8)
+                    "| Kotlin Coroutines | $name | $repeats | $totalDurationMillis | ${getSystemRunningData()} |\n"
+                        .toByteArray(StandardCharsets.UTF_8)
                 )
                 objectOutputStream.flush()
             }
