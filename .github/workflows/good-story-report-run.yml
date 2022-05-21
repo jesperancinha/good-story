@@ -9,9 +9,6 @@ jobs:
       - name: JEsperancinhaOrg Loom Action
         uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
 
-      - name: Local installation of Loom JDK
-        run: make sdk-linux && ls -d loom*
-
       - name: Local installation of GraalVM JDK
         run: (curl -s "https://get.sdkman.io" | bash) && source "$HOME/.sdkman/bin/sdkman-init.sh" && . ./graalVM.sh
 
