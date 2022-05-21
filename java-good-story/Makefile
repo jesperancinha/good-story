@@ -11,3 +11,4 @@ build-run:
 	echo "║ Welcome to the Java Good Story Performance Test ║"
 	echo "╚═════════════════════════════════════════════════╝"
 	bash build.sh
+
