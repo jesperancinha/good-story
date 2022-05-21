@@ -39,23 +39,36 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed")
-    private File textFile = null;
+    private final File textFile = null;
 
     @Option(names = {"-lf", "--log-file"},
             description = "Log.md file to record results",
             defaultValue = "",
             required = true)
-    private File logFile = null;
+    private final File logFile = null;
 
     @Option(names = {"-r", "--repeats"},
             description = {"Massive repeats"},
             defaultValue = DEFAULT_MASSIVE_REPEATS)
-    private Integer massiveRepeats = null;
+    private final Integer massiveRepeats = null;
 
     @Option(names = {"-ar", "--algo-repeats"},
             description = {"Algorithm repeats"},
             defaultValue = DEFAULT_ALGORITHM_REPEATS)
-    private Integer algoRepeats = null;
+    private final Integer algoRepeats = null;
+
+
+    @Option(
+            names = {"-dump"},
+            description = {"Dump log directory"}
+    )
+    private String dumpDir = null;
+
+    @Option(
+            names = {"-computer"},
+            description = {"Any data, but mostly used to say on which computer model are you running"}
+    )
+    private String computer = null;
 
     @Override
     public Integer call() throws Exception {

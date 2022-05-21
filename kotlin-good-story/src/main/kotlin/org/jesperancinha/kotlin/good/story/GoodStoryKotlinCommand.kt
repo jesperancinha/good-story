@@ -48,6 +48,20 @@ class GoodStoryKotlinCommand : Callable<Int> {
     )
     private var algoRepeats: Int? = null
 
+    @Option(
+        names = ["-dump"],
+        description = ["Dump log directory"],
+        required = false
+    )
+    private var dumpDir: String? = null
+
+    @Option(
+        names = ["-computer"],
+        description = ["Any data, but mostly used to say on which computer model are you running"],
+        required = false
+    )
+    private var computer: String? = null
+
     override fun call(): Int = runBlocking {
         log.info(App().greeting)
 

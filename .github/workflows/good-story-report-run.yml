@@ -1,0 +1,16 @@
+name: GS - Report Run
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: JEsperancinhaOrg Loom Action
+        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
+
+      - name: Local installation of Loom JDK
+        run: make sdk-linux
+
+      - name: Local installation of GraalVM JDK
+        run: curl -s "https://get.sdkman.io" | bash && . ./graalVM.sh && source "$HOME/.sdkman/bin/sdkman-init.sh" && . ./graalVM.sh
