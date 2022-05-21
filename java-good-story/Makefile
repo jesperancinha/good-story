@@ -3,7 +3,7 @@ include ../Makefile
 SHELL := /bin/bash
 
 run:
-	bash running.sh
+	bash run.sh
 set-jdk:
 	cd .. && source loom-jdk.sh
 build-run:
