@@ -193,7 +193,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             val endTime = LocalDateTime.now()
             log.info("Imma be the main Thread")
             log.info(virtualCounter.get().toString())
-            log.info("It took me ${Duration.between(startTime, endTime).seconds}s to finish")
+            log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
         }
 
         @DelicateCoroutinesApi
@@ -213,7 +213,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             val endTimeT = LocalDateTime.now()
             log.info("Imma be the main Thread")
             log.info(aiThread.get().toString())
-            log.info("It took me ${Duration.between(startTimeT, endTimeT).seconds}s to finish")
+            log.info("It took me {} ms to finish", Duration.between(startTimeT, endTimeT).toMillis()    )
         }
 
     }

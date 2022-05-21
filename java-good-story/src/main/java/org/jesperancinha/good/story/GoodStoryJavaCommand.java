@@ -181,7 +181,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final var endTimeT = LocalDateTime.now();
         log.info("Imma be the main Thread");
         log.info(String.format("%d", aiThread.get()));
-        log.info("It took me " + between(startTimeT, endTimeT).getSeconds() + "s to finish");
+        log.info("It took me {} ms to finish", between(startTimeT, endTimeT).toMillis());
     }
 
     private static void generalTest(Integer massiveRepeats) throws InterruptedException {
@@ -197,7 +197,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final var endTime = LocalDateTime.now();
         log.info("Imma be the main Thread");
         log.info(String.format("%d", aiVirtualThread.get()));
-        log.info("It took me " + between(startTime, endTime).getSeconds() + "s to finish");
+        log.info("It took me {} ms to finish", between(startTime, endTime).toMillis());
     }
 
     private static final Logger log = LoggerFactory.getLogger(GoodStoryJavaCommand.class);
