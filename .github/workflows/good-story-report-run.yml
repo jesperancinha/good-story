@@ -14,3 +14,9 @@ jobs:
 
       - name: Local installation of GraalVM JDK
         run: (curl -s "https://get.sdkman.io" | bash) && source "$HOME/.sdkman/bin/sdkman-init.sh" && . ./graalVM.sh
+
+      - name: Build and make new Report
+        run: make build-run
+
+      - name: Print Report
+        run: cat Log.md
