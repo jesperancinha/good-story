@@ -1,5 +1,16 @@
 # Good Story Log Book
 
+<ins>2022/05/22</ins>
+
+Knowledge at risk (This a list of identifiable things that Kotlin makes is seamlessly for us. Debatable if it is a good thing or not)
+
+1. Order of variable assignment (pre-construct, during construct, `post-construct`, `pre-destroy`)
+2. Autocloseable interfaces (a.k.a try with resources. In kotlin, this paradigm is reduced to `use`)
+3. `Extends` vs `implements` (no longer available in kotlin and simply replaced withj `:` and the use of `()` in case of abstract classes)
+4. Extension functions (They are not something new. Under the hood nothing has changed).
+
+All of the above is not necessary to learn in Kotlin. Or is it?
+
 <ins>2022/05/21</ins>
 
 Nothing to do with this project but very cool that we can make math like this now:

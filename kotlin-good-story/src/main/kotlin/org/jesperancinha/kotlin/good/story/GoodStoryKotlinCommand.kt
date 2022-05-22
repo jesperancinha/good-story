@@ -87,13 +87,13 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> All Words: {} (first 10)", allUniqueWords.subList(0, 10))
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("findAllUniqueWords", algoRepeats ?: 0) {
+                measureTimeMillisSave(GoodStoryKotlinCommand::findAllUniqueWords.name, algoRepeats ?: 0) {
                     GlobalScope.launch {
                         (0..(algoRepeats ?: 0)).map {
-                            async {
+                            deferredAsync(GoodStoryKotlinCommand::findAllUniqueWords.name) {
                                 findAllUniqueWords(content)
                             }
-                        }
+                        }.awaitAll()
                     }.join()
                     log.info("Just sent {} threads", algoRepeats)
                 }
@@ -103,10 +103,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> All Words with count: {} (first 10)", allUniqueWordsWithCount.keys.take(10))
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("findAllUniqueWordsWithCount", algoRepeats ?: 0) {
+                measureTimeMillisSave(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name, algoRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         (0..(algoRepeats ?: 0)).map {
-                            deferredAsync(content)
+                            deferredAsync(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name) {
+                                findAllUniqueWordsWithCount(content)
+                            }
                         }.awaitAll()
                     }
                     log.info("Just sent {} threads", algoRepeats)
@@ -137,12 +139,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
         0
     }
 
-    private fun CoroutineScope.deferredAsync(content: String) = async {
+    private fun <T> CoroutineScope.deferredAsync(name: String, function: suspend () -> T) = async {
         val start = LocalDateTime.now()
-        findAllUniqueWordsWithCount(content)
+        function()
         val end = LocalDateTime.now()
         dumpDir?.let {
-            FileOutputStream(File(File(it, "kotlin"),"test.csv"), true).use { oos ->
+            FileOutputStream(File(File(it, "kotlin"), "$name.csv"), true).use { oos ->
                 oos.write(
                     "$start,$end\n".toByteArray(StandardCharsets.UTF_8)
                 )

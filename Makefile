@@ -35,6 +35,12 @@ build-run:
 	$(foreach module,$(MODULES), \
 			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run && \
 			cd ..)
+build-run-local:
+	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > Log.md
+	echo "|---|---|---|---|---|" >> Log.md
+	$(foreach module,$(MODULES), \
+			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run-local && \
+			cd ..)
 demi-mac:
 	brew install cavaliercoder/dmidecode/dmidecode
 os-info-max:

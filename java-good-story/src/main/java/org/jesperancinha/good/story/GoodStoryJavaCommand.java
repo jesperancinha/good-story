@@ -38,37 +38,60 @@ import static java.util.function.Function.identity;
 class GoodStoryJavaCommand implements Callable<Integer> {
 
     @Option(names = {"-f", "--file"},
-            description = "Text.md file to be processed")
-    private final File textFile = null;
+            description = "Text.md file to be processed",
+            required = true)
+    private final File textFile;
+
+    {
+        try {
+            textFile = File.createTempFile("/tmp", "text.md");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Option(names = {"-lf", "--log-file"},
             description = "Log.md file to record results",
-            defaultValue = "",
             required = true)
-    private final File logFile = null;
+    private final File logFile;
+    {
+        try {
+            logFile = File.createTempFile("tmp", "log.md");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Option(names = {"-r", "--repeats"},
             description = {"Massive repeats"},
             defaultValue = DEFAULT_MASSIVE_REPEATS)
-    private final Integer massiveRepeats = null;
+    private final Integer massiveRepeats = 0;
 
     @Option(names = {"-ar", "--algo-repeats"},
             description = {"Algorithm repeats"},
             defaultValue = DEFAULT_ALGORITHM_REPEATS)
-    private final Integer algoRepeats = null;
+    private final Integer algoRepeats = 0;
 
 
     @Option(
             names = {"-dump"},
             description = {"Dump log directory"}
     )
-    private String dumpDir = null;
+    private final File dumpDir;
+    {
+        try {
+            dumpDir = File.createTempFile("tmp", "dump");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Option(
             names = {"-computer"},
-            description = {"Any data, but mostly used to say on which computer model are you running"}
+            description = {"Any data, but mostly used to say on which computer model are you running"},
+            defaultValue = "Prototype"
     )
-    private String computer = null;
+    private String computer = "";
 
     @Override
     public Integer call() throws Exception {
@@ -132,13 +155,14 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         functionalInterface.calculate();
         final var endTime = LocalDateTime.now();
         final long totalDurationMillis = between(startTime, endTime).toMillis();
-        if (Objects.nonNull(logFile)) {
-            try (var objectOutputStream = new FileOutputStream(logFile, true)) {
-                objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s |\n", name, repeats, totalDurationMillis, SystemDomain.getSystemRunningData()).getBytes(StandardCharsets.UTF_8));
-                objectOutputStream.flush();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try (var objectOutputStream = new FileOutputStream(logFile, true)) {
+            objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s | %s |\n",
+                    name, repeats,
+                    totalDurationMillis, SystemDomain.getSystemRunningData(), computer
+            ).getBytes(StandardCharsets.UTF_8));
+            objectOutputStream.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return totalDurationMillis;
     }
