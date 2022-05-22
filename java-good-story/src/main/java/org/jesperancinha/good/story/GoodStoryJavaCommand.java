@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -108,6 +109,9 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
         log.info("===> Text size is {}", content.length());
         log.info("===> All Words: {}", allUniqueWords.subList(0, 10));
+
+        final BiFunction<GoodStoryJavaCommand, String, List<String>> findAllUniqueWords = GoodStoryJavaCommand::findAllUniqueWords;
+
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             Thread virtualThread = null;
             for (int i = 0; i < algoRepeats; i++) {
@@ -178,9 +182,9 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final var endTime = LocalDateTime.now();
         final long totalDurationMillis = between(startTime, endTime).toMillis();
         try (var objectOutputStream = new FileOutputStream(logFile, true)) {
-            objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s | %s |\n",
+            objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s |\n",
                     name, repeats,
-                    totalDurationMillis, SystemDomain.getSystemRunningData(), computer
+                    totalDurationMillis, computer
             ).getBytes(StandardCharsets.UTF_8));
             objectOutputStream.flush();
         } catch (IOException e) {
