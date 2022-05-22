@@ -80,6 +80,8 @@ TBD
 
 ## 8.  References
 
+https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads
+
 - [Kotlin Coroutines dispatchers](https://kt.academy/article/cc-dispatchers)
 - [VisualVM](https://visualvm.github.io/)
 - [Picocli](https://picocli.info/)
