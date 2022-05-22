@@ -183,7 +183,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             var end = LocalDateTime.now();
             try {
                 oos.write(
-                        String.format("%s,%s\n", start, end).getBytes(StandardCharsets.UTF_8));
+                        String.format("%s,%s,%s\n", start, end, Thread.currentThread()).getBytes(StandardCharsets.UTF_8));
                 oos.flush();
             } catch (IOException e) {
                 throw new RuntimeException(e);

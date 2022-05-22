@@ -161,7 +161,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             oos?.let {
 
                 oos.write(
-                    "$start,$end\n".toByteArray(StandardCharsets.UTF_8)
+                    "$start,$end,${Thread.currentThread()}\n".toByteArray(StandardCharsets.UTF_8)
                 )
                 oos.flush()
             }
