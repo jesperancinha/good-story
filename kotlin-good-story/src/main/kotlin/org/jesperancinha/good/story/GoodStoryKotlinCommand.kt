@@ -113,16 +113,21 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave(methodName, repeats ?: 0) {
                     GlobalScope.launch {
-                        (0..repeats).map {
-                            startProcessAsync(testName) {
-                                toTest()
+                        withContext(Dispatchers.IO) {
+                            FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
+                                (0..repeats).map {
+                                    startProcessAsync(oos) {
+                                        toTest()
+                                    }
+                                }.awaitAll()
                             }
-                        }.awaitAll()
+                        }
                     }.join()
                     log.info("Just sent {} threads", repeats)
                 }
             } milliseconds"
         )
+
     }
 
     private suspend fun performGenericTests() {
@@ -148,20 +153,20 @@ class GoodStoryKotlinCommand : Callable<Int> {
         )
     }
 
-    private fun <T> CoroutineScope.startProcessAsync(name: String, function: suspend () -> T) = async {
-        val start = LocalDateTime.now()
-        function()
-        val end = LocalDateTime.now()
-        dumpDir?.let {
-            FileOutputStream(File(File(it, "kotlin"), "$name.csv"), true).use { oos ->
+    private fun <T> CoroutineScope.startProcessAsync(oos: FileOutputStream?, function: suspend () -> T) =
+        async {
+            val start = LocalDateTime.now()
+            function()
+            val end = LocalDateTime.now()
+            oos?.let {
+
                 oos.write(
                     "$start,$end\n".toByteArray(StandardCharsets.UTF_8)
                 )
                 oos.flush()
             }
-        }
 
-    }
+        }
 
     private inline fun measureTimeMillisSave(name: String, repeats: Int, function: () -> Unit): Long {
         val totalDurationMillis = measureTimeMillis { function() }
@@ -204,11 +209,15 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("----====>>>> Starting generalTest <<<<====----")
         val startTime = LocalDateTime.now()
         GlobalScope.launch {
-            (0..(massiveRepeats ?: 0)).map {
-                startProcessAsync(GoodStoryKotlinCommand::generalTest.name) {
-                    virtualCounter.incrementAndGet()
+            withContext(Dispatchers.IO) {
+                FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
+                    (0..(massiveRepeats ?: 0)).map {
+                        startProcessAsync(oos) {
+                            virtualCounter.incrementAndGet()
+                        }
+                    }.awaitAll()
                 }
-            }.awaitAll()
+            }
         }.join()
         val endTime = LocalDateTime.now()
         log.info("Imma be the main Thread")

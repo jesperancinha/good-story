@@ -21,11 +21,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.Thread.startVirtualThread;
 import static java.time.Duration.between;
 import static java.util.function.Function.identity;
+import static java.util.stream.IntStream.range;
 
 /**
  * Created by jofisaes on 10/05/2022
@@ -243,6 +245,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             thread = new Thread(aiThread::getAndIncrement);
             thread.start();
         }
+        assert thread != null;
         thread.join();
         final var endTimeT = LocalDateTime.now();
         log.info("Imma be the main Thread");
@@ -254,12 +257,15 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("----====>>>> Starting generalTest <<<<====----");
         final var aiVirtualThread = new AtomicInteger(0);
         final var startTime = LocalDateTime.now();
-        Thread virtualThread = null;
-        for (int i = 0; i < massiveRepeats; i++) {
-            virtualThread = startProcessAsync(aiVirtualThread::getAndIncrement, generalTestOos);
-        }
-        assert virtualThread != null;
-        virtualThread.join();
+        range(0, massiveRepeats).mapToObj(i -> startProcessAsync(aiVirtualThread::getAndIncrement, generalTestOos))
+                .forEach(vt -> {
+                    try {
+                        vt.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
         final var endTime = LocalDateTime.now();
         log.info("Imma be the main Thread");
         log.info(String.format("%d", aiVirtualThread.get()));
