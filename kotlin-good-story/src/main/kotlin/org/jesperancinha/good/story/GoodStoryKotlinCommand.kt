@@ -211,7 +211,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         GlobalScope.launch {
             withContext(Dispatchers.IO) {
                 FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
-                    (0..(massiveRepeats ?: 0)).map {
+                    (1..(massiveRepeats ?: 0)).map {
                         startProcessAsync(oos) {
                             virtualCounter.incrementAndGet()
                         }
@@ -237,14 +237,11 @@ class GoodStoryKotlinCommand : Callable<Int> {
             log.info("----====>>>> Starting controlTest <<<<====----")
             val startTimeT = LocalDateTime.now()
             val aiThread = AtomicInteger(0)
-            var thread = Thread { aiThread.getAndIncrement() }
-            thread.start()
-            for (i in 0..repeats) {
-                thread = Thread { aiThread.getAndIncrement() }
-                thread.start()
-            }
             withContext(Dispatchers.IO) {
-                thread.join()
+                (1..repeats).map {
+                    Thread { aiThread.getAndIncrement() }
+                        .apply { start() }
+                }.forEach { it.join() }
             }
             val endTimeT = LocalDateTime.now()
             log.info("Imma be the main Thread")

@@ -1,10 +1,10 @@
 | Module | Method | Repetitions | Measured Duration | Machine |
 |---|---|---|---|---|
-| Java Project Loom | findAllUniqueWords | 10000 | 2225 | Prototype |
-| Java Project Loom | findAllUniqueWordsWithCount | 10000 | 1836 | Prototype |
-| Java Project Loom | controlTest | 10000 | 887 | Prototype |
-| Java Project Loom | generalTest | 10000 | 275 | Prototype |
-| Kotlin Coroutines | findAllUniqueWords | 10000 | 4094 | Prototype |
-| Kotlin Coroutines | findAllUniqueWordsWithCount | 10000 | 3322 | Prototype |
-| Kotlin Coroutines | controlTest | 10000 | 1108 | Prototype |
-| Kotlin Coroutines | generalTest | 10000 | 182 | Prototype |
+| Java Project Loom | findAllUniqueWords | 10000 | 1748 | Prototype |
+| Java Project Loom | findAllUniqueWordsWithCount | 10000 | 1683 | Prototype |
+| Java Project Loom | controlTest | 10000 | 680 | Prototype |
+| Java Project Loom | generalTest | 10000 | 183 | Prototype |
+| Kotlin Coroutines | findAllUniqueWords | 10000 | 2727 | Prototype |
+| Kotlin Coroutines | findAllUniqueWordsWithCount | 10000 | 1670 | Prototype |
+| Kotlin Coroutines | controlTest | 10000 | 570 | Prototype |
+| Kotlin Coroutines | generalTest | 10000 | 122 | Prototype |

@@ -240,13 +240,17 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("----====>>>> Starting controlTest <<<<====----");
         final var startTimeT = LocalDateTime.now();
         final var aiThread = new AtomicInteger(0);
-        Thread thread = null;
-        for (int i = 0; i < massiveRepeats; i++) {
-            thread = new Thread(aiThread::getAndIncrement);
+        range(0, massiveRepeats).mapToObj(i -> {
+            final Thread thread = new Thread(aiThread::getAndIncrement);
             thread.start();
-        }
-        assert thread != null;
-        thread.join();
+            return thread;
+        }).forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
         final var endTimeT = LocalDateTime.now();
         log.info("Imma be the main Thread");
         log.info(String.format("%d", aiThread.get()));
