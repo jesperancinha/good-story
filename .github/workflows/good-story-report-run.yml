@@ -5,12 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: graalvm/setup-graalvm@v1
-        with:
-          version: '22.1.0'
-          java-version: '17'
-          components: 'native-image'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: JEsperancinhaOrg Loom Action
+        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
 
       - name: Local installation of Loom JDK
         run: make sdk-linux && ls -d loom*
