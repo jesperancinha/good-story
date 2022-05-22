@@ -1,4 +1,4 @@
-package org.jesperancinha.kotlin.good.story
+package org.jesperancinha.good.story
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -1,4 +1,4 @@
-package org.jesperancinha.kotlin.good.story
+package org.jesperancinha.good.story
 
 import kotlinx.coroutines.*
 import org.slf4j.Logger

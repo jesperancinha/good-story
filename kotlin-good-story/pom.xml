@@ -96,7 +96,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>org.jesperancinha.good.story.GoodStoryJava</mainClass>
+                            <mainClass>org.jesperancinha.good.story.GoodStoryKotlinKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
