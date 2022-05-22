@@ -12,11 +12,10 @@ build-run:
 	echo "╔═══════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Kotlin Good Story Performance Test ║"
 	echo "╚═══════════════════════════════════════════════════╝"
-	mvn clean install -DskipTests
-	make run
+	bash build-run.sh
 build-run-local:
 	echo "╔═══════════════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Kotlin Good Story Performance Test (local) ║"
 	echo "╚═══════════════════════════════════════════════════════════╝"
-	mvn clean install -DskipTests
-	make run-local
+	bash build-run-local.sh
+
