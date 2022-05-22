@@ -158,17 +158,17 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
             log.info("===> {}: {}", testName, sampleTest.get());
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
-                Thread virtualThread = null;
-                for (int i = 0; i < repeats; i++) {
-                    virtualThread = startProcessAsync(toTest, oos);
-                }
+                final Stream<Thread> threadStream = range(0, massiveRepeats)
+                        .mapToObj(i -> startProcessAsync(toTest, oos));
                 log.info("Just sent {} threads", repeats);
-                try {
-                    virtualThread.join();
-                } catch (InterruptedException e) {
-                    log.error("Error", e);
-                    throw new RuntimeException(e);
-                }
+                threadStream
+                        .forEach(thread -> {
+                            try {
+                                thread.join();
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
             }, methodName, repeats));
         } catch (IOException e) {
             throw new RuntimeException(e);
