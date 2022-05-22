@@ -79,43 +79,53 @@ class GoodStoryKotlinCommand : Callable<Int> {
         val content =
             textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
 
-        val allUniqueWords = findAllUniqueWords(content)
-        val allUniqueWordsWithCount: Map<String, Int> = findAllUniqueWordsWithCount(content)
-
         log.info("===> Text size is {}", content.length)
 
-        log.info("===> All Words: {} (first 10)", allUniqueWords.subList(0, 10))
+        performTests(
+            testName = "All Words (first 10)",
+            methodName = GoodStoryKotlinCommand::findAllUniqueWords.name,
+            sampleTest = { findAllUniqueWords(content).subList(0, 10) },
+            toTest = { findAllUniqueWords(content) },
+            repeats = algoRepeats ?: 0
+        )
+
+        performTests(
+            testName = "All Words with count (first 10)",
+            methodName = GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name,
+            sampleTest = { findAllUniqueWordsWithCount(content).keys.take(10) },
+            toTest = { findAllUniqueWordsWithCount(content) },
+            repeats = algoRepeats ?: 0
+        )
+
+        performGenericTests()
+        0
+    }
+
+    private suspend fun <T> performTests(
+        testName: String,
+        methodName: String,
+        sampleTest: suspend () -> List<String>,
+        toTest: suspend () -> T,
+        repeats: Int
+    ) {
+        log.info("===> {} : {}", testName, sampleTest())
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave(GoodStoryKotlinCommand::findAllUniqueWords.name, algoRepeats ?: 0) {
+                measureTimeMillisSave(methodName, repeats ?: 0) {
                     GlobalScope.launch {
-                        (0..(algoRepeats ?: 0)).map {
-                            startProcessAsync(GoodStoryKotlinCommand::findAllUniqueWords.name) {
-                                findAllUniqueWords(content)
+                        (0..repeats).map {
+                            startProcessAsync(testName) {
+                                toTest()
                             }
                         }.awaitAll()
                     }.join()
-                    log.info("Just sent {} threads", algoRepeats)
+                    log.info("Just sent {} threads", repeats)
                 }
             } milliseconds"
         )
+    }
 
-        log.info("===> All Words with count: {} (first 10)", allUniqueWordsWithCount.keys.take(10))
-        log.info(
-            "***> Processing took ${
-                measureTimeMillisSave(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name, algoRepeats ?: 0) {
-                    withContext(Dispatchers.Default) {
-                        (0..(algoRepeats ?: 0)).map {
-                            startProcessAsync(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name) {
-                                findAllUniqueWordsWithCount(content)
-                            }
-                        }.awaitAll()
-                    }
-                    log.info("Just sent {} threads", algoRepeats)
-                }
-            } milliseconds"
-        )
-
+    private suspend fun performGenericTests() {
         log.info("===> Log Control Test...")
         log.info(
             "***> Processing took ${
@@ -136,7 +146,6 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 }
             } milliseconds"
         )
-        0
     }
 
     private fun <T> CoroutineScope.startProcessAsync(name: String, function: suspend () -> T) = async {

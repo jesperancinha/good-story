@@ -127,6 +127,11 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> findAllUniqueWordsWithCount(content), algoRepeats);
 
 
+        performGenericTests();
+        return 0;
+    }
+
+    private void performGenericTests() throws IOException {
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             try {
                 controlTest();
@@ -145,7 +150,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             }, "generalTest", massiveRepeats));
 
         }
-        return 0;
     }
 
     private void performTest(String testName, String methodName, Supplier<String> sampleTest, Runnable toTest, int repeats) {
