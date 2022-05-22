@@ -7,7 +7,7 @@ run:
 run-local:
 	bash run-local.sh
 set-jdk:
-	java -version
+	cd .. && source loom-jdk.sh
 build-run:
 	echo "╔═══════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Kotlin Good Story Performance Test ║"

@@ -6,7 +6,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -153,14 +152,17 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 throw new RuntimeException(e);
             }
         }, "controlTest", massiveRepeats));
-        log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
-            try {
-                generalTest();
-            } catch (InterruptedException | IOException e) {
-                throw new RuntimeException(e);
-            }
-        }, "generalTest", massiveRepeats));
 
+        try (FileOutputStream generalTestOos = new FileOutputStream(new File(new File(dumpDir, "java"), "generalTest.csv"), true)) {
+            log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
+                try {
+                    generalTest(generalTestOos);
+                } catch (InterruptedException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }, "generalTest", massiveRepeats));
+
+        }
         return 0;
     }
 
@@ -240,23 +242,22 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("It took me {} ms to finish", between(startTimeT, endTimeT).toMillis());
     }
 
-    private void generalTest() throws InterruptedException, IOException {
-        try (FileOutputStream generalTestOos = new FileOutputStream(new File(new File(dumpDir, "java"), "generalTest"), true)) {
-            log.info("----====>>>> Starting generalTest <<<<====----");
-            final var aiVirtualThread = new AtomicInteger(0);
-            final var startTime = LocalDateTime.now();
-            Thread virtualThread = null;
-            for (int i = 0; i < massiveRepeats; i++) {
-                virtualThread = startProcessAsync(aiVirtualThread::getAndIncrement, generalTestOos);
-            }
-            assert virtualThread != null;
-            virtualThread.join();
-            final var endTime = LocalDateTime.now();
-            log.info("Imma be the main Thread");
-            log.info(String.format("%d", aiVirtualThread.get()));
-            log.info("It took me {} ms to finish", between(startTime, endTime).toMillis());
+    private void generalTest(FileOutputStream generalTestOos) throws InterruptedException, IOException {
+        log.info("----====>>>> Starting generalTest <<<<====----");
+        final var aiVirtualThread = new AtomicInteger(0);
+        final var startTime = LocalDateTime.now();
+        Thread virtualThread = null;
+        for (int i = 0; i < massiveRepeats; i++) {
+            virtualThread = startProcessAsync(aiVirtualThread::getAndIncrement, generalTestOos);
         }
+        assert virtualThread != null;
+        virtualThread.join();
+        final var endTime = LocalDateTime.now();
+        log.info("Imma be the main Thread");
+        log.info(String.format("%d", aiVirtualThread.get()));
+        log.info("It took me {} ms to finish", between(startTime, endTime).toMillis());
     }
+
 
     private static final Logger log = LoggerFactory.getLogger(GoodStoryJavaCommand.class);
     private final String DEFAULT_MASSIVE_REPEATS = "10000";
