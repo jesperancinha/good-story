@@ -2,6 +2,8 @@
 
 <ins>2022/05/22</ins>
 
+#### Knowledge at Risk
+
 Knowledge at risk (This a list of identifiable things that Kotlin makes is seamlessly for us. Debatable if it is a good thing or not)
 
 1. Order of variable assignment (pre-construct, during construct, `post-construct`, `pre-destroy`)
@@ -11,6 +13,35 @@ Knowledge at risk (This a list of identifiable things that Kotlin makes is seaml
 5. Differentiation between functional interfaces is completely gone in Kotlin (Underwater there are still Consumers, Suppliers, Operators and Functions, but the concept of `receivers` obliterated all of that)
 
 All of the above is not necessary to learn in Kotlin. Or is it?
+
+#### Impossible to compare
+
+Comparing the behaviour of co-routines under GraalVM and Java virtual threads under JDK 19 has revealed to be impossible. During performance tests, it has been noticed that the FileOutputStream from Project Loom is quite different than its counterpart in GraalVM:
+
+- Project Loom write method:
+
+```java
+public void write(byte[] b) throws IOException {
+  boolean append = fdAccess.getAppend(fd);
+  long comp = Blocker.begin();
+  try {
+      writeBytes(b, 0, b.length, append);
+  } finally {
+      Blocker.end(comp);
+  }
+}
+```
+
+- GraalVM write method:
+
+```java
+public void write(byte b[]) throws IOException {
+  writeBytes(b, 0, b.length, fdAccess.getAppend(fd));
+}
+```
+
+This has unknowingly affected all performance tests. Finding out why Project Loom uses a `Blocker` to write files, can be an interesting subject but its completely off topic. For this project, this is a problem because it slows down performance dramatically when testing repetitions.
+This is why the coroutines project is being migrated to use Project Loom as JDK. It will be a strange mix, but its the only way to compare the behaviour of coroutines and the JDK19's virtual threads at this point.
 
 <ins>2022/05/21</ins>
 
@@ -36,7 +67,7 @@ This is where we can see all classes that have been created:
 
 ![alt text](./docs/20220519/FileListing.png)
 
-This IS the place where the actual Java Bytecode exists    
+This IS the place where the actual Java Bytecode exists
 
 <ins>2022/05/16</ins>
 
@@ -44,7 +75,7 @@ Using Visual VM, it is seen that only 12 Dispatchers are generated per Thread. I
 
 ![alt text](./docs/20220516/VisualVMCatch20220516075334.png)
 
->12 is the number of cores available. Coroutines make use of all available cores, as needed, in order to segment a system Thread into different separate suspended executions.
+> 12 is the number of cores available. Coroutines make use of all available cores, as needed, in order to segment a system Thread into different separate suspended executions.
 
 Look exactly the same as virtual threads! Except that in Java they are called workers of a ForkJoinPool:
 
@@ -55,7 +86,8 @@ Sounds like the same, only that workers seem to work much faster than coroutines
 <ins>2022/05/13</ins>
 
 1. There is something different about `fun suspend main`. It reflects itself on the duration of coroutines. Figure it out!
->Nothing is wrong with it, actually. It's just that no clear exception is given in the logs. The latency for the next coroutine just gets longer and longer
+
+> Nothing is wrong with it, actually. It's just that no clear exception is given in the logs. The latency for the next coroutine just gets longer and longer
 
 <ins>2022/05/08</ins>
 

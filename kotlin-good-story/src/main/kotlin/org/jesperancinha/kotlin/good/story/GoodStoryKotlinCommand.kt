@@ -195,7 +195,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("----====>>>> Starting generalTest <<<<====----")
         val startTime = LocalDateTime.now()
         GlobalScope.launch {
-            (0..(algoRepeats ?: 0)).map {
+            (0..(massiveRepeats ?: 0)).map {
                 startProcessAsync(GoodStoryKotlinCommand::generalTest.name) {
                     virtualCounter.incrementAndGet()
                 }

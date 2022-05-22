@@ -1,4 +1,5 @@
 MODULES := java-good-story kotlin-good-story
+export GS_MASSIVE_REPEATS := 10000
 
 sdk-macos:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_macos-x64_bin.tar.gz --output openjdk-19.tar.gz
@@ -38,6 +39,8 @@ build-run:
 build-run-local:
 	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > Log.md
 	echo "|---|---|---|---|---|" >> Log.md
+	make run-local
+run-local:
 	$(foreach module,$(MODULES), \
 			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run-local && \
 			cd ..)
