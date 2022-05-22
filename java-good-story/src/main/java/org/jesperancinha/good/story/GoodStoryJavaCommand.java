@@ -5,15 +5,11 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +50,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             description = "Log.md file to record results",
             required = true)
     private final File logFile;
+
     {
         try {
             logFile = File.createTempFile("tmp", "log.md");
@@ -78,6 +75,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             description = {"Dump log directory"}
     )
     private final File dumpDir;
+
     {
         try {
             dumpDir = File.createTempFile("tmp", "dump");
@@ -107,7 +105,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             Thread virtualThread = null;
             for (int i = 0; i < algoRepeats; i++) {
-                virtualThread = startVirtualThread(() -> findAllUniqueWords(content));
+                virtualThread = startProcessAsync(() -> findAllUniqueWords(content), "findAllUniqueWords");
             }
             log.info("Just sent {} threads", algoRepeats);
             try {
@@ -121,7 +119,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             Thread virtualThread = null;
             for (int i = 0; i < algoRepeats; i++) {
-                virtualThread = startVirtualThread(() -> findAllUniqueWordsWithCount(content));
+                virtualThread = startProcessAsync(() -> findAllUniqueWordsWithCount(content), "findAllUniqueWordsWithCount");
             }
             log.info("Just sent {} threads", algoRepeats);
             try {
@@ -134,20 +132,38 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             try {
-                controlTest(massiveRepeats);
+                controlTest();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }, "controlTest", massiveRepeats));
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             try {
-                generalTest(massiveRepeats);
+                generalTest();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }, "generalTest", massiveRepeats));
 
         return 0;
+    }
+
+    private Thread startProcessAsync(Runnable runnable, String name) {
+        Runnable threadRunnable = () -> {
+            var start = LocalDateTime.now();
+            runnable.run();
+            var end = LocalDateTime.now();
+            if (Objects.nonNull(dumpDir)) {
+                try (var oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", name)), true)) {
+                    oos.write(
+                            String.format("%s,%s\n",start, end).getBytes(StandardCharsets.UTF_8));
+                oos.flush();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        return startVirtualThread(threadRunnable);
     }
 
     private long measureTimeMillis(VoidSupplier functionalInterface, String name, Integer repeats) {
@@ -192,12 +208,12 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         return new String(Files.readAllBytes(textFile.toPath()));
     }
 
-    private static void controlTest(Integer massiveRepeats) throws InterruptedException {
+    private  void controlTest() throws InterruptedException {
         log.info("----====>>>> Starting controlTest <<<<====----");
         final var startTimeT = LocalDateTime.now();
         final var aiThread = new AtomicInteger(0);
         Thread thread = null;
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < massiveRepeats; i++) {
             thread = new Thread(aiThread::getAndIncrement);
             thread.start();
         }
@@ -208,13 +224,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("It took me {} ms to finish", between(startTimeT, endTimeT).toMillis());
     }
 
-    private static void generalTest(Integer massiveRepeats) throws InterruptedException {
+    private  void generalTest() throws InterruptedException {
         log.info("----====>>>> Starting generalTest <<<<====----");
         final var aiVirtualThread = new AtomicInteger(0);
         final var startTime = LocalDateTime.now();
         Thread virtualThread = null;
         for (int i = 0; i < massiveRepeats; i++) {
-            virtualThread = startVirtualThread(aiVirtualThread::getAndIncrement);
+            virtualThread = startProcessAsync(aiVirtualThread::getAndIncrement, "generalTest");
         }
         assert virtualThread != null;
         virtualThread.join();

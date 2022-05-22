@@ -8,6 +8,7 @@ Knowledge at risk (This a list of identifiable things that Kotlin makes is seaml
 2. Autocloseable interfaces (a.k.a try with resources. In kotlin, this paradigm is reduced to `use`)
 3. `Extends` vs `implements` (no longer available in kotlin and simply replaced withj `:` and the use of `()` in case of abstract classes)
 4. Extension functions (They are not something new. Under the hood nothing has changed).
+5. Differentiation between functional interfaces is completely gone in Kotlin (Underwater there are still Consumers, Suppliers, Operators and Functions, but the concept of `receivers` obliterated all of that)
 
 All of the above is not necessary to learn in Kotlin. Or is it?
 

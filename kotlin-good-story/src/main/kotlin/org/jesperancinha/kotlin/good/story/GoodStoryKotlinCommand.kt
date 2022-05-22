@@ -90,7 +90,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 measureTimeMillisSave(GoodStoryKotlinCommand::findAllUniqueWords.name, algoRepeats ?: 0) {
                     GlobalScope.launch {
                         (0..(algoRepeats ?: 0)).map {
-                            deferredAsync(GoodStoryKotlinCommand::findAllUniqueWords.name) {
+                            startProcessAsync(GoodStoryKotlinCommand::findAllUniqueWords.name) {
                                 findAllUniqueWords(content)
                             }
                         }.awaitAll()
@@ -106,7 +106,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 measureTimeMillisSave(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name, algoRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         (0..(algoRepeats ?: 0)).map {
-                            deferredAsync(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name) {
+                            startProcessAsync(GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name) {
                                 findAllUniqueWordsWithCount(content)
                             }
                         }.awaitAll()
@@ -139,7 +139,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         0
     }
 
-    private fun <T> CoroutineScope.deferredAsync(name: String, function: suspend () -> T) = async {
+    private fun <T> CoroutineScope.startProcessAsync(name: String, function: suspend () -> T) = async {
         val start = LocalDateTime.now()
         function()
         val end = LocalDateTime.now()
