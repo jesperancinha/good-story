@@ -1,11 +1,7 @@
 version: 2
 updates:
-  - package-ecosystem: "gradle"
-    directory: "/"
-    schedule:
-      interval: "daily"
 
   - package-ecosystem: "maven"
-    directory: "/java-good-story"
+    directory: "/"
     schedule:
       interval: "daily"

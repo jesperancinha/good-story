@@ -5,4 +5,4 @@ echo "JAVA_HOME=""$JAVA_HOME"
 echo "PATH=""$PATH"
 env | grep JAVA
 java -version
-cd java-good-story && gradle build test
+cd java-good-story && mvn clean install

@@ -22,14 +22,10 @@ sdk-linux-arch:
 	make sdk-unpack
 sdk-unpack:
 	tar -xvzf openjdk-19.tar.gz
-gradle-list:
-	gradle -q projects
 test:
 	./loom-run.sh
 	java -version
-	cd kotlin-good-story && gradle build test
-gradle-build-test:
-	gradle build test
+	cd kotlin-good-story && mvn clean install
 build-run:
 	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > Log.md
 	echo "|---|---|---|---|---|" >> Log.md

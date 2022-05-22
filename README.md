@@ -29,22 +29,10 @@ The way we are going to compare performance, response times and memory usage is 
 
 ## 2.  Environment
 
-#### [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
-
-Kotlin's coroutines work on any JDK and they can be used on most JDK's out there.
-
-Since I'm looking for the most efficient and performing solutions, we are going to use GraalVM in this project. Because of this, either you need to install [GraalVM](https://www.graalvm.org/) manually, or use sdk-man to install it:
-
-```shell
-sdk install java 22.1.0.r17-grl
-sdk use java 22.1.0.r17-grl
-```
-
-#### [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main)
-
-Project Loom is itself a JDK and in order to use it, you need first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
+[Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main) is itself a JDK and in order to use it, you need first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
 
 >check the [Makefile](./Makefile) for the most appropriate script for your operating system.
+
 ```shell
 make sdk-install
 ```
@@ -55,17 +43,16 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 
 | Solution                                                               | VM Name                           | VM Version                                                 | Base JDK | Type   |
 |------------------------------------------------------------------------|-----------------------------------|------------------------------------------------------------|----------|--------|
-| [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) | [GraalVM](22.1.0)                 | [22.1.0](https://www.graalvm.org/release-notes/22_1/#2210) | 17       | Module |
+| [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
 | [Project Loom](https://wiki.openjdk.java.net/display/loom/Main)        | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
 
 Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the comparisons. It gets updated per commit.
 
 ## 4.  Actions
 
-This project makes usage of two important actions:
+This project makes usage of one single action: 
 
--   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
--   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+- [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
 
 ## 5.  How top run
 
@@ -75,7 +62,13 @@ You can run the whole test in one go by running:
 make build-run
 ```
 
-Just make sure that you have GraalVM installed in your SDK-Man distribution and that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in the [Makefile](./Makefile) for distribution choices for the Loom JDK.
+For heavier tests please run:
+
+```shell
+make build-run-loccal
+```
+
+Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in the [Makefile](./Makefile) for distribution choices for the Loom JDK.
 
 ## 6.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 
@@ -83,19 +76,7 @@ Just make sure that you have GraalVM installed in your SDK-Man distribution and 
 
 ## 7.  Playbook
 
-These are some important steps used in the creation of this project
-
-```shell
-gradle init
-gradle wrapper
-```
-
-#### 7.1. Linux
-
-```shell
-sdk install gradle 7.4.2
-sdk use gradle 7.4.2
-```
+TBD
 
 ## 8.  References
 

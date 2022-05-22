@@ -6,6 +6,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -163,15 +164,19 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             var start = LocalDateTime.now();
             runnable.run();
             var end = LocalDateTime.now();
-            if (Objects.nonNull(dumpDir)) {
-                try (var oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", name)), true)) {
-                    oos.write(
-                            String.format("%s,%s\n", start, end).getBytes(StandardCharsets.UTF_8));
-                    oos.flush();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            FileOutputStream oos = null;
+            try {
+                oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", name)), true);
+                oos.write(
+                        String.format("%s,%s\n", start, end).getBytes(StandardCharsets.UTF_8));
+                oos.flush();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+
+
         };
         return startVirtualThread(threadRunnable);
     }

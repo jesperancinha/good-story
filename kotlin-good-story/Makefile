@@ -12,11 +12,11 @@ build-run:
 	echo "╔═══════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Kotlin Good Story Performance Test ║"
 	echo "╚═══════════════════════════════════════════════════╝"
-	gradle build
+	mvn clean install -DskipTests
 	make run
 build-run-local:
 	echo "╔═══════════════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Kotlin Good Story Performance Test (local) ║"
 	echo "╚═══════════════════════════════════════════════════════════╝"
-	gradle build
+	mvn clean install -DskipTests
 	make run-local

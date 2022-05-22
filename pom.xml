@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jesperancinha.gs</groupId>
+    <artifactId>good-story</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>19</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <picocli.version>4.6.3</picocli.version>
+        <maven-compiler.release>${java.version}</maven-compiler.release>
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+    </properties>
+
+    <modules>
+        <module>java-good-story</module>
+        <module>kotlin-good-story</module>
+    </modules>
+
+    <packaging>pom</packaging>
+</project>

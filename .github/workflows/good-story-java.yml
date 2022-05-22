@@ -1,4 +1,4 @@
-name: GS - Java - Loom Native Image Build
+name: GS - Java
 on: [push, pull_request]
 jobs:
   build:
@@ -13,4 +13,4 @@ jobs:
         run: java -version
 
       - name: Maven Build
-        run: cd java-good-story && mvn clean install
+        run: cd java-good-story; mvn clean install
