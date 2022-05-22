@@ -6,6 +6,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,7 @@ import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -108,43 +110,23 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         }
 
         log.info("===> Text size is {}", content.length());
-        log.info("===> All Words: {}", allUniqueWords.subList(0, 10));
 
-        final BiFunction<GoodStoryJavaCommand, String, List<String>> findAllUniqueWords = GoodStoryJavaCommand::findAllUniqueWords;
+        performTest(
+                "All Unique Words",
+                "findAllUniqueWords",
+                () -> String.join(".",
+                        allUniqueWords.subList(0, 10)),
+                () -> findAllUniqueWords(content), algoRepeats);
+
+        performTest(
+                "All Words with count",
+                "findAllUniqueWordsWithCount",
+                () -> String.join(".",
+                        allUniqueWordsWithCount.entrySet().stream().map((entry) ->
+                                String.format("%s to %d", entry.getKey(), entry.getValue())).toList().subList(0, 10)),
+                () -> findAllUniqueWordsWithCount(content), algoRepeats);
 
 
-        try (FileOutputStream findAllUniqueWordsOos = new FileOutputStream(new File(new File(dumpDir, "java"), "findAllUniqueWords"), true)) {
-            log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
-                Thread virtualThread = null;
-                for (int i = 0; i < algoRepeats; i++) {
-                    virtualThread = startProcessAsync(() -> findAllUniqueWords(content), findAllUniqueWordsOos);
-                }
-                log.info("Just sent {} threads", algoRepeats);
-                try {
-                    virtualThread.join();
-                } catch (InterruptedException e) {
-                    log.error("Error", e);
-                    throw new RuntimeException(e);
-                }
-            }, "findAllUniqueWords", algoRepeats));
-        }
-
-        try (FileOutputStream findAllUniqueWordsWithCountOos = new FileOutputStream(new File(new File(dumpDir, "java"), "findAllUniqueWordsWithCount"), true)) {
-            log.info("===> All Words with count: {}", allUniqueWordsWithCount.entrySet().stream().toList().subList(0, 10));
-            log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
-                Thread virtualThread = null;
-                for (int i = 0; i < algoRepeats; i++) {
-                    virtualThread = startProcessAsync(() -> findAllUniqueWordsWithCount(content), findAllUniqueWordsWithCountOos);
-                }
-                log.info("Just sent {} threads", algoRepeats);
-                try {
-                    virtualThread.join();
-                } catch (InterruptedException e) {
-                    log.error("Error", e);
-                    throw new RuntimeException(e);
-                }
-            }, "findAllUniqueWordsWithCount", algoRepeats));
-        }
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
             try {
                 controlTest();
@@ -164,6 +146,28 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
         }
         return 0;
+    }
+
+    private void performTest(String testName, String methodName, Supplier<String> sampleTest, Runnable toTest, int repeats) {
+        try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
+            log.info("===> {}: {}", testName, sampleTest.get());
+            log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
+                Thread virtualThread = null;
+                for (int i = 0; i < repeats; i++) {
+                    virtualThread = startProcessAsync(toTest, oos);
+                }
+                log.info("Just sent {} threads", repeats);
+                try {
+                    virtualThread.join();
+                } catch (InterruptedException e) {
+                    log.error("Error", e);
+                    throw new RuntimeException(e);
+                }
+            }, methodName, repeats));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private Thread startProcessAsync(Runnable runnable, FileOutputStream oos) {

@@ -26,6 +26,14 @@ make run
 ```
 ---
 
+## Intellij
+
+Easy run:
+
+```shell
+-f docs/good.story/GoodStory.md -lf Log.md  -dump dump
+```
+
 ## Issues
 
 -   [Support Java 19 #20372](https://github.com/gradle/gradle/issues/20372)
