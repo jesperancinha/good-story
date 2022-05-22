@@ -53,7 +53,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         description = ["Dump log directory"],
         required = false
     )
-    private var dumpDir: String? = null
+    private var dumpDir: File? = null
 
     @Option(
         names = ["-computer"],
@@ -69,8 +69,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("Configured repeats are {}", massiveRepeats)
         log.info("Dump directory: {}", dumpDir)
 
-        dumpDir?.let {
-            val root = File(it)
+        dumpDir?.let { root ->
             root.mkdirs()
             File(root, "java").mkdirs()
             File(root, "kotlin").mkdirs()

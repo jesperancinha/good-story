@@ -100,6 +100,12 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final var allUniqueWords = findAllUniqueWords(content);
         final var allUniqueWordsWithCount = findAllUniqueWordsWithCount(content);
 
+        if (Objects.nonNull(dumpDir)) {
+            dumpDir.mkdirs();
+            new File(dumpDir, "java").mkdirs();
+            new File(dumpDir, "kotlin").mkdirs();
+        }
+
         log.info("===> Text size is {}", content.length());
         log.info("===> All Words: {}", allUniqueWords.subList(0, 10));
         log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
@@ -156,8 +162,8 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             if (Objects.nonNull(dumpDir)) {
                 try (var oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", name)), true)) {
                     oos.write(
-                            String.format("%s,%s\n",start, end).getBytes(StandardCharsets.UTF_8));
-                oos.flush();
+                            String.format("%s,%s\n", start, end).getBytes(StandardCharsets.UTF_8));
+                    oos.flush();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -208,7 +214,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         return new String(Files.readAllBytes(textFile.toPath()));
     }
 
-    private  void controlTest() throws InterruptedException {
+    private void controlTest() throws InterruptedException {
         log.info("----====>>>> Starting controlTest <<<<====----");
         final var startTimeT = LocalDateTime.now();
         final var aiThread = new AtomicInteger(0);
@@ -224,7 +230,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("It took me {} ms to finish", between(startTimeT, endTimeT).toMillis());
     }
 
-    private  void generalTest() throws InterruptedException {
+    private void generalTest() throws InterruptedException {
         log.info("----====>>>> Starting generalTest <<<<====----");
         final var aiVirtualThread = new AtomicInteger(0);
         final var startTime = LocalDateTime.now();
