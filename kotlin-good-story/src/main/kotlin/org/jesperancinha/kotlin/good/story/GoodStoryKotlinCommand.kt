@@ -58,6 +58,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
     @Option(
         names = ["-computer"],
         description = ["Any data, but mostly used to say on which computer model are you running"],
+        defaultValue = "Prototype",
         required = false
     )
     private var computer: String? = null
@@ -130,7 +131,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
-                        generalTest(massiveRepeats ?: 0)
+                        generalTest()
                     }
                 }
             } milliseconds"
@@ -189,28 +190,29 @@ class GoodStoryKotlinCommand : Callable<Int> {
         Files.readAllBytes(textFile.toPath())
     })
 
+    @DelicateCoroutinesApi
+    suspend fun generalTest() {
+        log.info("----====>>>> Starting generalTest <<<<====----")
+        val startTime = LocalDateTime.now()
+        GlobalScope.launch {
+            (0..(algoRepeats ?: 0)).map {
+                startProcessAsync(GoodStoryKotlinCommand::generalTest.name) {
+                    virtualCounter.incrementAndGet()
+                }
+            }.awaitAll()
+        }.join()
+        val endTime = LocalDateTime.now()
+        log.info("Imma be the main Thread")
+        log.info(virtualCounter.get().toString())
+        log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
+    }
+
+
     companion object {
 
         private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinCommand::class.java)
         const val DEFAULT_MASSIVE_REPEATS = "10000"
         const val DEFAULT_ALGORITHM_REPEATS = "10000"
-
-        @DelicateCoroutinesApi
-        suspend fun generalTest(repeats: Int) {
-            log.info("----====>>>> Starting generalTest <<<<====----")
-            val startTime = LocalDateTime.now()
-            GlobalScope.launch {
-                repeat(repeats) {
-                    async {
-                        virtualCounter.incrementAndGet()
-                    }
-                }
-            }.join()
-            val endTime = LocalDateTime.now()
-            log.info("Imma be the main Thread")
-            log.info(virtualCounter.get().toString())
-            log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
-        }
 
         @DelicateCoroutinesApi
         suspend fun controlTest(repeats: Int) {
