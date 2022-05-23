@@ -97,6 +97,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
+        performTests(
+            testName = "Reverted Text with space complexity of O(1) and a time complexity of O(n)",
+            methodName = GoodStoryKotlinCommand::revertText.name,
+            sampleTest = { revertText("When they played Metallica at work") },
+            toTest = { revertText(content) },
+            repeats = algoRepeats ?: 0
+        )
+
         performGenericTests()
         0
     }
@@ -104,14 +112,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
     private suspend fun <T> performTests(
         testName: String,
         methodName: String,
-        sampleTest: suspend () -> List<String>,
+        sampleTest: suspend () -> T,
         toTest: suspend () -> T,
         repeats: Int
     ) {
         log.info("===> {} : {}", testName, sampleTest())
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave(methodName, repeats ?: 0) {
+                measureTimeMillisSave(testName, methodName, repeats) {
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
                             FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
@@ -134,7 +142,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log Control Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("controlTest", massiveRepeats ?: 0) {
+                measureTimeMillisSave("N/A","controlTest", massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         controlTest(massiveRepeats ?: 0)
                     }
@@ -144,7 +152,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log General Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("generalTest", massiveRepeats ?: 0) {
+                measureTimeMillisSave("N/A","generalTest", massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         generalTest()
                     }
@@ -168,18 +176,50 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         }
 
-    private inline fun measureTimeMillisSave(name: String, repeats: Int, function: () -> Unit): Long {
+    private inline fun measureTimeMillisSave(testName: String, methodName: String, repeats: Int, function: () -> Unit): Long {
         val totalDurationMillis = measureTimeMillis { function() }
         logFile?.let {
             FileOutputStream(logFile, true).use { objectOutputStream ->
                 objectOutputStream.write(
-                    "| Kotlin Coroutines | $name | $repeats | $totalDurationMillis | $computer |\n"
+                    "| Kotlin Coroutines | $methodName - $testName | $repeats | $totalDurationMillis | $computer |\n"
                         .toByteArray(StandardCharsets.UTF_8)
                 )
                 objectOutputStream.flush()
             }
         }
         return totalDurationMillis
+    }
+
+
+    @DelicateCoroutinesApi
+    suspend fun generalTest() {
+        log.info("----====>>>> Starting generalTest <<<<====----")
+        val startTime = LocalDateTime.now()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
+                    (1..(massiveRepeats ?: 0)).map {
+                        startProcessAsync(oos) {
+                            virtualCounter.incrementAndGet()
+                        }
+                    }.awaitAll()
+                }
+            }
+        }.join()
+        val endTime = LocalDateTime.now()
+        log.info("Imma be the main Thread")
+        log.info(virtualCounter.get().toString())
+        log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
+    }
+
+    fun revertText(content: String): String? {
+        val charArray = content.toCharArray()
+        for (i in 0 until (charArray.size / 2)) {
+            val c = charArray[i]
+            charArray[i] = charArray[charArray.size - i - 1]
+            charArray[charArray.size - i - 1] = c
+        }
+        return String(charArray)
     }
 
     private suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
@@ -203,28 +243,6 @@ class GoodStoryKotlinCommand : Callable<Int> {
     private suspend fun readFullContent(textFile: File): String = String(withContext(Dispatchers.IO) {
         Files.readAllBytes(textFile.toPath())
     })
-
-    @DelicateCoroutinesApi
-    suspend fun generalTest() {
-        log.info("----====>>>> Starting generalTest <<<<====----")
-        val startTime = LocalDateTime.now()
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
-                    (1..(massiveRepeats ?: 0)).map {
-                        startProcessAsync(oos) {
-                            virtualCounter.incrementAndGet()
-                        }
-                    }.awaitAll()
-                }
-            }
-        }.join()
-        val endTime = LocalDateTime.now()
-        log.info("Imma be the main Thread")
-        log.info(virtualCounter.get().toString())
-        log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
-    }
-
 
     companion object {
 

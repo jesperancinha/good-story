@@ -1,11 +1,12 @@
 | Module | Method | Repetitions | Measured Duration | Machine |
 |---|---|---|---|---|
-| Java Project Loom | All Unique Words - findAllUniqueWords | 10000 | 2436 | Prototype |
-| Java Project Loom | All Words with count - findAllUniqueWordsWithCount | 10000 | 2199 | Prototype |
-| Java Project Loom | Reverted Text with space complexity of O(1) and a time complexity of O(n) - revertText | 10000 | 493 | Prototype |
-| Java Project Loom | N/A - controlTest | 10000 | 1016 | Prototype |
-| Java Project Loom | N/A - generalTest | 10000 | 389 | Prototype |
-| Kotlin Coroutines | findAllUniqueWords | 10000 | 2665 | Prototype |
-| Kotlin Coroutines | findAllUniqueWordsWithCount | 10000 | 1878 | Prototype |
-| Kotlin Coroutines | controlTest | 10000 | 1045 | Prototype |
-| Kotlin Coroutines | generalTest | 10000 | 164 | Prototype |
+| Java Project Loom | findAllUniqueWords - All Unique Words | 10000 | 1790 | Prototype |
+| Java Project Loom | findAllUniqueWordsWithCount - All Words with count | 10000 | 1376 | Prototype |
+| Java Project Loom | revertText - Reverted Text with space complexity of O(1) and a time complexity of O(n) | 10000 | 223 | Prototype |
+| Java Project Loom | controlTest - N/A | 10000 | 1142 | Prototype |
+| Java Project Loom | generalTest - N/A | 10000 | 272 | Prototype |
+| Kotlin Coroutines | findAllUniqueWords - All Words (first 10) | 10000 | 4383 | Prototype |
+| Kotlin Coroutines | findAllUniqueWordsWithCount - All Words with count (first 10) | 10000 | 2067 | Prototype |
+| Kotlin Coroutines | revertText - Reverted Text with space complexity of O(1) and a time complexity of O(n) | 10000 | 1323 | Prototype |
+| Kotlin Coroutines | controlTest - N/A | 10000 | 1083 | Prototype |
+| Kotlin Coroutines | generalTest - N/A | 10000 | 192 | Prototype |

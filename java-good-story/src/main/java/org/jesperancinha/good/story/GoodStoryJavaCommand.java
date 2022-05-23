@@ -171,7 +171,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                                 throw new RuntimeException(e);
                             }
                         });
-            }, testName,methodName, repeats));
+            }, testName, methodName, repeats));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -203,7 +203,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final long totalDurationMillis = between(startTime, endTime).toMillis();
         try (var objectOutputStream = new FileOutputStream(logFile, true)) {
             objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s |\n",
-                    String.format("%s - %s",testName, name), repeats,
+                    String.format("%s - %s", name, testName), repeats,
                     totalDurationMillis, computer
             ).getBytes(StandardCharsets.UTF_8));
             objectOutputStream.flush();
@@ -267,7 +267,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
      */
     String revertText(String content) {
         final char[] charArray = content.toCharArray();
-        for (int i = 0; i < charArray.length/2; i++) {
+        for (int i = 0; i < charArray.length / 2; i++) {
             char c = charArray[i];
             charArray[i] = charArray[charArray.length - i - 1];
             charArray[charArray.length - i - 1] = c;
