@@ -6,7 +6,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -18,10 +17,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.Thread.startVirtualThread;
@@ -128,6 +125,11 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                                 String.format("%s to %d", entry.getKey(), entry.getValue())).toList().subList(0, 10)),
                 () -> findAllUniqueWordsWithCount(content), algoRepeats);
 
+        performTest(
+                "Reverted Text with space complexity of O(1) and a time complexity of O(n)",
+                "revertText",
+                () -> revertText("Lucy meets Menna and the Fish"),
+                () -> revertText(content), algoRepeats);
 
         performGenericTests();
         return 0;
@@ -140,7 +142,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }, "controlTest", massiveRepeats));
+        }, "N/A", "controlTest", massiveRepeats));
 
         try (FileOutputStream generalTestOos = new FileOutputStream(new File(new File(dumpDir, "java"), "generalTest.csv"), true)) {
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
@@ -149,7 +151,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 } catch (InterruptedException | IOException e) {
                     throw new RuntimeException(e);
                 }
-            }, "generalTest", massiveRepeats));
+            }, "N/A", "generalTest", massiveRepeats));
 
         }
     }
@@ -169,7 +171,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                                 throw new RuntimeException(e);
                             }
                         });
-            }, methodName, repeats));
+            }, testName,methodName, repeats));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -194,14 +196,14 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         return startVirtualThread(threadRunnable);
     }
 
-    private long measureTimeMillis(VoidSupplier functionalInterface, String name, Integer repeats) {
+    private long measureTimeMillis(VoidSupplier functionalInterface, String testName, String name, Integer repeats) {
         final var startTime = LocalDateTime.now();
         functionalInterface.calculate();
         final var endTime = LocalDateTime.now();
         final long totalDurationMillis = between(startTime, endTime).toMillis();
         try (var objectOutputStream = new FileOutputStream(logFile, true)) {
             objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s |\n",
-                    name, repeats,
+                    String.format("%s - %s",testName, name), repeats,
                     totalDurationMillis, computer
             ).getBytes(StandardCharsets.UTF_8));
             objectOutputStream.flush();
@@ -216,25 +218,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         void calculate();
     }
 
-    Map<String, Long> findAllUniqueWordsWithCount(String content) {
-        return makeWordsList(content).sorted().collect(Collectors.groupingBy(identity(), Collectors.counting()));
-    }
-
-    List<String> findAllUniqueWords(String content) {
-        return makeWordsList(content).distinct().collect(Collectors.toList());
-    }
-
-    private Stream<String> makeWordsList(String content) {
-        return Arrays.stream(content.split(" ")).sorted().filter(GoodStoryJavaCommand::filterWords);
-    }
-
-    private static boolean filterWords(String possibleWord) {
-        return possibleWord.matches("[a-zA-Z]+");
-    }
-
-    private String readFullContent() throws IOException {
-        return new String(Files.readAllBytes(textFile.toPath()));
-    }
 
     private void controlTest() throws InterruptedException {
         log.info("----====>>>> Starting controlTest <<<<====----");
@@ -276,6 +259,41 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("It took me {} ms to finish", between(startTime, endTime).toMillis());
     }
 
+    /**
+     * Reverts a string using a space complexity of O(1) and a time complexity of O(n)
+     *
+     * @param content Content
+     * @return Reverted String content
+     */
+    String revertText(String content) {
+        final char[] charArray = content.toCharArray();
+        for (int i = 0; i < charArray.length/2; i++) {
+            char c = charArray[i];
+            charArray[i] = charArray[charArray.length - i - 1];
+            charArray[charArray.length - i - 1] = c;
+        }
+        return new String(charArray);
+    }
+
+    Map<String, Long> findAllUniqueWordsWithCount(String content) {
+        return makeWordsList(content).sorted().collect(Collectors.groupingBy(identity(), Collectors.counting()));
+    }
+
+    List<String> findAllUniqueWords(String content) {
+        return makeWordsList(content).distinct().collect(Collectors.toList());
+    }
+
+    private Stream<String> makeWordsList(String content) {
+        return Arrays.stream(content.split(" ")).sorted().filter(GoodStoryJavaCommand::filterWords);
+    }
+
+    private static boolean filterWords(String possibleWord) {
+        return possibleWord.matches("[a-zA-Z]+");
+    }
+
+    private String readFullContent() throws IOException {
+        return new String(Files.readAllBytes(textFile.toPath()));
+    }
 
     private static final Logger log = LoggerFactory.getLogger(GoodStoryJavaCommand.class);
     private final String DEFAULT_MASSIVE_REPEATS = "10000";

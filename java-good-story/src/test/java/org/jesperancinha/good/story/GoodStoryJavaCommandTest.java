@@ -23,7 +23,12 @@ public class GoodStoryJavaCommandTest {
     @Test
     public void testFindAllUniqueWordsWhenTextThenMakeCount() {
         final List<String> allWords = goodStoryJavaCommand.findAllUniqueWords("aa bb cc aa");
-
         assertThat(allWords).containsExactlyInAnyOrder("aa", "bb", "cc");
+    }
+
+    @Test
+    public void testRevertTextWhenTestThenRevert() {
+        final String revertText = goodStoryJavaCommand.revertText("Lucy went to the see and saw the beast");
+        assertThat(revertText).isEqualTo("tsaeb eht was dna ees eht ot tnew ycuL");
     }
 }
