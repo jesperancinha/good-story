@@ -1,5 +1,17 @@
 # Good Story Log Book
 
+<ins>2022/05/23</ins>
+
+Without the default dispatchers, we can actually get up to 64 dispatchers apparently:
+
+- Java
+
+![alt img](./docs/20220523/JavaVisualVM.png)
+
+- Kotlin
+
+![alt img](./docs/20220523/KotlinVisualVM.png)
+
 <ins>2022/05/22</ins>
 
 #### Knowledge at Risk
