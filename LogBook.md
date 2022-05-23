@@ -2,8 +2,8 @@
 
 <ins>2022/05/23</ins>
 
-Without the default dispatchers, we can actually get up to 64 dispatchers apparently:
-
+Without the default dispatchers, we can actually get up to 64 dispatchers, apparently.
+It seems that the name is actually the only difference in the end. `ForkJoinPool` for `Java` and `DefaultDispatcher` for `Kotlin`.
 - Java
 
 ![alt img](./docs/20220523/JavaVisualVM.png)
@@ -16,7 +16,7 @@ Without the default dispatchers, we can actually get up to 64 dispatchers appare
 
 #### Knowledge at Risk
 
-Knowledge at risk (This a list of identifiable things that Kotlin makes is seamlessly for us. Debatable if it is a good thing or not)
+Knowledge at risk (This a list of identifiable things that `Kotlin` makes is seamlessly for us. Debatable if it is a good thing or not)
 
 1. Order of variable assignment (pre-construct, during construct, `post-construct`, `pre-destroy`)
 2. Autocloseable interfaces (a.k.a try with resources. In kotlin, this paradigm is reduced to `use`)
