@@ -80,6 +80,8 @@ TBD
 
 ## 8.  References
 
+- [Time complexity vs. space complexity](https://www.educative.io/edpresso/time-complexity-vs-space-complexity)
+- [Complexity and Big-O Notation](https://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html)
 - [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
 - [Kotlin Coroutines dispatchers](https://kt.academy/article/cc-dispatchers)
 - [VisualVM](https://visualvm.github.io/)
