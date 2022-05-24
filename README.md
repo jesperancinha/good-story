@@ -80,6 +80,7 @@ TBD
 
 ## 8.  References
 
+- [ALGORITHMS IN KOTLIN, BIG-O-NOTATION, PART 1/7](http://developerlife.com/2018/08/16/algorithms-in-kotlin-1/)
 - [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
 - [Time complexity vs. space complexity](https://www.educative.io/edpresso/time-complexity-vs-space-complexity)
 - [Complexity and Big-O Notation](https://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html)
