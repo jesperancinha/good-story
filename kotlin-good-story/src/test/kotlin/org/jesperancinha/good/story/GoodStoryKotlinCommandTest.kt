@@ -14,4 +14,10 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
         allWords shouldBe mapOf("a" to 1, "b" to 1, "c" to 1)
     }
+
+    "should contentSplitIterateSubtractAndSum" {
+        val sum = goodStoryCommand.contentSplitIterateSubtractAndSum("ab abc abcd abcde")
+
+        sum shouldBe 20
+    }
 })

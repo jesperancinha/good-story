@@ -7,6 +7,7 @@ import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Math.abs
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
@@ -102,6 +103,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
             methodName = GoodStoryKotlinCommand::revertText.name,
             sampleTest = { revertText("When they played Metallica at work") },
             toTest = { revertText(content) },
+            repeats = algoRepeats ?: 0
+        )
+
+        performTests(
+            testName = "Double iteration of an array of words with Space complexity of O(1) and a time complexity of O(n^2)",
+            methodName = GoodStoryKotlinCommand::contentSplitIterateSubtractAndSum.name,
+            sampleTest = { contentSplitIterateSubtractAndSum("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon") },
+            toTest = { contentSplitIterateSubtractAndSum(content) },
             repeats = algoRepeats ?: 0
         )
 
@@ -217,7 +226,29 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
     }
 
-    fun revertText(content: String): String? {
+    /**
+     * Double iteration of an array of words.
+     * Result is the absolute sum of all the differences of sizes between words
+     * This function follows has a quadratic big O time complexity notation of O(n^2) and a space complexity of O(1)
+     */
+    suspend fun contentSplitIterateSubtractAndSum(content: String): Int {
+        val allWords = findAllUniqueWords(content)
+        var sum = 0;
+        for (element in allWords)
+            for (j in allWords.size - 1 downTo 0) {
+                sum += kotlin.math.abs(element.length - allWords[j].length)
+            }
+        return sum;
+    }
+
+
+    /**
+     * Reverts a string using a space complexity of O(1) and a time complexity of O(n)
+     *
+     * @param content Content
+     * @return Reverted String content
+     */
+    fun revertText(content: String): String {
         val charArray = content.toCharArray()
         for (i in 0 until (charArray.size / 2)) {
             val c = charArray[i]
