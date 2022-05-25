@@ -80,6 +80,10 @@ TBD
 
 ## 8.  References
 
+
+#### Online
+
+- [Big O Notation, Part Two: Space Complexity](https://careerkarma.com/blog/big-o-notation-space/)
 - [ALGORITHMS IN KOTLIN, BIG-O-NOTATION, PART 1/7](http://developerlife.com/2018/08/16/algorithms-in-kotlin-1/)
 - [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
 - [Time complexity vs. space complexity](https://www.educative.io/edpresso/time-complexity-vs-space-complexity)
@@ -94,6 +98,10 @@ TBD
 - [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
 - [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
 - [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
+
+#### Books
+
+-   Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
