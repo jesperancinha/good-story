@@ -142,7 +142,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log Control Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("N/A","controlTest", massiveRepeats ?: 0) {
+                measureTimeMillisSave("N/A", "controlTest", massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         controlTest(massiveRepeats ?: 0)
                     }
@@ -152,7 +152,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log General Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("N/A","generalTest", massiveRepeats ?: 0) {
+                measureTimeMillisSave("N/A", "generalTest", massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         generalTest()
                     }
@@ -176,7 +176,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         }
 
-    private inline fun measureTimeMillisSave(testName: String, methodName: String, repeats: Int, function: () -> Unit): Long {
+    private inline fun measureTimeMillisSave(
+        testName: String,
+        methodName: String,
+        repeats: Int,
+        function: () -> Unit
+    ): Long {
         val totalDurationMillis = measureTimeMillis { function() }
         logFile?.let {
             FileOutputStream(logFile, true).use { objectOutputStream ->
@@ -222,7 +227,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         return String(charArray)
     }
 
-    private suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
+    suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
         .sorted()
         .groupingBy { it }
         .eachCount()

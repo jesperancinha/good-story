@@ -49,10 +49,9 @@
             <version>1.6.1</version>
         </dependency>
         <dependency>
-            <groupId>io.kotest</groupId>
-            <artifactId>kotest-assertions-compiler-jvm</artifactId>
-            <version>5.0.0.M3</version>
-            <scope>test</scope>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-coroutines-reactor</artifactId>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>io.kotest</groupId>
@@ -73,6 +72,7 @@
     <build>
         <finalName>${artifactId}</finalName>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
