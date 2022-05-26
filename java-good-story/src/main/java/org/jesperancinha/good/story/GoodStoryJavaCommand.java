@@ -114,14 +114,14 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         performTest(
                 "All Unique Words",
                 "findAllUniqueWords",
-                () -> String.join(".",
+                "n/a", "n/a", () -> String.join(".",
                         allUniqueWords.subList(0, 10)),
                 () -> findAllUniqueWords(content), algoRepeats);
 
         performTest(
                 "All Words with count",
                 "findAllUniqueWordsWithCount",
-                () -> String.join(".",
+                "n/a", "n/a", () -> String.join(".",
                         allUniqueWordsWithCount.entrySet().stream().map((entry) ->
                                 String.format("%s to %d", entry.getKey(), entry.getValue())).toList().subList(0, 10)),
                 () -> findAllUniqueWordsWithCount(content), algoRepeats);
@@ -129,13 +129,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         performTest(
                 "Reverted Text with space complexity of O(1) and a time complexity of O(n)",
                 "revertText",
-                () -> revertText("Lucy meets Menna and the Fish"),
+                "O(n)", "O(1)", () -> revertText("Lucy meets Menna and the Fish"),
                 () -> revertText(content), algoRepeats);
 
         performTest(
                 "Double iteration of an array of words with Space complexity of O(1) and a time complexity of O(n^2)",
                 "contentSplitIterateSubtractAndSum",
-                () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
+                "O(n^2)", "O(1)", () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
                 () -> contentSplitIterateSubtractAndSum(content), algoRepeats);
 
         performGenericTests();
@@ -149,7 +149,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }, "N/A", "controlTest", massiveRepeats));
+        }, "N/A", "controlTest", "n/a", "n/a", massiveRepeats));
 
         try (FileOutputStream generalTestOos = new FileOutputStream(new File(new File(dumpDir, "java"), "generalTest.csv"), true)) {
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
@@ -158,12 +158,12 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 } catch (InterruptedException | IOException e) {
                     throw new RuntimeException(e);
                 }
-            }, "N/A", "generalTest", massiveRepeats));
+            }, "N/A", "generalTest", "n/a", "n/a", massiveRepeats));
 
         }
     }
 
-    private <T> void performTest(String testName, String methodName, Supplier<T> sampleTest, Runnable toTest, int repeats) {
+    private <T> void performTest(String testName, String methodName, String timeComplexity, String spaceComplexity, Supplier<T> sampleTest, Runnable toTest, int repeats) {
         try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
             log.info("===> {}: {}", testName, sampleTest.get());
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
@@ -178,7 +178,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                                 throw new RuntimeException(e);
                             }
                         });
-            }, testName, methodName, repeats));
+            }, testName, methodName, timeComplexity, spaceComplexity, repeats));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -203,7 +203,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         return startVirtualThread(threadRunnable);
     }
 
-    private long measureTimeMillis(VoidSupplier functionalInterface, String testName, String name, Integer repeats) {
+    private long measureTimeMillis(VoidSupplier functionalInterface, String testName, String name, String timeComplexity, String spaceComplexity, Integer repeats) {
         final var startTime = LocalDateTime.now();
         functionalInterface.calculate();
         final var endTime = LocalDateTime.now();
@@ -211,7 +211,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         try (var objectOutputStream = new FileOutputStream(new File(new File(dumpDir, "java"),logFile.getName()), true)) {
             objectOutputStream.write(String.format("| Java Project Loom | %s | %s | %s | %d | %d | %s |\n",
                     String.format("%s - %s", name, testName),
-                    "<N/A>","<N/A>",
+                    timeComplexity, spaceComplexity,
                     repeats, totalDurationMillis, computer
             ).getBytes(StandardCharsets.UTF_8));
             objectOutputStream.flush();
