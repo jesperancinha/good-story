@@ -121,7 +121,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
             methodName = GoodStoryKotlinCommand::repetitionCount.name,
-            sampleTest = { contentSplitIterateSubtractAndSum("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria") },
+            sampleTest = { repetitionCount("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria") },
             toTest = { repetitionCount(content) },
             repeats = algoRepeats ?: 0
         )
@@ -248,10 +248,10 @@ class GoodStoryKotlinCommand : Callable<Int> {
      * The result is a sum of all of these repetitions per word.
      */
     suspend fun repetitionCount(content: String) = content.split(" ")
-        .map { it.replace(",", "").replace(".", "") }
+        .map { it.replace(",", "").replace(".", "").replace("?", "").lowercase() }
         .groupingBy { it }.eachCount()
         .filter { it.value > 1 }
-        .map { it.value }
+        .map { it.value - 1 }
         .sum()
 
     /**

@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -121,7 +122,8 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         performTest(
                 "All Words with count",
                 "findAllUniqueWordsWithCount",
-                "n/a", "n/a", () -> String.join(".",
+                "n/a", "n/a",
+                () -> String.join(".",
                         allUniqueWordsWithCount.entrySet().stream().map((entry) ->
                                 String.format("%s to %d", entry.getKey(), entry.getValue())).toList().subList(0, 10)),
                 () -> findAllUniqueWordsWithCount(content), algoRepeats);
@@ -129,14 +131,23 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         performTest(
                 "Reverted Text",
                 "revertText",
-                "O(n)", "O(1)", () -> revertText("Lucy meets Menna and the Fish"),
+                "O(n)", "O(1)",
+                () -> revertText("Lucy meets Menna and the Fish"),
                 () -> revertText(content), algoRepeats);
 
         performTest(
                 "Double iteration of an array of words",
                 "contentSplitIterateSubtractAndSum",
-                "O(n^2)", "O(1)", () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
+                "O(n^2)", "O(1)",
+                () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
                 () -> contentSplitIterateSubtractAndSum(content), algoRepeats);
+
+        performTest(
+                "Repetition count",
+                "repetitionCount",
+                "O(n^2)", "O(1)",
+                () -> repetitionCount("I know he let the dog bark and he was using slack to support a production crisis, but that doesn't mean he can't perform an interview at the same time right?"),
+                () -> repetitionCount(content), algoRepeats);
 
         performGenericTests();
         return 0;
@@ -208,7 +219,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         functionalInterface.calculate();
         final var endTime = LocalDateTime.now();
         final long totalDurationMillis = between(startTime, endTime).toMillis();
-        try (var objectOutputStream = new FileOutputStream(new File(new File(dumpDir, "java"),logFile.getName()), true)) {
+        try (var objectOutputStream = new FileOutputStream(new File(new File(dumpDir, "java"), logFile.getName()), true)) {
             objectOutputStream.write(String.format("| Java Project Loom | %s | %s | %s | %d | %d | %s |\n",
                     String.format("%s - %s", name, testName),
                     timeComplexity, spaceComplexity,
@@ -280,6 +291,19 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 sum += abs(element.length() - allWords.get(j).length());
             }
         return sum;
+    }
+
+    /**
+     * Counts how many repeated words are in text.
+     * If one word is repeated 3 times, that counts as 2 repetitions.
+     * The result is a sum of all of these repetitions per word.
+     */
+    Long repetitionCount(String content) {
+        return Arrays.stream(content.split(" "))
+                .map(word -> word.replaceAll(",", "").replaceAll("\\.", "").replaceAll("\\?","").toLowerCase())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .values().stream().filter(repetitions -> repetitions > 1)
+                .reduce(0L, (a, b) -> a + b - 1);
     }
 
     /**

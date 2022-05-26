@@ -37,4 +37,10 @@ public class GoodStoryJavaCommandTest {
         final Integer sumResult = goodStoryJavaCommand.contentSplitIterateSubtractAndSum("It's gonna be great, it's gonna be amazing, it's gonna be awesome! You're gonna love it");
         assertThat(sumResult).isEqualTo(22);
     }
+
+    @Test
+    public void testRepetitionCount() {
+        final Long repetitionCount = goodStoryJavaCommand.repetitionCount("I go to the gym all the time, I have a gymnasium and I am also Scrum master. I work 8 hours a day 5 days a week as a Scrum master and I manage the gym as well and that costs me 8 hours a day. I also have tea at 16, go out with friends, go 2 times a a week travelling, usually 5 days off per week. I know I make no sense but I am that cool. Cool");
+        assertThat(repetitionCount).isEqualTo(36);
+    }
 }
