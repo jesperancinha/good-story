@@ -47,7 +47,7 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 | [Project Loom](https://wiki.openjdk.java.net/display/loom/Main)        | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
 
 Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the comparisons. It gets updated per commit.
-You can also check the detailed file for [Java](./dump/kotlin/Log.md) and the detailed file for [Kotlin](./dump/kotlin/Log.md).
+You can also check the detailed file for [Java](./dump/java/Log.md) and the detailed file for [Kotlin](./dump/kotlin/Log.md).
 
 ## 4.  Actions
 
