@@ -116,6 +116,15 @@ class GoodStoryKotlinCommand : Callable<Int> {
             toTest = { contentSplitIterateSubtractAndSum(content) },
             repeats = algoRepeats ?: 0
         )
+        performTests(
+            testName = "Repetition count",
+            timeComplexity = "O(n^2)",
+            spaceComplexity = "O(1)",
+            methodName = GoodStoryKotlinCommand::repetitionCount.name,
+            sampleTest = { contentSplitIterateSubtractAndSum("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria") },
+            toTest = { repetitionCount(content) },
+            repeats = algoRepeats ?: 0
+        )
 
         performGenericTests()
         0
@@ -232,6 +241,18 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info(virtualCounter.get().toString())
         log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
     }
+
+    /**
+     * Counts how many repeated words are in text.
+     * If one word is repeated 3 times, that counts as 2 repetitions.
+     * The result is a sum of all of these repetitions per word.
+     */
+    suspend fun repetitionCount(content: String) = content.split(" ")
+        .map { it.replace(",", "").replace(".", "") }
+        .groupingBy { it }.eachCount()
+        .filter { it.value > 1 }
+        .map { it.value }
+        .sum()
 
     /**
      * Double iteration of an array of words.
