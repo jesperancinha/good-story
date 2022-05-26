@@ -26,15 +26,20 @@ test:
 	./loom-run.sh
 	java -version
 	cd kotlin-good-story && mvn clean install
-build-run:
+create-headers:
 	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > Log.md
 	echo "|---|---|---|---|---|" >> Log.md
+	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > dump/java/Log.md
+	echo "|---|---|---|---|---|" >> dump/java/Log.md
+	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > dump/kotlin/Log.md
+	echo "|---|---|---|---|---|" >> dump/kotlin/Log.md
+build-run:
+	make create-headers
 	$(foreach module,$(MODULES), \
 			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run && \
 			cd ..)
 build-run-local:
-	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > Log.md
-	echo "|---|---|---|---|---|" >> Log.md
+	make create-headers
 	make run-local
 run-local:
 	$(foreach module,$(MODULES), \

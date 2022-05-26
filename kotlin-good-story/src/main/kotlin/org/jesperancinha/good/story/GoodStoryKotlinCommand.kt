@@ -7,7 +7,6 @@ import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.Math.abs
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
@@ -193,7 +192,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
     ): Long {
         val totalDurationMillis = measureTimeMillis { function() }
         logFile?.let {
-            FileOutputStream(logFile, true).use { objectOutputStream ->
+            FileOutputStream(File(File(dumpDir, "kotlin"), logFile.name), true).use { objectOutputStream ->
                 objectOutputStream.write(
                     "| Kotlin Coroutines | $methodName - $testName | $repeats | $totalDurationMillis | $computer |\n"
                         .toByteArray(StandardCharsets.UTF_8)

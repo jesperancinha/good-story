@@ -18,4 +18,3 @@ build-run-local:
 	echo "║ Welcome to the Kotlin Good Story Performance Test (local) ║"
 	echo "╚═══════════════════════════════════════════════════════════╝"
 	bash build-run-local.sh
-

@@ -44,4 +44,6 @@ gradle/**
 .DS_Store
 
 ## Good Story
-dump
+dump/java/*.csv
+dump/kotlin/*.csv
+!Log.md
