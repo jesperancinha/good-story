@@ -35,6 +35,7 @@ It was getting late and Lucy wanted to go through photos she had kept with her o
 
 Flipping through her photos, Lucy came across an old photo of her colleagues where she used to work. This was a big retail store called `Blue Round Grachten Roses Dot Com`, known as `BeRGees` in street language. They sold practically anything online and Lucy worked there as a Technical Support assistance. This was almost 10 years ago.
 Back then Lucy had dreams and believed in a better future. Everything seemed to smile to her, and she had amazing successes. As she was looking deeply in the foto, a woman in the front stood out. Lucy knew who she was.
+Her name was Hara Arre.
 
 \[to be continued...\]
 
@@ -53,6 +54,10 @@ These are temporary notes/tips for further writing towards completion of this sm
 3. Pete the Wolf: TBD
 4. Menna the Fish: TBD
 5. Usa Peta: TBD
+6. Goo Wenn: Lucy's HR supervisor
+7. Hara Arre: Team leader
+8. Mr. Fallout: The shadow of Cap Maiyau.
+9. Cap Maiyau: TBD
 
 ## Inspiring Music
 

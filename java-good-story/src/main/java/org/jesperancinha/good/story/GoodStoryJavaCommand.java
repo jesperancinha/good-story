@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.lang.Math.abs;
 import static java.lang.Thread.startVirtualThread;
 import static java.time.Duration.between;
 import static java.util.function.Function.identity;
@@ -131,6 +132,12 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> revertText("Lucy meets Menna and the Fish"),
                 () -> revertText(content), algoRepeats);
 
+        performTest(
+                "Double iteration of an array of words with Space complexity of O(1) and a time complexity of O(n^2)",
+                "contentSplitIterateSubtractAndSum",
+                () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
+                () -> contentSplitIterateSubtractAndSum(content), algoRepeats);
+
         performGenericTests();
         return 0;
     }
@@ -156,7 +163,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         }
     }
 
-    private void performTest(String testName, String methodName, Supplier<String> sampleTest, Runnable toTest, int repeats) {
+    private <T> void performTest(String testName, String methodName, Supplier<T> sampleTest, Runnable toTest, int repeats) {
         try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
             log.info("===> {}: {}", testName, sampleTest.get());
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
@@ -257,6 +264,21 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("Imma be the main Thread");
         log.info(String.format("%d", aiVirtualThread.get()));
         log.info("It took me {} ms to finish", between(startTime, endTime).toMillis());
+    }
+
+    /**
+     * Double iteration of an array of words.
+     * Result is the absolute sum of all the differences of sizes between words
+     * This function follows has a quadratic big O time complexity notation of O(n^2) and a space complexity of O(1)
+     */
+    Integer contentSplitIterateSubtractAndSum(String content) {
+        var allWords = findAllUniqueWords(content);
+        var sum = 0;
+        for (String element : allWords)
+            for (int j = allWords.size() - 1; j >= 0; j--) {
+                sum += abs(element.length() - allWords.get(j).length());
+            }
+        return sum;
     }
 
     /**

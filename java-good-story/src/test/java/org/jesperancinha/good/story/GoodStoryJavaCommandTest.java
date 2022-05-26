@@ -28,7 +28,13 @@ public class GoodStoryJavaCommandTest {
 
     @Test
     public void testRevertTextWhenTestThenRevert() {
-        final String revertText = goodStoryJavaCommand.revertText("Lucy went to the see and saw the beast");
-        assertThat(revertText).isEqualTo("tsaeb eht was dna ees eht ot tnew ycuL");
+        final String revertText = goodStoryJavaCommand.revertText("Lucy went to the sea and saw the beast");
+        assertThat(revertText).isEqualTo("tsaeb eht was dna aes eht ot tnew ycuL");
+    }
+
+    @Test
+    public void testContentSplitIterateSubtractAndSum() {
+        final Integer sumResult = goodStoryJavaCommand.contentSplitIterateSubtractAndSum("It's gonna be great, it's gonna be amazing, it's gonna be awesome! You're gonna love it");
+        assertThat(sumResult).isEqualTo(22);
     }
 }
