@@ -127,13 +127,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> findAllUniqueWordsWithCount(content), algoRepeats);
 
         performTest(
-                "Reverted Text with space complexity of O(1) and a time complexity of O(n)",
+                "Reverted Text",
                 "revertText",
                 "O(n)", "O(1)", () -> revertText("Lucy meets Menna and the Fish"),
                 () -> revertText(content), algoRepeats);
 
         performTest(
-                "Double iteration of an array of words with Space complexity of O(1) and a time complexity of O(n^2)",
+                "Double iteration of an array of words",
                 "contentSplitIterateSubtractAndSum",
                 "O(n^2)", "O(1)", () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
                 () -> contentSplitIterateSubtractAndSum(content), algoRepeats);

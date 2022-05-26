@@ -98,15 +98,19 @@ class GoodStoryKotlinCommand : Callable<Int> {
         )
 
         performTests(
-            testName = "Reverted Text with space complexity of O(1) and a time complexity of O(n)",
+            testName = "Reverted Text",
             methodName = GoodStoryKotlinCommand::revertText.name,
+            timeComplexity = "O(n)",
+            spaceComplexity = "O(1)",
             sampleTest = { revertText("When they played Metallica at work") },
             toTest = { revertText(content) },
             repeats = algoRepeats ?: 0
         )
 
         performTests(
-            testName = "Double iteration of an array of words with Space complexity of O(1) and a time complexity of O(n^2)",
+            testName = "Double iteration of an array of words",
+            timeComplexity = "O(n^2)",
+            spaceComplexity = "O(1)",
             methodName = GoodStoryKotlinCommand::contentSplitIterateSubtractAndSum.name,
             sampleTest = { contentSplitIterateSubtractAndSum("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon") },
             toTest = { contentSplitIterateSubtractAndSum(content) },
@@ -120,6 +124,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
     private suspend fun <T> performTests(
         testName: String,
         methodName: String,
+        timeComplexity: String = "n/a",
+        spaceComplexity: String = "n/a",
         sampleTest: suspend () -> T,
         toTest: suspend () -> T,
         repeats: Int
@@ -127,7 +133,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> {} : {}", testName, sampleTest())
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave(testName, methodName, repeats) {
+                measureTimeMillisSave(testName, methodName, timeComplexity, spaceComplexity, repeats = repeats) {
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
                             FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
@@ -150,7 +156,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log Control Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("N/A", "controlTest", massiveRepeats ?: 0) {
+                measureTimeMillisSave("N/A", "controlTest", repeats = massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         controlTest(massiveRepeats ?: 0)
                     }
@@ -160,7 +166,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> Log General Test...")
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave("N/A", "generalTest", massiveRepeats ?: 0) {
+                measureTimeMillisSave("N/A", "generalTest", repeats = massiveRepeats ?: 0) {
                     withContext(Dispatchers.Default) {
                         generalTest()
                     }
@@ -187,6 +193,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
     private inline fun measureTimeMillisSave(
         testName: String,
         methodName: String,
+        timeComplexity: String = "n/a",
+        spaceComplexity: String = "n/a",
         repeats: Int,
         function: () -> Unit
     ): Long {
@@ -194,7 +202,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         logFile?.let {
             FileOutputStream(File(File(dumpDir, "kotlin"), logFile.name), true).use { objectOutputStream ->
                 objectOutputStream.write(
-                    "| Kotlin Coroutines | $methodName - $testName | <N/A> | <N/A> | $repeats | $totalDurationMillis | $computer |\n"
+                    "| Kotlin Coroutines | $methodName - $testName | $timeComplexity | $spaceComplexity | $repeats | $totalDurationMillis | $computer |\n"
                         .toByteArray(StandardCharsets.UTF_8)
                 )
                 objectOutputStream.flush()
