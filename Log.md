@@ -1,2 +1,2 @@
-| Module | Method | Repetitions | Measured Duration | Machine |
-|---|---|---|---|---|
+| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |
+|---|---|---|---|---|---|---|

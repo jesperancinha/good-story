@@ -209,9 +209,10 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final var endTime = LocalDateTime.now();
         final long totalDurationMillis = between(startTime, endTime).toMillis();
         try (var objectOutputStream = new FileOutputStream(new File(new File(dumpDir, "java"),logFile.getName()), true)) {
-            objectOutputStream.write(String.format("| Java Project Loom | %s | %d | %d | %s |\n",
-                    String.format("%s - %s", name, testName), repeats,
-                    totalDurationMillis, computer
+            objectOutputStream.write(String.format("| Java Project Loom | %s | %s | %s | %d | %d | %s |\n",
+                    String.format("%s - %s", name, testName),
+                    "<N/A>","<N/A>",
+                    repeats, totalDurationMillis, computer
             ).getBytes(StandardCharsets.UTF_8));
             objectOutputStream.flush();
         } catch (IOException e) {

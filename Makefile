@@ -27,12 +27,12 @@ test:
 	java -version
 	cd kotlin-good-story && mvn clean install
 create-headers:
-	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > Log.md
-	echo "|---|---|---|---|---|" >> Log.md
-	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > dump/java/Log.md
-	echo "|---|---|---|---|---|" >> dump/java/Log.md
-	echo "| Module | Method | Repetitions | Measured Duration | Machine |" > dump/kotlin/Log.md
-	echo "|---|---|---|---|---|" >> dump/kotlin/Log.md
+	echo "| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |" > Log.md
+	echo "|---|---|---|---|---|---|---|" >> Log.md
+	echo "| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |" > dump/java/Log.md
+	echo "|---|---|---|---|---|---|---|" >> dump/java/Log.md
+	echo "| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |" > dump/kotlin/Log.md
+	echo "|---|---|---|---|---|---|---|" >> dump/kotlin/Log.md
 build-run:
 	make create-headers
 	$(foreach module,$(MODULES), \

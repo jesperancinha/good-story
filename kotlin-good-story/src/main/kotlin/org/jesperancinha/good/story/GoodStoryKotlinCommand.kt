@@ -194,7 +194,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         logFile?.let {
             FileOutputStream(File(File(dumpDir, "kotlin"), logFile.name), true).use { objectOutputStream ->
                 objectOutputStream.write(
-                    "| Kotlin Coroutines | $methodName - $testName | $repeats | $totalDurationMillis | $computer |\n"
+                    "| Kotlin Coroutines | $methodName - $testName | <N/A> | <N/A> | $repeats | $totalDurationMillis | $computer |\n"
                         .toByteArray(StandardCharsets.UTF_8)
                 )
                 objectOutputStream.flush()
