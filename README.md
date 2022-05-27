@@ -84,6 +84,7 @@ TBD
 
 #### Online
 
+- https://jarednielsen.com/big-o-factorial-time-complexity/
 - https://www.topcoder.com/blog/big-o-notation-primer
 - https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity
 - https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314
