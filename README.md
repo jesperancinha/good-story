@@ -84,6 +84,7 @@ TBD
 
 #### Online
 
+- https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314
 - [Big O Notation, Part Two: Space Complexity](https://careerkarma.com/blog/big-o-notation-space/)
 - [ALGORITHMS IN KOTLIN, BIG-O-NOTATION, PART 1/7](http://developerlife.com/2018/08/16/algorithms-in-kotlin-1/)
 - [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
