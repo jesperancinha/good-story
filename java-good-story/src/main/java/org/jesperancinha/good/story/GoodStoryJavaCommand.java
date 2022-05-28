@@ -185,6 +185,22 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 .build();
         sbc.write(functionReadings);
         dumpWriter.close();
+
+        try (FileOutputStream oos = new FileOutputStream(logFile)) {
+            oos.write("| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".getBytes(StandardCharsets.UTF_8));
+            oos.write("|---|---|---|---|---|---|---|---|\n".getBytes(StandardCharsets.UTF_8));
+            functionReadings.forEach(fr -> {
+                try {
+                    oos.write(
+                            String.format("| %s | %s | %s | %s | %d | %d | %d | %s |\n",
+                                    LocalDateTime.now(), fr.getMethod(), fr.getTimeComplexity(), fr.getSpaceComplexity(), fr.getRepetition(),
+                                    fr.getJavaDuration(), fr.getKotlinDuration(), fr.getMachine()).getBytes(StandardCharsets.UTF_8));
+                    oos.flush();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
         return 0;
     }
 

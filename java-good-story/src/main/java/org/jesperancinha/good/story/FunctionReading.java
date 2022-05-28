@@ -49,4 +49,28 @@ public class FunctionReading{
     public void setJavaDuration(Long javaDuration) {
         this.javaDuration = javaDuration;
     }
+
+    public String getTimeComplexity() {
+        return timeComplexity;
+    }
+
+    public String getSpaceComplexity() {
+        return spaceComplexity;
+    }
+
+    public Long getJavaDuration() {
+        return javaDuration;
+    }
+
+    public Long getKotlinDuration() {
+        return kotlinDuration;
+    }
+
+    public Long getRepetition() {
+        return repetition;
+    }
+
+    public String getMachine() {
+        return machine;
+    }
 }

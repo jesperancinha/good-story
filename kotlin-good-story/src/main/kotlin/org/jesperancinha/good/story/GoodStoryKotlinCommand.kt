@@ -10,16 +10,14 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
-import java.io.File
-import java.io.FileOutputStream
-import java.io.FileReader
-import java.io.FileWriter
+import java.io.*
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.function.Consumer
 import kotlin.system.measureTimeMillis
 
 
@@ -165,6 +163,39 @@ class GoodStoryKotlinCommand : Callable<Int> {
         withContext(Dispatchers.IO) {
             dumpWriter?.close()
         }
+
+
+         withContext(Dispatchers.IO) {
+            FileOutputStream(logFile).use { oos ->
+                oos.write(
+                    "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
+                        StandardCharsets.UTF_8
+                    )
+                )
+                oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
+                functionReadings.forEach(Consumer { fr: FunctionReading ->
+                    try {
+                        oos.write(
+                            String.format(
+                                "| %s | %s | %s | %s | %d | %d | %d | %s |\n",
+                                LocalDateTime.now(),
+                                fr.method,
+                                fr.timeComplexity,
+                                fr.spaceComplexity,
+                                fr.repetition,
+                                fr.javaDuration,
+                                fr.kotlinDuration,
+                                fr.machine
+                            ).toByteArray(StandardCharsets.UTF_8)
+                        )
+                        oos.flush()
+                    } catch (e: IOException) {
+                        throw RuntimeException(e)
+                    }
+                })
+            }
+        }
+
         0
     }
 
