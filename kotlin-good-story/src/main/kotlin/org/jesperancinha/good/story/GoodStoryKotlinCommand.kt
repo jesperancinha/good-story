@@ -1,5 +1,10 @@
 package org.jesperancinha.good.story
 
+import com.opencsv.CSVWriter
+import com.opencsv.bean.CsvToBean
+import com.opencsv.bean.CsvToBeanBuilder
+import com.opencsv.bean.StatefulBeanToCsv
+import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -7,6 +12,8 @@ import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileReader
+import java.io.FileWriter
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
@@ -63,6 +70,10 @@ class GoodStoryKotlinCommand : Callable<Int> {
     )
     private var computer: String? = null
 
+    private var dumpWriter: FileWriter? = null
+
+    private val functionReadings: MutableList<FunctionReading> = ArrayList()
+
     override fun call(): Int = runBlocking {
         log.info(App().greeting)
 
@@ -76,13 +87,32 @@ class GoodStoryKotlinCommand : Callable<Int> {
             File(root, "kotlin").mkdirs()
         }
 
+        val dumpFile = File(dumpDir, "dump.csv")
+        if (dumpFile.exists()) {
+            val fileReader = withContext(Dispatchers.IO) {
+                FileReader(dumpFile)
+            }
+            val csvReader: CsvToBean<FunctionReading> = CsvToBeanBuilder<FunctionReading>(fileReader)
+                .withType(FunctionReading::class.java)
+                .withSeparator(',')
+                .withIgnoreLeadingWhiteSpace(true)
+                .withIgnoreEmptyLine(true)
+                .build()
+            val functionReadingList: List<FunctionReading> = csvReader.parse()
+            functionReadings.addAll(functionReadingList)
+        }
+
+        dumpWriter = withContext(Dispatchers.IO) {
+            FileWriter(dumpFile)
+        }
+
         val content =
             textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
 
         log.info("===> Text size is {}", content.length)
 
         performTests(
-            testName = "All Words (first 10)",
+            testName = "All Unique Words",
             methodName = GoodStoryKotlinCommand::findAllUniqueWords.name,
             sampleTest = { findAllUniqueWords(content).subList(0, 10) },
             toTest = { findAllUniqueWords(content) },
@@ -90,7 +120,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         )
 
         performTests(
-            testName = "All Words with count (first 10)",
+            testName = "All Words with count",
             methodName = GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name,
             sampleTest = { findAllUniqueWordsWithCount(content).keys.take(10) },
             toTest = { findAllUniqueWordsWithCount(content) },
@@ -125,8 +155,16 @@ class GoodStoryKotlinCommand : Callable<Int> {
             toTest = { repetitionCount(content) },
             repeats = algoRepeats ?: 0
         )
-
         performGenericTests()
+
+
+        val sbc: StatefulBeanToCsv<FunctionReading> = StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
+            .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+            .build()
+        sbc.write(functionReadings)
+        withContext(Dispatchers.IO) {
+            dumpWriter?.close()
+        }
         0
     }
 
@@ -214,6 +252,25 @@ class GoodStoryKotlinCommand : Callable<Int> {
                     "| Kotlin Coroutines | $methodName - $testName | $timeComplexity | $spaceComplexity | $repeats | $totalDurationMillis | $computer |\n"
                         .toByteArray(StandardCharsets.UTF_8)
                 )
+
+                val functionReading = FunctionReading(
+                    "$methodName - $testName",
+                    timeComplexity,
+                    spaceComplexity,
+                    repeats.toLong(),
+                    -1L,
+                    totalDurationMillis,
+                    computer
+                )
+                val destination = functionReadings.stream()
+                    .filter { fr: FunctionReading -> fr.method == functionReading.method }
+                    .findFirst().orElse(null)
+
+                if (destination == null) {
+                    functionReadings.add(functionReading)
+                } else {
+                    destination.kotlinDuration = totalDurationMillis
+                }
                 objectOutputStream.flush()
             }
         }
