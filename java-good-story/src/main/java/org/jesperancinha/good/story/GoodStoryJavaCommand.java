@@ -1,5 +1,9 @@
 package org.jesperancinha.good.story;
 
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -7,10 +11,13 @@ import picocli.CommandLine.Option;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -95,8 +102,14 @@ class GoodStoryJavaCommand implements Callable<Integer> {
     )
     private String computer = "";
 
+    private FileWriter dumpWriter;
+
+    private List<FunctionReading> functionReadings = new ArrayList<>();
+
     @Override
     public Integer call() throws Exception {
+
+
         log.info("Welcome to the Java Project Loom Test!");
         log.info(String.format("File to read is %s", textFile));
 
@@ -109,6 +122,22 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             new File(dumpDir, "java").mkdirs();
             new File(dumpDir, "kotlin").mkdirs();
         }
+
+        final File dumpFile = new File(dumpDir, "dump.csv");
+        if (dumpFile.exists()) {
+            var fileReader = new FileReader(dumpFile);
+            var csvReader = new CsvToBeanBuilder<FunctionReading>(fileReader)
+                    .withType(FunctionReading.class)
+                    .withSeparator(',')
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .withIgnoreEmptyLine(true)
+                    .build();
+            final List<FunctionReading> functionReadingList = csvReader.parse();
+            functionReadings.addAll(functionReadingList);
+        }
+
+        dumpWriter = new FileWriter(dumpFile);
+
 
         log.info("===> Text size is {}", content.length());
 
@@ -150,6 +179,12 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> repetitionCount(content), algoRepeats);
 
         performGenericTests();
+
+        var sbc = new StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
+                .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+                .build();
+        sbc.write(functionReadings);
+        dumpWriter.close();
         return 0;
     }
 
@@ -225,6 +260,16 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                     timeComplexity, spaceComplexity,
                     repeats, totalDurationMillis, computer
             ).getBytes(StandardCharsets.UTF_8));
+
+            final FunctionReading functionReading = new FunctionReading(String.format("%s - %s", name, testName), timeComplexity, spaceComplexity, repeats.longValue(), totalDurationMillis, -1L, computer);
+            final FunctionReading destination = functionReadings.stream().filter(fr -> fr.getMethod().equals(functionReading.getMethod())).findFirst().orElse(null);
+
+            if (destination == null) {
+                functionReadings.add(functionReading);
+            } else {
+                destination.setJavaDuration(totalDurationMillis);
+            }
+
             objectOutputStream.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -300,7 +345,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
      */
     Long repetitionCount(String content) {
         return Arrays.stream(content.split(" "))
-                .map(word -> word.replaceAll(",", "").replaceAll("\\.", "").replaceAll("\\?","").toLowerCase())
+                .map(word -> word.replaceAll(",", "").replaceAll("\\.", "").replaceAll("\\?", "").toLowerCase())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .values().stream().filter(repetitions -> repetitions > 1)
                 .reduce(0L, (a, b) -> a + b - 1);

@@ -47,3 +47,4 @@ gradle/**
 dump/java/*.csv
 dump/kotlin/*.csv
 !Log.md
+!dump.csv
