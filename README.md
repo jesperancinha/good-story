@@ -84,10 +84,11 @@ TBD
 
 #### Online
 
+- [How to insert Strings into an AVL Tree](https://www.geeksforgeeks.org/how-to-insert-strings-into-an-avl-tree/)
 - https://jarednielsen.com/big-o-factorial-time-complexity/
 - https://www.topcoder.com/blog/big-o-notation-primer
-- https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity
-- https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314
+- [What would cause an algorithm to have O(log log n) complexity?](https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity)
+- [What does O(log n) mean exactly?](https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314)
 - [Big O Notation, Part Two: Space Complexity](https://careerkarma.com/blog/big-o-notation-space/)
 - [ALGORITHMS IN KOTLIN, BIG-O-NOTATION, PART 1/7](http://developerlife.com/2018/08/16/algorithms-in-kotlin-1/)
 - [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
