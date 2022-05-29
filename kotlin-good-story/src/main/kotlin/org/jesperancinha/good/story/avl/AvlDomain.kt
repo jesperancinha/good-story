@@ -114,7 +114,7 @@ class AvlNodeManager {
     }
 
     fun sortedTraversal() {
-        logger.info(">>>>>>> In order traversal")
+        logger.info(">>>>>>> Sorted traversal")
         sortedTraversal(parentNode)
     }
 
@@ -127,7 +127,7 @@ class AvlNodeManager {
     }
 
     fun unsortedTopDownTraversal() {
-        logger.info(">>>>>>> Pre order traversal")
+        logger.info(">>>>>>> Top Down traversal")
         unsortedTopDownTraversal(parentNode)
     }
 
@@ -140,7 +140,7 @@ class AvlNodeManager {
     }
 
     fun unsortedBottomUpTraversal() {
-        logger.info(">>>>>>> Post order traversal")
+        logger.info(">>>>>>> Bottom Up traversal")
         unsortedBottomUpTraversal(parentNode)
     }
 

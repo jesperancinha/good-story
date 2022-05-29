@@ -18,6 +18,7 @@ import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
+import java.util.function.Supplier
 import kotlin.system.measureTimeMillis
 
 
@@ -111,7 +112,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         val algorithmManager = AlgorithmManager()
 
-        performTests(
+        performTest(
             testName = "All Unique Words",
             methodName = AlgorithmManager::findAllUniqueWords.name,
             sampleTest = { algorithmManager.findAllUniqueWords(content).subList(0, 10) },
@@ -119,15 +120,15 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
-        performTests(
+        performTest(
             testName = "All Words with count",
             methodName = AlgorithmManager::findAllUniqueWordsWithCount.name,
-            sampleTest = {algorithmManager.findAllUniqueWordsWithCount(content).keys.take(10) },
+            sampleTest = { algorithmManager.findAllUniqueWordsWithCount(content).keys.take(10) },
             toTest = { algorithmManager.findAllUniqueWordsWithCount(content) },
             repeats = algoRepeats ?: 0
         )
 
-        performTests(
+        performTest(
             testName = "Reverted Text",
             methodName = AlgorithmManager::revertText.name,
             timeComplexity = "O(n)",
@@ -137,7 +138,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
-        performTests(
+        performTest(
             testName = "Double iteration of an array of words",
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
@@ -147,7 +148,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
-        performTests(
+        performTest(
             testName = "Repetition count",
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
@@ -157,7 +158,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
-        performTests(
+        performTest(
             testName = "Create AVL Tree",
             timeComplexity = "O(log n)",
             spaceComplexity = "O(n)",
@@ -166,6 +167,17 @@ class GoodStoryKotlinCommand : Callable<Int> {
             toTest = { algorithmManager.createAvlTree(content) },
             repeats = algoRepeats ?: 0
         )
+
+        performTest(
+            testName = "Secret word in Sieve of Eratosthenes",
+            methodName = "findPrimeSecret",
+            timeComplexity = "O(log(log n))",
+            spaceComplexity = "O(n)",
+            sampleTest = { algorithmManager.findPrimeSecret("We should always test the functionality product needs but they said otherwise.") },
+            toTest = { algorithmManager.findPrimeSecret(content) },
+            repeats = algoRepeats ?: 0
+        )
+
 
         performGenericTests()
 
@@ -178,7 +190,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         }
 
 
-         withContext(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             FileOutputStream(logFile).use { oos ->
                 oos.write(
                     "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
@@ -212,7 +224,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         0
     }
 
-    private suspend fun <T> performTests(
+    private suspend fun <T> performTest(
         testName: String,
         methodName: String,
         timeComplexity: String = "n/a",

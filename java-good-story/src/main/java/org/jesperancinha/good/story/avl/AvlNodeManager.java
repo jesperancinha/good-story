@@ -124,7 +124,7 @@ public class AvlNodeManager {
     }
 
     public void sortedTraversal() {
-        logger.info(">>>>>>> In order traversal");
+        logger.info(">>>>>>> Sorted traversal");
         sortedTraversal(parentNode);
     }
 
@@ -137,7 +137,7 @@ public class AvlNodeManager {
     }
 
     public void unsortedTopDownTraversal() {
-        logger.info(">>>>>>> Pre order traversal");
+        logger.info(">>>>>>> Top Down traversal");
         unsortedTopDownTraversal(parentNode);
     }
 
@@ -150,7 +150,7 @@ public class AvlNodeManager {
     }
 
     public void unsortedBottomUpTraversal() {
-        logger.info(">>>>>>> Post order traversal");
+        logger.info(">>>>>>> Bottom Up traversal");
         unsortedBottomUpTraversal(parentNode);
     }
 

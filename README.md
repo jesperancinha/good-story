@@ -88,6 +88,7 @@ TBD
 
 #### Online
 
+- [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [Binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
 - [The height of an AVL tree containing n nodes](http://www.mathcs.emory.edu/~cheung/Courses/253/Syllabus/Trees/AVL-height.html)
 - [AVL Tree](https://www.programiz.com/dsa/avl-tree)

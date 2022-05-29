@@ -79,4 +79,15 @@ public class GoodStoryJavaCommandTest {
         assertThat(nodeManager.searchWord("ginginha")).isFalse();
         assertThat(nodeManager.getNodeCount()).isEqualTo(6);
     }
+
+    @Test
+    public void testFindPrimeSecret1(){
+        final var primeSecret = algorithmInterface.findPrimeSecret("It doesn't make senses. It's Charles.");
+        assertThat(primeSecret).isEqualTo("I denmkes Ca");
+    }
+    @Test
+    public void testFindPrimeSecret2(){
+        final var primeSecret = algorithmInterface.findPrimeSecret("The flowers of the world and winter.");
+        assertThat(primeSecret).isEqualTo("Te lw fewdwn");
+    }
 }

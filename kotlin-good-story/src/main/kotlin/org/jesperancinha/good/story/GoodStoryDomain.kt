@@ -2,7 +2,8 @@ package org.jesperancinha.good.story
 
 import com.opencsv.bean.CsvBindByName
 import org.jesperancinha.good.story.avl.AvlNodeManager
-import java.util.stream.Stream
+import java.util.*
+import java.util.stream.Collectors
 
 /**
  * Created by jofisaes on 28/05/2022
@@ -32,6 +33,7 @@ interface AlgorithmInterface {
     suspend fun findAllUniqueWords(content: String): List<String>
     suspend fun makeWordsList(content: String): List<String>
     suspend fun createAvlTree(content: String): AvlNodeManager
+    suspend fun findPrimeSecret(content: String): String
 }
 
 class AlgorithmManager : AlgorithmInterface {
@@ -106,6 +108,46 @@ class AlgorithmManager : AlgorithmInterface {
         val avlNodeManager = AvlNodeManager()
         allWords.forEach { word: String -> avlNodeManager.insertWord(word) }
         return avlNodeManager
+    }
+
+
+    /**
+     * Sieve of Eratosthenes applied to secret words find
+     * Time complexity is O(n log(log n)) and Space complexity is O(n)
+     * @param content
+     * @return Secret word based as a concatenation of all characters from the prime indexes.
+     */
+    override suspend fun findPrimeSecret(content: String): String {
+        val contentLength = content.length
+        return if (contentLength < 2) {
+            ""
+        } else {
+            val nonPrimes = BooleanArray(contentLength)
+            nonPrimes[1] = true
+            var nonPrimesCount = 1
+            for (number in 2 until contentLength) {
+                if (nonPrimes[number]) {
+                    continue
+                }
+                var multiple = number * 2
+                while (multiple < contentLength) {
+                    if (!nonPrimes[multiple]) {
+                        nonPrimes[multiple] = true
+                        nonPrimesCount++
+                    }
+                    multiple += number
+                }
+            }
+            val primesCount = contentLength - nonPrimesCount
+            val primeNumbers = IntArray(primesCount)
+            var currentPrime = 0
+            for (number in nonPrimes.indices) {
+                if (!nonPrimes[number]) {
+                    primeNumbers[currentPrime++] = number
+                }
+            }
+            primeNumbers.map { i -> content[i] }.joinToString("")
+        }
     }
 
     private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))

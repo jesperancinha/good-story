@@ -164,6 +164,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> algorithmManager.createAvlTree("Let me get back you. Let's chat in 15 minutes"),
                 () -> algorithmManager.createAvlTree(content), algoRepeats);
 
+        performTest(
+                "Secret word in Sieve of Eratosthenes",
+                "findPrimeSecret",
+                "O(log(log n))", "O(n)",
+                () -> algorithmManager.findPrimeSecret("A trainer should say motivating and encouraging words such as \"I believe that you can do it\", I believe my Lord. That's not exactly what he said is it?"),
+                () -> algorithmManager.findPrimeSecret(content), algoRepeats);
+
         performGenericTests();
 
         tearDownAlgorithmManager();

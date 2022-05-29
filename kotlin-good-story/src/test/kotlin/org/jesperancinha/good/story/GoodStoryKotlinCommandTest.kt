@@ -6,8 +6,6 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.DelicateCoroutinesApi
-import org.jesperancinha.good.story.avl.AvlNode
-import org.jesperancinha.good.story.avl.AvlNodeManager
 import org.junit.jupiter.api.Test
 
 @DelicateCoroutinesApi
@@ -73,7 +71,8 @@ class GoodStoryKotlinCommandTest : StringSpec({
     }
 
     "should create AVL tree test 2" {
-        val nodeManager = algorithmManager.createAvlTree("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was.")
+        val nodeManager =
+            algorithmManager.createAvlTree("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was.")
         val parentNode = nodeManager.parentNode
         parentNode.apply {
             shouldNotBeNull()
@@ -98,5 +97,16 @@ class GoodStoryKotlinCommandTest : StringSpec({
             searchWord("shamelessness").shouldBeTrue()
             nodeCount shouldBe 27
         }
+    }
+
+    "should find secret word 1" {
+        val primeSecret: String = algorithmManager.findPrimeSecret("It doesn't make senses. It's Charles.")
+        primeSecret shouldBe "I denmkes Ca"
+    }
+
+    "should find secret word 2" {
+        val primeSecret: String =
+            algorithmManager.findPrimeSecret("The flowers of the world and winter.")
+        primeSecret shouldBe "Te lw fewdwn"
     }
 })

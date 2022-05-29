@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
+import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 
 /**
@@ -40,7 +41,7 @@ public class AlgorithmManager implements AlgorithmInterface {
 
     @Override
     public Long repetitionCount(String content) {
-        return Arrays.stream(content.split(" "))
+        return stream(content.split(" "))
                 .map(word -> word.replaceAll(",", "").replaceAll("\\.", "").replaceAll("\\?", "").toLowerCase())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .values().stream().filter(repetitions -> repetitions > 1)
@@ -76,7 +77,7 @@ public class AlgorithmManager implements AlgorithmInterface {
 
     @Override
     public Stream<String> makeWordsList(String content) {
-        return Arrays.stream(content.split(" ")).sorted().filter(AlgorithmManager::filterWords);
+        return stream(content.split(" ")).sorted().filter(AlgorithmManager::filterWords);
     }
 
     /**
@@ -94,6 +95,47 @@ public class AlgorithmManager implements AlgorithmInterface {
         var avlNodeManager = new AvlNodeManager();
         allWords.forEach(avlNodeManager::insertWord);
         return avlNodeManager;
+    }
+
+
+    /**
+     * Sieve of Eratosthenes applied to secret words find
+     * Time complexity is O(n log(log n)) and Space complexity is O(n)
+     * @param content
+     * @return Secret word based as a concatenation of all characters from the prime indexes.
+     */
+    @Override
+    public String findPrimeSecret(String content) {
+        int contentLength = content.length();
+        if (contentLength < 2) {
+           return "";
+        } else {
+            boolean[] nonPrimes = new boolean[contentLength];
+            nonPrimes[1] = true;
+            int nonPrimesCount = 1;
+            for (int number = 2; number < contentLength; number++) {
+                if (nonPrimes[number]) {
+                    continue;
+                }
+                int multiple = number * 2;
+                while (multiple < contentLength) {
+                    if (!nonPrimes[multiple]) {
+                        nonPrimes[multiple] = true;
+                        nonPrimesCount++;
+                    }
+                    multiple += number;
+                }
+            }
+            final int primesCount = contentLength - nonPrimesCount;
+            int[] primeNumbers = new int[primesCount];
+            int currentPrime = 0;
+            for (int number = 0; number < nonPrimes.length; number++) {
+                if (!nonPrimes[number]) {
+                    primeNumbers[currentPrime++] = number;
+                }
+            }
+            return stream(primeNumbers).mapToObj(i -> "" + content.charAt(i)).collect(Collectors.joining(""));
+        }
     }
 
     private static boolean filterWords(String possibleWord) {
