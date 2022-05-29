@@ -95,6 +95,12 @@ class AlgorithmManager : AlgorithmInterface {
                 it.filterWords()
             }
 
+    /**
+     * Avl tree algorithm implementation.
+     * This algorithm follows a:
+     * O(n) complexity in terms of space. The more words there are, the more nodes there will be. Most nodes will carry parent, left and right node information. As the algorithm progresses, space will be used linearly and accordingly. This is the same for worst and average case scenarios.
+     * O(log n) complexity in terms of time for search, insert and delete operations. This is the reason this algorithm was invented in the first place. Traversing through the balanced tree, should give us the result we need in an algorithmic fashion. Worst case scenario is O(n) but on average, it is O(log n)
+     */
     override suspend fun createAvlTree(content: String): AvlNodeManager {
         val allWords: List<String> = makeWordsList(content)
         val avlNodeManager = AvlNodeManager()
