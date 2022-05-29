@@ -93,7 +93,6 @@ public class AlgorithmManager implements AlgorithmInterface {
         var allWords = makeWordsList(content);
         var avlNodeManager = new AvlNodeManager();
         allWords.forEach(avlNodeManager::insertWord);
-
         return avlNodeManager;
     }
 

@@ -109,29 +109,31 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         log.info("===> Text size is {}", content.length)
 
+        val algorithmManager = AlgorithmManager()
+
         performTests(
             testName = "All Unique Words",
-            methodName = GoodStoryKotlinCommand::findAllUniqueWords.name,
-            sampleTest = { findAllUniqueWords(content).subList(0, 10) },
-            toTest = { findAllUniqueWords(content) },
+            methodName = AlgorithmManager::findAllUniqueWords.name,
+            sampleTest = { algorithmManager.findAllUniqueWords(content).subList(0, 10) },
+            toTest = { algorithmManager.findAllUniqueWords(content) },
             repeats = algoRepeats ?: 0
         )
 
         performTests(
             testName = "All Words with count",
-            methodName = GoodStoryKotlinCommand::findAllUniqueWordsWithCount.name,
-            sampleTest = { findAllUniqueWordsWithCount(content).keys.take(10) },
-            toTest = { findAllUniqueWordsWithCount(content) },
+            methodName = AlgorithmManager::findAllUniqueWordsWithCount.name,
+            sampleTest = {algorithmManager.findAllUniqueWordsWithCount(content).keys.take(10) },
+            toTest = { algorithmManager.findAllUniqueWordsWithCount(content) },
             repeats = algoRepeats ?: 0
         )
 
         performTests(
             testName = "Reverted Text",
-            methodName = GoodStoryKotlinCommand::revertText.name,
+            methodName = AlgorithmManager::revertText.name,
             timeComplexity = "O(n)",
             spaceComplexity = "O(1)",
-            sampleTest = { revertText("When they played Metallica at work") },
-            toTest = { revertText(content) },
+            sampleTest = { algorithmManager.revertText("When they played Metallica at work") },
+            toTest = { algorithmManager.revertText(content) },
             repeats = algoRepeats ?: 0
         )
 
@@ -139,22 +141,33 @@ class GoodStoryKotlinCommand : Callable<Int> {
             testName = "Double iteration of an array of words",
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
-            methodName = GoodStoryKotlinCommand::contentSplitIterateSubtractAndSum.name,
-            sampleTest = { contentSplitIterateSubtractAndSum("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon") },
-            toTest = { contentSplitIterateSubtractAndSum(content) },
+            methodName = AlgorithmManager::contentSplitIterateSubtractAndSum.name,
+            sampleTest = { algorithmManager.contentSplitIterateSubtractAndSum("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon") },
+            toTest = { algorithmManager.contentSplitIterateSubtractAndSum(content) },
             repeats = algoRepeats ?: 0
         )
+
         performTests(
             testName = "Repetition count",
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
-            methodName = GoodStoryKotlinCommand::repetitionCount.name,
-            sampleTest = { repetitionCount("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria") },
-            toTest = { repetitionCount(content) },
+            methodName = AlgorithmManager::repetitionCount.name,
+            sampleTest = { algorithmManager.repetitionCount("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria.") },
+            toTest = { algorithmManager.repetitionCount(content) },
             repeats = algoRepeats ?: 0
         )
-        performGenericTests()
 
+        performTests(
+            testName = "Create AVL Tree",
+            timeComplexity = "O(log n)",
+            spaceComplexity = "O(n)",
+            methodName = AlgorithmManager::createAvlTree.name,
+            sampleTest = { algorithmManager.createAvlTree("I sat with Mr.Ek and he said something about the toilet paper, but I don't know exactly what it was. Strange.") },
+            toTest = { algorithmManager.createAvlTree(content) },
+            repeats = algoRepeats ?: 0
+        )
+
+        performGenericTests()
 
         val sbc: StatefulBeanToCsv<FunctionReading> = StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
             .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
@@ -329,68 +342,6 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info(virtualCounter.get().toString())
         log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
     }
-
-    /**
-     * Counts how many repeated words are in text.
-     * If one word is repeated 3 times, that counts as 2 repetitions.
-     * The result is a sum of all of these repetitions per word.
-     */
-    suspend fun repetitionCount(content: String) = content.split(" ")
-        .map { it.replace(",", "").replace(".", "").replace("?", "").lowercase() }
-        .groupingBy { it }.eachCount()
-        .filter { it.value > 1 }
-        .map { it.value - 1 }
-        .sum()
-
-    /**
-     * Double iteration of an array of words.
-     * Result is the absolute sum of all the differences of sizes between words
-     * This function follows has a quadratic big O time complexity notation of O(n^2) and a space complexity of O(1)
-     */
-    suspend fun contentSplitIterateSubtractAndSum(content: String): Int {
-        val allWords = findAllUniqueWords(content)
-        var sum = 0;
-        for (element in allWords)
-            for (j in allWords.size - 1 downTo 0) {
-                sum += kotlin.math.abs(element.length - allWords[j].length)
-            }
-        return sum;
-    }
-
-
-    /**
-     * Reverts a string using a space complexity of O(1) and a time complexity of O(n)
-     *
-     * @param content Content
-     * @return Reverted String content
-     */
-    fun revertText(content: String): String {
-        val charArray = content.toCharArray()
-        for (i in 0 until (charArray.size / 2)) {
-            val c = charArray[i]
-            charArray[i] = charArray[charArray.size - i - 1]
-            charArray[charArray.size - i - 1] = c
-        }
-        return String(charArray)
-    }
-
-    suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int> = makeWordsList(content)
-        .sorted()
-        .groupingBy { it }
-        .eachCount()
-
-    private suspend fun findAllUniqueWords(content: String): List<String> =
-        makeWordsList(content)
-            .distinct()
-
-    private suspend fun makeWordsList(content: String): List<String> =
-        content.split(" ")
-            .sorted()
-            .filter {
-                it.filterWords()
-            }
-
-    private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
 
     private suspend fun readFullContent(textFile: File): String = String(withContext(Dispatchers.IO) {
         Files.readAllBytes(textFile.toPath())

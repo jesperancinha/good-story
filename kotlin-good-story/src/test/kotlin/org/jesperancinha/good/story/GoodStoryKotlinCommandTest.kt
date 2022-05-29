@@ -1,41 +1,102 @@
 package org.jesperancinha.good.story
 
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.DelicateCoroutinesApi
+import org.jesperancinha.good.story.avl.AvlNode
+import org.jesperancinha.good.story.avl.AvlNodeManager
+import org.junit.jupiter.api.Test
 
 @DelicateCoroutinesApi
 class GoodStoryKotlinCommandTest : StringSpec({
 
-    val goodStoryCommand by lazy { GoodStoryKotlinCommand() }
+    val algorithmManager by lazy { AlgorithmManager() }
 
     "should find words with count" {
-        val allWords = goodStoryCommand.findAllUniqueWordsWithCount("a b c")
+        val allWords = algorithmManager.findAllUniqueWordsWithCount("a b c")
 
         allWords shouldBe mapOf("a" to 1, "b" to 1, "c" to 1)
     }
 
     "should contentSplitIterateSubtractAndSum" {
-        val sum = goodStoryCommand.contentSplitIterateSubtractAndSum("ab abc abcd abcde")
+        val sum = algorithmManager.contentSplitIterateSubtractAndSum("ab abc abcd abcde")
 
         sum shouldBe 20
     }
 
     "should repetitionCount" {
         val repetitions =
-            goodStoryCommand.repetitionCount("I go to the gym all the time, I have a gymnasium and I am also Scrum master. I work 8 hours a day 5 days a week as a Scrum master and I manage the gym as well and that costs me 8 hours a day. I also have tea at 16, go out with friends, go 2 times a a week travelling, usually 5 days off per week. I know I make no sense but I am that cool. Cool")
+            algorithmManager.repetitionCount("I go to the gym all the time, I have a gymnasium and I am also Scrum master. I work 8 hours a day 5 days a week as a Scrum master and I manage the gym as well and that costs me 8 hours a day. I also have tea at 16, go out with friends, go 2 times a a week travelling, usually 5 days off per week. I know I make no sense but I am that cool. Cool")
         repetitions shouldBe 36
     }
 
     "should repetitionCount 2" {
         val repetitions =
-            goodStoryCommand.repetitionCount("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria")
+            algorithmManager.repetitionCount("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria")
         repetitions shouldBe 0
     }
 
     "should repetitionCount 3" {
         val repetitions =
-            goodStoryCommand.repetitionCount("The quick brown fox jumps over the lazy dog")
+            algorithmManager.repetitionCount("The quick brown fox jumps over the lazy dog")
         repetitions shouldBe 1
+    }
+
+    "should create AVL tree test 1" {
+        val nodeManager = algorithmManager.createAvlTree("c a b a b c")
+        val parentNode = nodeManager.parentNode
+        parentNode.apply {
+            shouldNotBeNull()
+            word shouldBe "b"
+            leftNode.apply {
+                shouldNotBeNull()
+                word shouldBe "a"
+            }
+            rightNode.apply {
+                shouldNotBeNull()
+                word shouldBe "c"
+            }
+        }
+        nodeManager.apply {
+            sortedTraversal()
+            unsortedTopDownTraversal()
+            unsortedBottomUpTraversal()
+
+            searchWord("a").shouldBeTrue()
+            searchWord("d").shouldBeFalse()
+            searchWord("c").shouldBeTrue()
+            nodeCount shouldBe 3
+        }
+    }
+
+    "should create AVL tree test 2" {
+        val nodeManager = algorithmManager.createAvlTree("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was.")
+        val parentNode = nodeManager.parentNode
+        parentNode.apply {
+            shouldNotBeNull()
+            word shouldBe "regretful"
+            leftNode.apply {
+                shouldNotBeNull()
+                word shouldBe "guilt"
+            }
+            rightNode.apply {
+                shouldNotBeNull()
+                word shouldBe "stairs"
+            }
+        }
+        nodeManager.apply {
+            sortedTraversal()
+            unsortedTopDownTraversal()
+            unsortedBottomUpTraversal()
+
+            searchWord("a").shouldBeTrue()
+            searchWord("d").shouldBeFalse()
+            searchWord("c").shouldBeFalse()
+            searchWord("shamelessness").shouldBeTrue()
+            nodeCount shouldBe 27
+        }
     }
 })

@@ -1,5 +1,20 @@
 # Good Story Log Book
 
+<ins>2022/05/29</ins>
+
+One more knowledge at risk found. The simple `compareTo` ceases to be necessary to use. A simple `>` or `<` suffices. Sounds like trying to mix vinegar with oil.
+
+1. `compareTo` explicitly denounces something that is not necessarily a number. In almost all cases it was not a number.
+2. Using `>` and `<` instead removes clarity between using numeric and alphanumeric values. It may become easier(ish) to program, but it may cause confusion during (human) interpretation in the long run.
+
+Another curious case:
+
+```kotlin
+val algorithmManager by lazy { AlgorithmManager() }
+```
+
+The `AlgorithmManager` is an implementation of interface `AlgorithmInterface`. But without specifying the type, Kotlin obliterates the idea of using an interface altogether. I keep it though as a guide to what and where need to implement things.
+
 <ins>2022/05/23</ins>
 
 Without the default dispatchers, we can actually get up to 64 dispatchers, apparently.
