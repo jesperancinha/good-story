@@ -27,6 +27,10 @@ If you understand these terms, then I think you'll find this project interesting
 
 The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](https://jesperancinha.github.io/good-story/good.story/GoodStory.html) file. We will apply algorithms to it, make objects, and explore the limits of our own machines.
 
+Further, you may find that I'm using `for`, `while` and a `do..while` in both `Java` and `Kotlin` implementations. This is purposely done in some cases. I may find that in some cases there is no point in using the already implemented algorithm for some situations. Especially if they can be implemented in exactly the same way in `Java` or `Kotlin` without the use of a DSL.
+
+`Lombok` usage will be avoided as much as possible and so please do not be surprised if you get to see any manual implementation of the builder pattern.
+
 ## 2.  Environment
 
 [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main) is itself a JDK and in order to use it, you need first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
@@ -84,9 +88,16 @@ TBD
 
 #### Online
 
+- [Binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
+- [The height of an AVL tree containing n nodes](http://www.mathcs.emory.edu/~cheung/Courses/253/Syllabus/Trees/AVL-height.html)
+- [AVL Tree](https://www.programiz.com/dsa/avl-tree)
+- [Data Structure and Algorithms - AVL Trees](https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm)
+- [AVL Tree Insertion, Rotation, and Balance Factor Explained](https://www.freecodecamp.org/news/avl-tree-insertion-rotation-and-balance-factor/)
+- [What is an AVL tree?](https://www.educative.io/edpresso/what-is-an-avl-tree)
+- [AVL Tree program in Java](https://www.javatpoint.com/avl-tree-program-in-java)
 - [How to insert Strings into an AVL Tree](https://www.geeksforgeeks.org/how-to-insert-strings-into-an-avl-tree/)
-- https://jarednielsen.com/big-o-factorial-time-complexity/
-- https://www.topcoder.com/blog/big-o-notation-primer
+- [Big O Factorial Time Complexity](https://jarednielsen.com/big-o-factorial-time-complexity/)
+- [BIG O NOTATION PRIMER](https://www.topcoder.com/blog/big-o-notation-primer)
 - [What would cause an algorithm to have O(log log n) complexity?](https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity)
 - [What does O(log n) mean exactly?](https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314)
 - [Big O Notation, Part Two: Space Complexity](https://careerkarma.com/blog/big-o-notation-space/)

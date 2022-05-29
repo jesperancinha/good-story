@@ -1,5 +1,7 @@
 package org.jesperancinha.good.story;
 
+import org.jesperancinha.good.story.avl.AvlNodeManager;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -87,9 +89,12 @@ public class AlgorithmManager implements AlgorithmInterface {
      * @return Avl parent Node
      */
     @Override
-    public AvlNode createAvlTree(String content) {
+    public AvlNodeManager createAvlTree(String content) {
         var allWords = makeWordsList(content);
-        return null;
+        var avlNodeManager = new AvlNodeManager();
+        allWords.forEach(avlNodeManager::insertWord);
+
+        return avlNodeManager;
     }
 
     private static boolean filterWords(String possibleWord) {

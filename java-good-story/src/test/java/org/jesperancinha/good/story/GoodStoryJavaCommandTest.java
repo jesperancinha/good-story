@@ -43,4 +43,40 @@ public class GoodStoryJavaCommandTest {
         final Long repetitionCount = goodStoryJavaCommand.repetitionCount("I go to the gym all the time, I have a gymnasium and I am also Scrum master. I work 8 hours a day 5 days a week as a Scrum master and I manage the gym as well and that costs me 8 hours a day. I also have tea at 16, go out with friends, go 2 times a a week travelling, usually 5 days off per week. I know I make no sense but I am that cool. Cool");
         assertThat(repetitionCount).isEqualTo(36);
     }
+
+    @Test
+    public void testCreateAvlTree1() {
+        final var nodeManager = goodStoryJavaCommand.createAvlTree("c a b a b c");
+        final var parentNode = nodeManager.getParentNode();
+        assertThat(parentNode.word()).isEqualTo("b");
+        assertThat(parentNode.leftNode()).isNotNull();
+        assertThat(parentNode.leftNode().word()).isEqualTo("a");
+        assertThat(parentNode.rightNode()).isNotNull();
+        assertThat(parentNode.rightNode().word()).isEqualTo("c");
+        nodeManager.sortedTraversal();
+        nodeManager.unsortedTopDownTraversal();
+        nodeManager.unsortedBottomUpTraversal();
+        assertThat(nodeManager.searchWord("a")).isTrue();
+        assertThat(nodeManager.searchWord("d")).isFalse();
+        assertThat(nodeManager.searchWord("c")).isTrue();
+        assertThat(nodeManager.getNodeCount()).isEqualTo(3);
+
+    }
+    @Test
+    public void testCreateAvlTree2() {
+        final var nodeManager = goodStoryJavaCommand.createAvlTree("Brasa é a bebida que aquece o coração");
+        final var parentNode = nodeManager.getParentNode();
+        assertThat(parentNode.word()).isEqualTo("bebida");
+        assertThat(parentNode.leftNode()).isNotNull();
+        assertThat(parentNode.leftNode().word()).isEqualTo("a");
+        assertThat(parentNode.rightNode()).isNotNull();
+        assertThat(parentNode.rightNode().word()).isEqualTo("o");
+        nodeManager.sortedTraversal();
+        nodeManager.unsortedTopDownTraversal();
+        nodeManager.unsortedBottomUpTraversal();
+        assertThat(nodeManager.searchWord("Brasa")).isTrue();
+        assertThat(nodeManager.searchWord("bebida")).isTrue();
+        assertThat(nodeManager.searchWord("ginginha")).isFalse();
+        assertThat(nodeManager.getNodeCount()).isEqualTo(6);
+    }
 }

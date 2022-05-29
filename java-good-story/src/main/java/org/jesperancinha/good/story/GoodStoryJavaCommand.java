@@ -157,6 +157,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> algorithmManager.repetitionCount("I know he let the dog bark and he was using slack to support a production crisis, but that doesn't mean he can't perform an interview at the same time right?"),
                 () -> algorithmManager.repetitionCount(content), algoRepeats);
 
+        performTest(
+                "Create AVL Tree",
+                "createAvlTree",
+                "O(log n)", "O(n)",
+                () -> algorithmManager.createAvlTree("Let me get back you. Let's chat in 15 minutes"),
+                () -> algorithmManager.createAvlTree(content), algoRepeats);
+
         performGenericTests();
 
         tearDownAlgorithmManager();
