@@ -31,6 +31,9 @@ create-headers:
 	echo "|---|---|---|---|---|---|---|" >> dump/java/Log.md
 	echo "| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |" > dump/kotlin/Log.md
 	echo "|---|---|---|---|---|---|---|" >> dump/kotlin/Log.md
+clean:
+	cd dump && rm -r java/*.csv &
+	cd dump && rm -r kotlin/*.csv &
 build-run:
 	make create-headers
 	$(foreach module,$(MODULES), \

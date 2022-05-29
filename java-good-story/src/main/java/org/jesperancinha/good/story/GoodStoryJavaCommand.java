@@ -4,6 +4,8 @@ import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -108,78 +110,60 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-
-
         log.info("Welcome to the Java Project Loom Test!");
         log.info(String.format("File to read is %s", textFile));
 
         final var content = readFullContent();
-        final var allUniqueWords = findAllUniqueWords(content);
-        final var allUniqueWordsWithCount = findAllUniqueWordsWithCount(content);
 
-        if (Objects.nonNull(dumpDir)) {
-            dumpDir.mkdirs();
-            new File(dumpDir, "java").mkdirs();
-            new File(dumpDir, "kotlin").mkdirs();
-        }
-
-        final File dumpFile = new File(dumpDir, "dump.csv");
-        if (dumpFile.exists()) {
-            var fileReader = new FileReader(dumpFile);
-            var csvReader = new CsvToBeanBuilder<FunctionReading>(fileReader)
-                    .withType(FunctionReading.class)
-                    .withSeparator(',')
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .withIgnoreEmptyLine(true)
-                    .build();
-            final List<FunctionReading> functionReadingList = csvReader.parse();
-            functionReadings.addAll(functionReadingList);
-        }
-
-        dumpWriter = new FileWriter(dumpFile);
-
+        final AlgorithmInterface algorithmManager = setupAlgorithManager();
 
         log.info("===> Text size is {}", content.length());
+
 
         performTest(
                 "All Unique Words",
                 "findAllUniqueWords",
                 "n/a", "n/a", () -> String.join(".",
-                        allUniqueWords.subList(0, 10)),
-                () -> findAllUniqueWords(content), algoRepeats);
+                        algorithmManager.findAllUniqueWords(content).subList(0, 10)),
+                () -> algorithmManager.findAllUniqueWords(content), algoRepeats);
 
         performTest(
                 "All Words with count",
                 "findAllUniqueWordsWithCount",
                 "n/a", "n/a",
                 () -> String.join(".",
-                        allUniqueWordsWithCount.entrySet().stream().map((entry) ->
+                        algorithmManager.findAllUniqueWordsWithCount(content).entrySet().stream().map((entry) ->
                                 String.format("%s to %d", entry.getKey(), entry.getValue())).toList().subList(0, 10)),
-                () -> findAllUniqueWordsWithCount(content), algoRepeats);
+                () -> algorithmManager.findAllUniqueWordsWithCount(content), algoRepeats);
 
         performTest(
                 "Reverted Text",
                 "revertText",
                 "O(n)", "O(1)",
-                () -> revertText("Lucy meets Menna and the Fish"),
-                () -> revertText(content), algoRepeats);
+                () -> algorithmManager.revertText("Lucy meets Menna and the Fish"),
+                () -> algorithmManager.revertText(content), algoRepeats);
 
         performTest(
                 "Double iteration of an array of words",
                 "contentSplitIterateSubtractAndSum",
                 "O(n^2)", "O(1)",
-                () -> contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
-                () -> contentSplitIterateSubtractAndSum(content), algoRepeats);
+                () -> algorithmManager.contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
+                () -> algorithmManager.contentSplitIterateSubtractAndSum(content), algoRepeats);
 
         performTest(
                 "Repetition count",
                 "repetitionCount",
                 "O(n^2)", "O(1)",
-                () -> repetitionCount("I know he let the dog bark and he was using slack to support a production crisis, but that doesn't mean he can't perform an interview at the same time right?"),
-                () -> repetitionCount(content), algoRepeats);
+                () -> algorithmManager.repetitionCount("I know he let the dog bark and he was using slack to support a production crisis, but that doesn't mean he can't perform an interview at the same time right?"),
+                () -> algorithmManager.repetitionCount(content), algoRepeats);
 
         performGenericTests();
 
+        tearDownAlgorithmManager();
+        return 0;
+    }
+
+    private void tearDownAlgorithmManager() throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
         var sbc = new StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                 .build();
@@ -201,7 +185,30 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 }
             });
         }
-        return 0;
+    }
+
+    private AlgorithmInterface setupAlgorithManager() throws IOException {
+        if (Objects.nonNull(dumpDir)) {
+            dumpDir.mkdirs();
+            new File(dumpDir, "java").mkdirs();
+            new File(dumpDir, "kotlin").mkdirs();
+        }
+
+        final File dumpFile = new File(dumpDir, "dump.csv");
+        if (dumpFile.exists()) {
+            var fileReader = new FileReader(dumpFile);
+            var csvReader = new CsvToBeanBuilder<FunctionReading>(fileReader)
+                    .withType(FunctionReading.class)
+                    .withSeparator(',')
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .withIgnoreEmptyLine(true)
+                    .build();
+            final List<FunctionReading> functionReadingList = csvReader.parse();
+            functionReadings.addAll(functionReadingList);
+        }
+
+        dumpWriter = new FileWriter(dumpFile);
+        return new AlgorithmManager();
     }
 
     private void performGenericTests() throws IOException {
@@ -298,7 +305,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         void calculate();
     }
 
-
     private void controlTest() throws InterruptedException {
         log.info("----====>>>> Starting controlTest <<<<====----");
         final var startTimeT = LocalDateTime.now();
@@ -337,66 +343,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("Imma be the main Thread");
         log.info(String.format("%d", aiVirtualThread.get()));
         log.info("It took me {} ms to finish", between(startTime, endTime).toMillis());
-    }
-
-    /**
-     * Double iteration of an array of words.
-     * Result is the absolute sum of all the differences of sizes between words
-     * This function follows has a quadratic big O time complexity notation of O(n^2) and a space complexity of O(1)
-     */
-    Integer contentSplitIterateSubtractAndSum(String content) {
-        var allWords = findAllUniqueWords(content);
-        var sum = 0;
-        for (String element : allWords)
-            for (int j = allWords.size() - 1; j >= 0; j--) {
-                sum += abs(element.length() - allWords.get(j).length());
-            }
-        return sum;
-    }
-
-    /**
-     * Counts how many repeated words are in text.
-     * If one word is repeated 3 times, that counts as 2 repetitions.
-     * The result is a sum of all of these repetitions per word.
-     */
-    Long repetitionCount(String content) {
-        return Arrays.stream(content.split(" "))
-                .map(word -> word.replaceAll(",", "").replaceAll("\\.", "").replaceAll("\\?", "").toLowerCase())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .values().stream().filter(repetitions -> repetitions > 1)
-                .reduce(0L, (a, b) -> a + b - 1);
-    }
-
-    /**
-     * Reverts a string using a space complexity of O(1) and a time complexity of O(n)
-     *
-     * @param content Content
-     * @return Reverted String content
-     */
-    String revertText(String content) {
-        final char[] charArray = content.toCharArray();
-        for (int i = 0; i < charArray.length / 2; i++) {
-            char c = charArray[i];
-            charArray[i] = charArray[charArray.length - i - 1];
-            charArray[charArray.length - i - 1] = c;
-        }
-        return new String(charArray);
-    }
-
-    Map<String, Long> findAllUniqueWordsWithCount(String content) {
-        return makeWordsList(content).sorted().collect(Collectors.groupingBy(identity(), Collectors.counting()));
-    }
-
-    List<String> findAllUniqueWords(String content) {
-        return makeWordsList(content).distinct().collect(Collectors.toList());
-    }
-
-    private Stream<String> makeWordsList(String content) {
-        return Arrays.stream(content.split(" ")).sorted().filter(GoodStoryJavaCommand::filterWords);
-    }
-
-    private static boolean filterWords(String possibleWord) {
-        return possibleWord.matches("[a-zA-Z]+");
     }
 
     private String readFullContent() throws IOException {

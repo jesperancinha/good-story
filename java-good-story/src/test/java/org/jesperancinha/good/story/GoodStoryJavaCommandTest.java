@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class GoodStoryJavaCommandTest {
 
-    private final GoodStoryJavaCommand goodStoryJavaCommand = new GoodStoryJavaCommand();
+    private final AlgorithmInterface goodStoryJavaCommand = new AlgorithmManager();
 
     @Test
     public void testFindAllUniqueWordsWithCountWhenTextThenMakeCount() {
