@@ -167,7 +167,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         performTest(
                 "Secret word in Sieve of Eratosthenes",
                 "findPrimeSecret",
-                "O(log(log n))", "O(n)",
+                "O(n * log(log n))", "O(n)",
                 () -> algorithmManager.findPrimeSecret("A trainer should say motivating and encouraging words such as \"I believe that you can do it\", I believe my Lord. That's not exactly what he said is it?"),
                 () -> algorithmManager.findPrimeSecret(content), algoRepeats);
 

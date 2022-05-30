@@ -7,4 +7,4 @@
 "1478","1312","Prototype","createAvlTree - Create AVL Tree","10000","O(n)","O(log n)"
 "766","584","Prototype","controlTest - N/A","10000","n/a","n/a"
 "243","168","Prototype","generalTest - N/A","10000","n/a","n/a"
-"306","579","Prototype","findPrimeSecret - Secret word in Sieve of Eratosthenes","10000","O(n)","O(log(log n))"
+"306","579","Prototype","findPrimeSecret - Secret word in Sieve of Eratosthenes","10000","O(n)","O(n * log(log n))"

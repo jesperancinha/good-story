@@ -8,4 +8,4 @@
 | 2022-05-29T19:33:25.908893 | createAvlTree - Create AVL Tree | O(log n) | O(n) | 10000 | 1478 | 1312 | Prototype |
 | 2022-05-29T19:33:25.908925 | controlTest - N/A | n/a | n/a | 10000 | 766 | 584 | Prototype |
 | 2022-05-29T19:33:25.908959 | generalTest - N/A | n/a | n/a | 10000 | 243 | 168 | Prototype |
-| 2022-05-29T19:33:25.908989 | findPrimeSecret - Secret word in Sieve of Eratosthenes | O(log(log n)) | O(n) | 10000 | 306 | 579 | Prototype |
+| 2022-05-29T19:33:25.908989 | findPrimeSecret - Secret word in Sieve of Eratosthenes | O(n * log(log n)) | O(n) | 10000 | 306 | 579 | Prototype |

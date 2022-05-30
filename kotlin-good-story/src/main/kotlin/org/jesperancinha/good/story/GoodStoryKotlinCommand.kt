@@ -171,7 +171,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         performTest(
             testName = "Secret word in Sieve of Eratosthenes",
             methodName = "findPrimeSecret",
-            timeComplexity = "O(log(log n))",
+            timeComplexity = "O(n * log(log n))",
             spaceComplexity = "O(n)",
             sampleTest = { algorithmManager.findPrimeSecret("We should always test the functionality product needs but they said otherwise.") },
             toTest = { algorithmManager.findPrimeSecret(content) },
