@@ -20,7 +20,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
     }
 
     "should contentSplitIterateSubtractAndSum" {
-        val sum = algorithmManager.contentSplitIterateSubtractAndSum("ab abc abcd abcde")
+        val sum = algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.makeWordsArrayList("ab abc abcd abcde"))
 
         sum shouldBe 20
     }
@@ -44,7 +44,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
     }
 
     "should create AVL tree test 1" {
-        val nodeManager = algorithmManager.createAvlTree("c a b a b c")
+        val nodeManager = algorithmManager.createAvlTree(algorithmManager.makeWordsArrayList("c a b a b c"))
         val parentNode = nodeManager.parentNode
         parentNode.apply {
             shouldNotBeNull()
@@ -72,7 +72,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should create AVL tree test 2" {
         val nodeManager =
-            algorithmManager.createAvlTree("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was.")
+            algorithmManager.createAvlTree(algorithmManager.makeWordsArrayList("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was."))
         val parentNode = nodeManager.parentNode
         parentNode.apply {
             shouldNotBeNull()
