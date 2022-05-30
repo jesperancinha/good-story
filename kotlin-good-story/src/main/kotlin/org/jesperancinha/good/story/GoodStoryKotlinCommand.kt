@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 import java.util.function.Supplier
 import kotlin.system.measureTimeMillis
-
+import org.jesperancinha.good.story.AlgorithmManager
 
 @Command(
     name = "GoodStory Java Algorithms",
@@ -105,12 +105,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
             FileWriter(dumpFile)
         }
 
+        val algorithmManager = AlgorithmManager()
+
         val content =
             textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
+        val allWords = algorithmManager.makeWordsArrayList(content)
 
         log.info("===> Text size is {}", content.length)
 
-        val algorithmManager = AlgorithmManager()
 
         performTest(
             testName = "All Unique Words",
@@ -143,8 +145,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
             methodName = AlgorithmManager::contentSplitIterateSubtractAndSum.name,
-            sampleTest = { algorithmManager.contentSplitIterateSubtractAndSum("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon") },
-            toTest = { algorithmManager.contentSplitIterateSubtractAndSum(content) },
+            sampleTest = { algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.makeWordsArrayList("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon")) },
+            toTest = { algorithmManager.contentSplitIterateSubtractAndSum(allWords) },
             repeats = algoRepeats ?: 0
         )
 
@@ -163,8 +165,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
             timeComplexity = "O(log n)",
             spaceComplexity = "O(n)",
             methodName = AlgorithmManager::createAvlTree.name,
-            sampleTest = { algorithmManager.createAvlTree("I sat with Mr.Ek and he said something about the toilet paper, but I don't know exactly what it was. Strange.") },
-            toTest = { algorithmManager.createAvlTree(content) },
+            sampleTest = { algorithmManager.createAvlTree(algorithmManager.makeWordsArrayList("I sat with Mr.Ek and he said something about the toilet paper, but I don't know exactly what it was. Strange.")) },
+            toTest = { algorithmManager.createAvlTree(allWords) },
             repeats = algoRepeats ?: 0
         )
 

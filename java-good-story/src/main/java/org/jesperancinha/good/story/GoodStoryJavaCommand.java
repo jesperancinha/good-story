@@ -113,9 +113,10 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("Welcome to the Java Project Loom Test!");
         log.info(String.format("File to read is %s", textFile));
 
-        final var content = readFullContent();
-
         final AlgorithmInterface algorithmManager = setupAlgorithManager();
+
+        final var content = readFullContent();
+        final var uniqueWorda = algorithmManager.findAllUniqueWords(content).toArray(new String[0]);
 
         log.info("===> Text size is {}", content.length());
 
@@ -147,8 +148,9 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "Double iteration of an array of words",
                 "contentSplitIterateSubtractAndSum",
                 "O(n^2)", "O(1)",
-                () -> algorithmManager.contentSplitIterateSubtractAndSum("Oh there you are Mr. Fallout!"),
-                () -> algorithmManager.contentSplitIterateSubtractAndSum(content), algoRepeats);
+                () -> algorithmManager.contentSplitIterateSubtractAndSum(
+                        algorithmManager.findAllUniqueWordsArray("Oh there you are Mr. Fallout!")),
+                () -> algorithmManager.contentSplitIterateSubtractAndSum(uniqueWorda), algoRepeats);
 
         performTest(
                 "Repetition count",
@@ -161,8 +163,9 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "Create AVL Tree",
                 "createAvlTree",
                 "O(log n)", "O(n)",
-                () -> algorithmManager.createAvlTree("Let me get back you. Let's chat in 15 minutes"),
-                () -> algorithmManager.createAvlTree(content), algoRepeats);
+                () -> algorithmManager.createAvlTree(
+                        algorithmManager.findAllUniqueWordsArray("Let me get back you. Let's chat in 15 minutes")),
+                () -> algorithmManager.createAvlTree(uniqueWorda), algoRepeats);
 
         performTest(
                 "Secret word in Sieve of Eratosthenes",

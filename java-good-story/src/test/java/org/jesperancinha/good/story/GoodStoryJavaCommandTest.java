@@ -34,7 +34,8 @@ public class GoodStoryJavaCommandTest {
 
     @Test
     public void testContentSplitIterateSubtractAndSum() {
-        final Integer sumResult = algorithmInterface.contentSplitIterateSubtractAndSum("It's gonna be great, it's gonna be amazing, it's gonna be awesome! You're gonna love it");
+        final Integer sumResult = algorithmInterface.contentSplitIterateSubtractAndSum(
+                algorithmInterface.findAllUniqueWordsArray("It's gonna be great, it's gonna be amazing, it's gonna be awesome! You're gonna love it"));
         assertThat(sumResult).isEqualTo(22);
     }
 
@@ -46,7 +47,8 @@ public class GoodStoryJavaCommandTest {
 
     @Test
     public void testCreateAvlTree1() {
-        final var nodeManager = algorithmInterface.createAvlTree("c a b a b c");
+        final var nodeManager = algorithmInterface.createAvlTree(
+                algorithmInterface.findAllUniqueWordsArray("c a b a b c"));
         final var parentNode = nodeManager.getParentNode();
         assertThat(parentNode.word()).isEqualTo("b");
         assertThat(parentNode.leftNode()).isNotNull();
@@ -64,7 +66,8 @@ public class GoodStoryJavaCommandTest {
     }
     @Test
     public void testCreateAvlTree2() {
-        final var nodeManager = algorithmInterface.createAvlTree("Cevada é a bebida que aquece o coração");
+        final var nodeManager = algorithmInterface.createAvlTree(
+                algorithmInterface.findAllUniqueWordsArray("Cevada é a bebida que aquece o coração"));
         final var parentNode = nodeManager.getParentNode();
         assertThat(parentNode.word()).isEqualTo("bebida");
         assertThat(parentNode.leftNode()).isNotNull();

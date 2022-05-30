@@ -26,14 +26,15 @@ data class FunctionReading(
 )
 
 interface AlgorithmInterface {
-    suspend fun contentSplitIterateSubtractAndSum(content: String): Int
+    suspend fun contentSplitIterateSubtractAndSum(allWords: Array<String>): Int
     suspend fun repetitionCount(content: String): Int
     fun revertText(content: String): String
     suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int>
     suspend fun findAllUniqueWords(content: String): List<String>
     suspend fun makeWordsList(content: String): List<String>
-    suspend fun createAvlTree(content: String): AvlNodeManager
+    suspend fun createAvlTree(allWords: Array<String>): AvlNodeManager
     suspend fun findPrimeSecret(content: String): String
+    suspend fun makeWordsArrayList(content: String): Array<String>
 }
 
 class AlgorithmManager : AlgorithmInterface {
@@ -54,8 +55,7 @@ class AlgorithmManager : AlgorithmInterface {
      * Result is the absolute sum of all the differences of sizes between words
      * This function follows has a quadratic big O time complexity notation of O(n^2) and a space complexity of O(1)
      */
-    override suspend fun contentSplitIterateSubtractAndSum(content: String): Int {
-        val allWords = findAllUniqueWords(content)
+    override suspend fun contentSplitIterateSubtractAndSum(allWords: Array<String>): Int {
         var sum = 0;
         for (element in allWords)
             for (j in allWords.size - 1 downTo 0) {
@@ -97,14 +97,16 @@ class AlgorithmManager : AlgorithmInterface {
                 it.filterWords()
             }
 
+    override suspend fun makeWordsArrayList(content: String): Array<String> =
+        makeWordsList(content).toTypedArray()
+
     /**
      * Avl tree algorithm implementation.
      * This algorithm follows a:
      * O(n) complexity in terms of space. The more words there are, the more nodes there will be. Most nodes will carry parent, left and right node information. As the algorithm progresses, space will be used linearly and accordingly. This is the same for worst and average case scenarios.
      * O(log n) complexity in terms of time for search, insert and delete operations. This is the reason this algorithm was invented in the first place. Traversing through the balanced tree, should give us the result we need in an algorithmic fashion. Worst case scenario is O(n) but on average, it is O(log n)
      */
-    override suspend fun createAvlTree(content: String): AvlNodeManager {
-        val allWords: List<String> = makeWordsList(content)
+    override suspend fun createAvlTree(allWords: Array<String>): AvlNodeManager {
         val avlNodeManager = AvlNodeManager()
         allWords.forEach { word: String -> avlNodeManager.insertWord(word) }
         return avlNodeManager

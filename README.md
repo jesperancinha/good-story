@@ -88,6 +88,8 @@ TBD
 
 #### Online
 
+- [Splay tree](https://en.wikipedia.org/wiki/Splay_tree)
+- [Big-O Quiz](https://bigoquiz.com/home)
 - [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [Binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
 - [The height of an AVL tree containing n nodes](http://www.mathcs.emory.edu/~cheung/Courses/253/Syllabus/Trees/AVL-height.html)

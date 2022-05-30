@@ -7,12 +7,21 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public interface AlgorithmInterface {
-    Integer contentSplitIterateSubtractAndSum(String content);
+    Integer contentSplitIterateSubtractAndSum(String[] allWords);
+
     Long repetitionCount(String content);
+
     String revertText(String content);
+
     Map<String, Long> findAllUniqueWordsWithCount(String content);
+
     List<String> findAllUniqueWords(String content);
+
+    String[] findAllUniqueWordsArray(String content);
+
     Stream<String> makeWordsList(String content);
-    AvlNodeManager createAvlTree(String content);
+
+    AvlNodeManager createAvlTree(String[] allWords);
+
     String findPrimeSecret(String content);
 }

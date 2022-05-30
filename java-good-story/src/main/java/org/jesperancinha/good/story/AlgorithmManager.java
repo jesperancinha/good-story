@@ -23,12 +23,11 @@ public class AlgorithmManager implements AlgorithmInterface {
      * This function follows has a quadratic big O time complexity of O(n^2) and a space complexity of O(1)
      */
     @Override
-    public Integer contentSplitIterateSubtractAndSum(String content) {
-        var allWords = findAllUniqueWords(content);
+    public Integer contentSplitIterateSubtractAndSum(String[] allWords) {
         var sum = 0;
         for (String element : allWords)
-            for (int j = allWords.size() - 1; j >= 0; j--) {
-                sum += abs(element.length() - allWords.get(j).length());
+            for (int j = allWords.length - 1; j >= 0; j--) {
+                sum += abs(element.length() - allWords[j].length());
             }
         return sum;
     }
@@ -76,6 +75,11 @@ public class AlgorithmManager implements AlgorithmInterface {
     }
 
     @Override
+    public String[] findAllUniqueWordsArray(String content) {
+        return findAllUniqueWords(content).toArray(new String[0]);
+    }
+
+    @Override
     public Stream<String> makeWordsList(String content) {
         return stream(content.split(" ")).sorted().filter(AlgorithmManager::filterWords);
     }
@@ -90,10 +94,11 @@ public class AlgorithmManager implements AlgorithmInterface {
      * @return Avl parent Node
      */
     @Override
-    public AvlNodeManager createAvlTree(String content) {
-        var allWords = makeWordsList(content);
+    public AvlNodeManager createAvlTree(String[] allWords) {
         var avlNodeManager = new AvlNodeManager();
-        allWords.forEach(avlNodeManager::insertWord);
+        for (String word : allWords) {
+            avlNodeManager.insertWord(word);
+        }
         return avlNodeManager;
     }
 
@@ -101,6 +106,7 @@ public class AlgorithmManager implements AlgorithmInterface {
     /**
      * Sieve of Eratosthenes applied to secret words find
      * Time complexity is O(n log(log n)) and Space complexity is O(n)
+     *
      * @param content
      * @return Secret word based as a concatenation of all characters from the prime indexes.
      */
@@ -108,7 +114,7 @@ public class AlgorithmManager implements AlgorithmInterface {
     public String findPrimeSecret(String content) {
         int contentLength = content.length();
         if (contentLength < 2) {
-           return "";
+            return "";
         } else {
             boolean[] nonPrimes = new boolean[contentLength];
             nonPrimes[1] = true;
