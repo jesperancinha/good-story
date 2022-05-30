@@ -8,10 +8,10 @@ import static java.lang.Math.max;
 /**
  * Created by jofisaes on 29/05/2022
  */
-public class AvlNodeManager {
+public class AvlTree {
     private AvlNode parentNode;
 
-    public AvlNodeManager() {
+    public AvlTree() {
         parentNode = null;
     }
 
@@ -162,7 +162,7 @@ public class AvlNodeManager {
         }
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(AvlNodeManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(AvlTree.class);
 
     @Override
     public String toString() {

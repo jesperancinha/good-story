@@ -1,9 +1,7 @@
 package org.jesperancinha.good.story
 
 import com.opencsv.bean.CsvBindByName
-import org.jesperancinha.good.story.avl.AvlNodeManager
-import java.util.*
-import java.util.stream.Collectors
+import org.jesperancinha.good.story.avl.AvlTree
 
 /**
  * Created by jofisaes on 28/05/2022
@@ -32,7 +30,7 @@ interface AlgorithmInterface {
     suspend fun findAllUniqueWordsWithCount(content: String): Map<String, Int>
     suspend fun findAllUniqueWords(content: String): List<String>
     suspend fun makeWordsList(content: String): List<String>
-    suspend fun createAvlTree(allWords: Array<String>): AvlNodeManager
+    suspend fun createAvlTree(allWords: Array<String>): AvlTree
     suspend fun findPrimeSecret(content: String): String
     suspend fun makeWordsArrayList(content: String): Array<String>
 }
@@ -106,10 +104,10 @@ class AlgorithmManager : AlgorithmInterface {
      * O(n) complexity in terms of space. The more words there are, the more nodes there will be. Most nodes will carry parent, left and right node information. As the algorithm progresses, space will be used linearly and accordingly. This is the same for worst and average case scenarios.
      * O(log n) complexity in terms of time for search, insert and delete operations. This is the reason this algorithm was invented in the first place. Traversing through the balanced tree, should give us the result we need in an algorithmic fashion. Worst case scenario is O(n) but on average, it is O(log n)
      */
-    override suspend fun createAvlTree(allWords: Array<String>): AvlNodeManager {
-        val avlNodeManager = AvlNodeManager()
-        allWords.forEach { word: String -> avlNodeManager.insertWord(word) }
-        return avlNodeManager
+    override suspend fun createAvlTree(allWords: Array<String>): AvlTree {
+        val avlTree = AvlTree()
+        allWords.forEach { word: String -> avlTree.insertWord(word) }
+        return avlTree
     }
 
 

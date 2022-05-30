@@ -1,5 +1,6 @@
 package org.jesperancinha.good.story;
 
+import org.jesperancinha.good.story.splay.SplayNode;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GoodStoryJavaCommandTest {
+public class AlgorithmManagerTest {
 
     private final AlgorithmInterface algorithmInterface = new AlgorithmManager();
 
@@ -64,6 +65,7 @@ public class GoodStoryJavaCommandTest {
         assertThat(nodeManager.getNodeCount()).isEqualTo(3);
 
     }
+
     @Test
     public void testCreateAvlTree2() {
         final var nodeManager = algorithmInterface.createAvlTree(
@@ -84,13 +86,43 @@ public class GoodStoryJavaCommandTest {
     }
 
     @Test
-    public void testFindPrimeSecret1(){
+    public void testFindPrimeSecret1() {
         final var primeSecret = algorithmInterface.findPrimeSecret("It doesn't make senses. It's Charles.");
         assertThat(primeSecret).isEqualTo("I denmkes Ca");
     }
+
     @Test
-    public void testFindPrimeSecret2(){
+    public void testFindPrimeSecret2() {
         final var primeSecret = algorithmInterface.findPrimeSecret("The flowers of the world and winter.");
         assertThat(primeSecret).isEqualTo("Te lw fewdwn");
+    }
+
+    @Test
+    public void testCreateSplayTree1() {
+        final var splayTree = algorithmInterface.createSplayTree(
+                algorithmInterface.findAllUniqueWordsArray("a b c d f q r h d a d e f"));
+
+        assertThat(splayTree).isNotNull();
+        assertThat(splayTree.getRoot()).isNotNull();
+        final SplayNode cNode = splayTree.find("c");
+        assertThat(cNode).isNotNull();
+        assertThat(cNode.word).isEqualTo("c");
+    }
+
+    @Test
+    public void testCreateSplayTree2() {
+        final var splayTree = algorithmInterface.createSplayTree(
+                algorithmInterface.findAllUniqueWordsArray("Someone says: If you take the train, you'll be here no time! That'll only cost you 4 hours in the public transportation. I don't have that problem because I live next door, so it costs nothing to me, but I guess that's a problem to you... I say: Am I supposed to respond to that?"));
+
+        assertThat(splayTree).isNotNull();
+        assertThat(splayTree.getRoot()).isNotNull();
+        final SplayNode someoneNode = splayTree.find("Someone");
+        assertThat(someoneNode).isNotNull();
+        assertThat(someoneNode.word).isEqualTo("Someone");
+        assertThat(splayTree.maxWord()).isEqualTo("you");
+        assertThat(splayTree.minWord()).isEqualTo("Am");
+        assertThat(splayTree.size()).isEqualTo(31);
+        splayTree.remove("Someone");
+        assertThat(splayTree.find("Someone")).isNull();
     }
 }

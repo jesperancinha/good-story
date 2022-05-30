@@ -1,8 +1,8 @@
 package org.jesperancinha.good.story;
 
-import org.jesperancinha.good.story.avl.AvlNodeManager;
+import org.jesperancinha.good.story.avl.AvlTree;
+import org.jesperancinha.good.story.splay.SplayTree;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -94,12 +94,12 @@ public class AlgorithmManager implements AlgorithmInterface {
      * @return Avl parent Node
      */
     @Override
-    public AvlNodeManager createAvlTree(String[] allWords) {
-        var avlNodeManager = new AvlNodeManager();
+    public AvlTree createAvlTree(String[] allWords) {
+        var avlTree = new AvlTree();
         for (String word : allWords) {
-            avlNodeManager.insertWord(word);
+            avlTree.insertWord(word);
         }
-        return avlNodeManager;
+        return avlTree;
     }
 
 
@@ -142,6 +142,21 @@ public class AlgorithmManager implements AlgorithmInterface {
             }
             return stream(primeNumbers).mapToObj(i -> "" + content.charAt(i)).collect(Collectors.joining(""));
         }
+    }
+
+    /**
+     * Implementation of a simple Splay Tree algotithm
+     * This follows a O(log n) time complexity and a O(n) space complexity
+     * @param allWords
+     * @return
+     */
+    @Override
+    public SplayTree createSplayTree(String[] allWords) {
+        var splayTree = new SplayTree();
+        for (String word : allWords) {
+            splayTree.insert(word);
+        }
+        return splayTree;
     }
 
     private static boolean filterWords(String possibleWord) {

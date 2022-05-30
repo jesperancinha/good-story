@@ -88,6 +88,7 @@ TBD
 
 #### Online
 
+- [BTech smart class - Introduction to algorithms](http://www.btechsmartclass.com/data_structures/introduction-to-algorithms.html)
 - [Splay tree](https://en.wikipedia.org/wiki/Splay_tree)
 - [Big-O Quiz](https://bigoquiz.com/home)
 - [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)

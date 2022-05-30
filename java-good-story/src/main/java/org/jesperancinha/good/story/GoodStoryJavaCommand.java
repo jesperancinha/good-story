@@ -174,6 +174,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> algorithmManager.findPrimeSecret("A trainer should say motivating and encouraging words such as \"I believe that you can do it\", I believe my Lord. That's not exactly what he said is it?"),
                 () -> algorithmManager.findPrimeSecret(content), algoRepeats);
 
+        performTest(
+                "Create Splay Tree",
+                "createSplayTree",
+                "O(log n)", "O(n)",
+                () -> algorithmManager.createSplayTree(  algorithmManager.findAllUniqueWordsArray("My concern is that I need tools. So many tools. So little time!")),
+                () -> algorithmManager.createSplayTree(uniqueWorda), algoRepeats);
+
         performGenericTests();
 
         tearDownAlgorithmManager();

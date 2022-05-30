@@ -12,7 +12,7 @@ class AvlNode(
     var height: Int = 0
 )
 
-class AvlNodeManager {
+class AvlTree {
     var parentNode: AvlNode? = null
         private set
 
@@ -158,6 +158,6 @@ class AvlNodeManager {
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(AvlNodeManager::class.java)
+        private val logger = LoggerFactory.getLogger(AvlTree::class.java)
     }
 }

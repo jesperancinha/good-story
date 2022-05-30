@@ -1,6 +1,7 @@
 package org.jesperancinha.good.story;
 
-import org.jesperancinha.good.story.avl.AvlNodeManager;
+import org.jesperancinha.good.story.avl.AvlTree;
+import org.jesperancinha.good.story.splay.SplayTree;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,8 @@ public interface AlgorithmInterface {
 
     Stream<String> makeWordsList(String content);
 
-    AvlNodeManager createAvlTree(String[] allWords);
+    AvlTree createAvlTree(String[] allWords);
 
     String findPrimeSecret(String content);
+    SplayTree createSplayTree(String[] allWords);
 }
