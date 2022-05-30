@@ -2,6 +2,7 @@ package org.jesperancinha.good.story
 
 import com.opencsv.bean.CsvBindByName
 import org.jesperancinha.good.story.avl.AvlTree
+import org.jesperancinha.good.story.splay.SplayTree
 
 /**
  * Created by jofisaes on 28/05/2022
@@ -33,6 +34,7 @@ interface AlgorithmInterface {
     suspend fun createAvlTree(allWords: Array<String>): AvlTree
     suspend fun findPrimeSecret(content: String): String
     suspend fun makeWordsArrayList(content: String): Array<String>
+    suspend fun createSplayTree(allWords: Array<String>): SplayTree?
 }
 
 class AlgorithmManager : AlgorithmInterface {
@@ -97,6 +99,18 @@ class AlgorithmManager : AlgorithmInterface {
 
     override suspend fun makeWordsArrayList(content: String): Array<String> =
         makeWordsList(content).toTypedArray()
+
+    /**
+     * Implementation of a simple Splay Tree algotithm
+     * This follows a O(log n) time complexity and a O(n) space complexity
+     * @param allWords
+     * @return
+     */
+    override suspend fun createSplayTree(allWords: Array<String>): SplayTree? {
+        val splayTree = SplayTree()
+        allWords.forEach { word: String -> splayTree.insertWord(word) }
+        return splayTree
+    }
 
     /**
      * Avl tree algorithm implementation.

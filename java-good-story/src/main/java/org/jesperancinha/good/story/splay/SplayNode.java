@@ -4,7 +4,6 @@ package org.jesperancinha.good.story.splay;
  * Created by jofisaes on 30/05/2022
  */
 public class SplayNode {
-
     SplayNode parent;
     SplayNode left;
     SplayNode right;

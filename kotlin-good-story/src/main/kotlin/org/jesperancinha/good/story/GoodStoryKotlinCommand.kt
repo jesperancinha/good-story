@@ -6,6 +6,7 @@ import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
+import org.jesperancinha.good.story.splay.SplayTree
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
@@ -20,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 import java.util.function.Supplier
 import kotlin.system.measureTimeMillis
-import org.jesperancinha.good.story.AlgorithmManager
 
 @Command(
     name = "GoodStory Java Algorithms",
@@ -172,7 +172,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         performTest(
             testName = "Secret word in Sieve of Eratosthenes",
-            methodName = "findPrimeSecret",
+            methodName =  AlgorithmManager::findPrimeSecret.name,
             timeComplexity = "O(n * log(log n))",
             spaceComplexity = "O(n)",
             sampleTest = { algorithmManager.findPrimeSecret("We should always test the functionality product needs but they said otherwise.") },
@@ -180,6 +180,17 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
+        performTest(
+            testName = "Create Splay Tree",
+            methodName =  AlgorithmManager::createSplayTree.name,
+            timeComplexity = "O(log n)",
+            spaceComplexity = "O(n)",
+            sampleTest = { algorithmManager.createSplayTree(
+                algorithmManager.makeWordsArrayList("And then the Wolf said refrain this, refrain that.")
+            ) },
+            toTest = { algorithmManager.createSplayTree(allWords) },
+            repeats = algoRepeats ?: 0
+        )
 
         performGenericTests()
 

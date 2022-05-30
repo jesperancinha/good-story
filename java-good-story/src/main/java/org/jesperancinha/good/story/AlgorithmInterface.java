@@ -25,5 +25,6 @@ public interface AlgorithmInterface {
     AvlTree createAvlTree(String[] allWords);
 
     String findPrimeSecret(String content);
+
     SplayTree createSplayTree(String[] allWords);
 }
