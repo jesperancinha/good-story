@@ -7,7 +7,6 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.DelicateCoroutinesApi
-import org.junit.jupiter.api.Test
 
 @DelicateCoroutinesApi
 class GoodStoryKotlinCommandTest : StringSpec({
@@ -21,7 +20,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
     }
 
     "should contentSplitIterateSubtractAndSum" {
-        val sum = algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.makeWordsArrayList("ab abc abcd abcde"))
+        val sum = algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.findAllUniqueWordsArray("ab abc abcd abcde"))
 
         sum shouldBe 20
     }
@@ -45,7 +44,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
     }
 
     "should create AVL tree test 1" {
-        val nodeManager = algorithmManager.createAvlTree(algorithmManager.makeWordsArrayList("c a b a b c"))
+        val nodeManager = algorithmManager.createAvlTree(algorithmManager.findAllUniqueWordsArray("c a b a b c"))
         val parentNode = nodeManager.parentNode
         parentNode.apply {
             shouldNotBeNull()
@@ -73,7 +72,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should create AVL tree test 2" {
         val nodeManager =
-            algorithmManager.createAvlTree(algorithmManager.makeWordsArrayList("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was."))
+            algorithmManager.createAvlTree(algorithmManager.findAllUniqueWordsArray("When I went up the stairs to return my computer, the man with guilt and the weight of a life filled with shamelessness and regretful decisions on his shoulders didn't even know who I was."))
         val parentNode = nodeManager.parentNode
         parentNode.apply {
             shouldNotBeNull()
@@ -113,7 +112,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should create splay tree 1" {
         val splayTree = algorithmManager.createSplayTree(
-            algorithmManager.makeWordsArrayList("Here is van-guardian idea. How about we stop talking about being positive over negative, end this mystical idea of positive over negative and get our act together and solve the problems in our lives? How about that huh? Isn't that also positive"))
+            algorithmManager.findAllUniqueWordsArray("Here is van-guardian idea. How about we stop talking about being positive over negative, end this mystical idea of positive over negative and get our act together and solve the problems in our lives? How about that huh? Isn't that also positive"))
 
 
         splayTree.shouldNotBeNull()

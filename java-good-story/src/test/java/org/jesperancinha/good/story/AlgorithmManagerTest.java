@@ -3,6 +3,7 @@ package org.jesperancinha.good.story;
 import org.jesperancinha.good.story.splay.SplayNode;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -124,5 +125,11 @@ public class AlgorithmManagerTest {
         assertThat(splayTree.size()).isEqualTo(31);
         splayTree.remove("Someone");
         assertThat(splayTree.find("Someone")).isNull();
+    }
+
+    @Test
+    public void testQuickSort() {
+        final List<String> wordsLists = algorithmInterface.quickSort(Arrays.stream(algorithmInterface.findAllUniqueWordsArray("I'll book you a meeting. Just not the one you are thinking of.")).toList());
+        assertThat(wordsLists).containsExactly("Just", "a", "are", "book", "not");
     }
 }

@@ -6,7 +6,6 @@ import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
-import org.jesperancinha.good.story.splay.SplayTree
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
@@ -19,7 +18,6 @@ import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
-import java.util.function.Supplier
 import kotlin.system.measureTimeMillis
 
 @Command(
@@ -109,7 +107,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         val content =
             textFile?.let { file -> readFullContent(file) } ?: throw RuntimeException("File not configured!")
-        val allWords = algorithmManager.makeWordsArrayList(content)
+        val allWords = algorithmManager.findAllUniqueWordsArray(content)
 
         log.info("===> Text size is {}", content.length)
 
@@ -145,7 +143,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             timeComplexity = "O(n^2)",
             spaceComplexity = "O(1)",
             methodName = AlgorithmManager::contentSplitIterateSubtractAndSum.name,
-            sampleTest = { algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.makeWordsArrayList("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon")) },
+            sampleTest = { algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.findAllUniqueWordsArray("You know what that is? That's a chain of responsibility pattern! ... And then he went to the Amazon")) },
             toTest = { algorithmManager.contentSplitIterateSubtractAndSum(allWords) },
             repeats = algoRepeats ?: 0
         )
@@ -165,7 +163,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             timeComplexity = "O(log n)",
             spaceComplexity = "O(n)",
             methodName = AlgorithmManager::createAvlTree.name,
-            sampleTest = { algorithmManager.createAvlTree(algorithmManager.makeWordsArrayList("I sat with Mr.Ek and he said something about the toilet paper, but I don't know exactly what it was. Strange.")) },
+            sampleTest = { algorithmManager.createAvlTree(algorithmManager.findAllUniqueWordsArray("I sat with Mr.Ek and he said something about the toilet paper, but I don't know exactly what it was. Strange.")) },
             toTest = { algorithmManager.createAvlTree(allWords) },
             repeats = algoRepeats ?: 0
         )
@@ -186,7 +184,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             timeComplexity = "O(log n)",
             spaceComplexity = "O(n)",
             sampleTest = { algorithmManager.createSplayTree(
-                algorithmManager.makeWordsArrayList("And then the Wolf said refrain this, refrain that.")
+                algorithmManager.findAllUniqueWordsArray("And then the Wolf said refrain this, refrain that.")
             ) },
             toTest = { algorithmManager.createSplayTree(allWords) },
             repeats = algoRepeats ?: 0

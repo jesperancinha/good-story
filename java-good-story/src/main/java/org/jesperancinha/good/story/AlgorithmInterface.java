@@ -27,4 +27,6 @@ public interface AlgorithmInterface {
     String findPrimeSecret(String content);
 
     SplayTree createSplayTree(String[] allWords);
+
+    List<String> quickSort(List<String> allWords);
 }

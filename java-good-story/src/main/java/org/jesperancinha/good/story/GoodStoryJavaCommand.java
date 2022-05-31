@@ -116,7 +116,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         final AlgorithmInterface algorithmManager = setupAlgorithManager();
 
         final var content = readFullContent();
-        final var uniqueWorda = algorithmManager.findAllUniqueWords(content).toArray(new String[0]);
+        final var allWords = algorithmManager.findAllUniqueWords(content).toArray(new String[0]);
 
         log.info("===> Text size is {}", content.length());
 
@@ -150,7 +150,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "O(n^2)", "O(1)",
                 () -> algorithmManager.contentSplitIterateSubtractAndSum(
                         algorithmManager.findAllUniqueWordsArray("Oh there you are Mr. Fallout!")),
-                () -> algorithmManager.contentSplitIterateSubtractAndSum(uniqueWorda), algoRepeats);
+                () -> algorithmManager.contentSplitIterateSubtractAndSum(allWords), algoRepeats);
 
         performTest(
                 "Repetition count",
@@ -165,7 +165,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "O(log n)", "O(n)",
                 () -> algorithmManager.createAvlTree(
                         algorithmManager.findAllUniqueWordsArray("Let me get back you. Let's chat in 15 minutes")),
-                () -> algorithmManager.createAvlTree(uniqueWorda), algoRepeats);
+                () -> algorithmManager.createAvlTree(allWords), algoRepeats);
 
         performTest(
                 "Secret word in Sieve of Eratosthenes",
@@ -179,7 +179,14 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "createSplayTree",
                 "O(log n)", "O(n)",
                 () -> algorithmManager.createSplayTree(  algorithmManager.findAllUniqueWordsArray("My concern is that I need tools. So many tools. So little time!")),
-                () -> algorithmManager.createSplayTree(uniqueWorda), algoRepeats);
+                () -> algorithmManager.createSplayTree(allWords), algoRepeats);
+
+        performTest(
+                "Quick sort",
+                "quickSort",
+                "O(n * log n)", "O(log n)",
+                () -> algorithmManager.quickSort( List.of(algorithmManager.findAllUniqueWordsArray("If you ask me I think the great Inflexion Point is coming. Like winter"))),
+                () -> algorithmManager.quickSort(List.of(allWords)), algoRepeats);
 
         performGenericTests();
 

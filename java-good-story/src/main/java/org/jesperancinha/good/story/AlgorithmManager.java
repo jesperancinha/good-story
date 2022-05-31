@@ -3,6 +3,7 @@ package org.jesperancinha.good.story;
 import org.jesperancinha.good.story.avl.AvlTree;
 import org.jesperancinha.good.story.splay.SplayTree;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -160,6 +161,37 @@ public class AlgorithmManager implements AlgorithmInterface {
             splayTree.insert(word);
         }
         return splayTree;
+    }
+
+    /**
+     * Quick Sort
+     * Time complexity O(n * log n)
+     * Space complexity O(log n)
+     * @param allWords
+     * @return
+     */
+    @Override
+    public List<String> quickSort(List<String> allWords) {
+        if (allWords.size() <= 1) {
+            return allWords;
+        }
+        var left = new ArrayList<String>();
+        var right = new ArrayList<String>();
+        var top = allWords.get(0);
+        var length = allWords.size() - 1;
+
+        for (int i = 1; i < length; i++) {
+            if (allWords.get(i).compareTo(top) < 0) {
+                left.add(allWords.get(i));
+            } else {
+                right.add(allWords.get(i));
+            }
+
+        }
+        var targetArray = new ArrayList<>(quickSort(left));
+        targetArray.add(top);
+        targetArray.addAll(quickSort(right));
+        return targetArray;
     }
 
     private static boolean filterWords(String possibleWord) {

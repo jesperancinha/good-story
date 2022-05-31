@@ -33,7 +33,7 @@ interface AlgorithmInterface {
     suspend fun makeWordsList(content: String): List<String>
     suspend fun createAvlTree(allWords: Array<String>): AvlTree
     suspend fun findPrimeSecret(content: String): String
-    suspend fun makeWordsArrayList(content: String): Array<String>
+    suspend fun findAllUniqueWordsArray(content: String): Array<String>
     suspend fun createSplayTree(allWords: Array<String>): SplayTree?
 }
 
@@ -99,7 +99,7 @@ class AlgorithmManager : AlgorithmInterface {
                 it.filterWords()
             }
 
-    override suspend fun makeWordsArrayList(content: String): Array<String> =
+    override suspend fun findAllUniqueWordsArray(content: String): Array<String> =
         makeWordsList(content).toTypedArray()
 
     /**
