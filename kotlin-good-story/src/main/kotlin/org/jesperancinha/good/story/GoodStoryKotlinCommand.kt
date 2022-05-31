@@ -153,7 +153,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         performTest(
             testName = "Repetition count",
             timeComplexity = "O(n^2)",
-            spaceComplexity = "O(1)",
+            spaceComplexity = "O(n)",
             methodName = AlgorithmManager::repetitionCount.name,
             sampleTest = { algorithmManager.repetitionCount("Sitting on a table having lunch and talking about Smishing in the Bank cafeteria.") },
             toTest = { algorithmManager.repetitionCount(content) },

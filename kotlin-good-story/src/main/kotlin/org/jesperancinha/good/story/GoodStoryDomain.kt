@@ -42,6 +42,8 @@ class AlgorithmManager : AlgorithmInterface {
      * Counts how many repeated words are in text.
      * If one word is repeated 3 times, that counts as 2 repetitions.
      * The result is a sum of all of these repetitions per word.
+     * Time Complexity O(n^2)
+     * Space Complexity O(n)
      */
     override suspend fun repetitionCount(content: String) = content.split(" ")
         .map { it.replace(",", "").replace(".", "").replace("?", "").lowercase() }

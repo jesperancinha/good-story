@@ -155,7 +155,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         performTest(
                 "Repetition count",
                 "repetitionCount",
-                "O(n^2)", "O(1)",
+                "O(n^2)", "O(n)",
                 () -> algorithmManager.repetitionCount("I know he let the dog bark and he was using slack to support a production crisis, but that doesn't mean he can't perform an interview at the same time right?"),
                 () -> algorithmManager.repetitionCount(content), algoRepeats);
 

@@ -36,6 +36,8 @@ public class AlgorithmManager implements AlgorithmInterface {
      * Counts how many repeated words are in text.
      * If one word is repeated 3 times, that counts as 2 repetitions.
      * The result is a sum of all of these repetitions per word.
+     * Time Complexity O(n^2)
+     * Space Complexity O(n)
      */
 
     @Override
@@ -90,7 +92,7 @@ public class AlgorithmManager implements AlgorithmInterface {
      * O(n) complexity in terms of space. The more words there are, the more nodes there will be. Most nodes will carry parent, left and right node information. As the algorithm progresses, space will be used linearly and accordingly. This is the same for worst and average case scenarios.
      * O(log n) complexity in terms of time for search, insert and delete operations. This is the reason this algorithm was invented in the first place. Traversing through the balanced tree, should give us the result we need in an algorithmic fashion. Worst case scenario is O(n) but on average, it is O(log n)
      *
-     * @param content
+     * @param allWords
      * @return Avl parent Node
      */
     @Override
@@ -147,6 +149,7 @@ public class AlgorithmManager implements AlgorithmInterface {
     /**
      * Implementation of a simple Splay Tree algotithm
      * This follows a O(log n) time complexity and a O(n) space complexity
+     *
      * @param allWords
      * @return
      */
