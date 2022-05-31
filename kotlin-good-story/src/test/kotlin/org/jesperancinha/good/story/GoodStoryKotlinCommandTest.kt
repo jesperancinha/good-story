@@ -111,7 +111,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
         primeSecret shouldBe "Te lw fewdwn"
     }
 
-    "should create splay tree" {
+    "should create splay tree 1" {
         val splayTree = algorithmManager.createSplayTree(
             algorithmManager.makeWordsArrayList("Here is van-guardian idea. How about we stop talking about being positive over negative, end this mystical idea of positive over negative and get our act together and solve the problems in our lives? How about that huh? Isn't that also positive"))
 
@@ -129,6 +129,27 @@ class GoodStoryKotlinCommandTest : StringSpec({
             }
         }
         splayTree.find("idea").shouldNotBeNull()
+        splayTree.find("technodiktator").shouldBeNull()
+    }
+
+    "should create splay tree 2" {
+        val splayTree = algorithmManager.createSplayTree(
+            algorithmManager.makeWordsArrayList("Regarde la haut! C'est le grand O ! Oui Oui Seb! C'est vrai"))
+
+
+        splayTree.shouldNotBeNull()
+        splayTree.root.apply {
+            shouldNotBeNull()
+            word shouldBe "vrai"
+            left.apply {
+                shouldNotBeNull()
+                word shouldBe "le"
+            }
+            right.apply {
+                shouldBeNull()
+            }
+        }
+        splayTree.find("Oui").shouldNotBeNull()
         splayTree.find("technodiktator").shouldBeNull()
     }
 })
