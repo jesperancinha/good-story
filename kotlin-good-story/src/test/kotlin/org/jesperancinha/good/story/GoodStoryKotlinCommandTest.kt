@@ -3,6 +3,8 @@ package org.jesperancinha.good.story
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldContainInOrder
+import io.kotest.matchers.collections.shouldNotContain
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
@@ -133,7 +135,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should create splay tree 2" {
         val splayTree = algorithmManager.createSplayTree(
-            algorithmManager.makeWordsArrayList("Regarde la haut! C'est le grand O ! Oui Oui Seb! C'est vrai"))
+            algorithmManager.findAllUniqueWordsArray("Regarde la haut! C'est le grand O ! Oui Oui Seb! C'est vrai"))
 
 
         splayTree.shouldNotBeNull()
@@ -150,5 +152,12 @@ class GoodStoryKotlinCommandTest : StringSpec({
         }
         splayTree.find("Oui").shouldNotBeNull()
         splayTree.find("technodiktator").shouldBeNull()
+    }
+
+    "should quickSort" {
+        val quickSorted = algorithmManager.quickSort(
+            algorithmManager.findAllUniqueWords("Pardonnez moi Seb! J'ais oublie le grand O"))
+        quickSorted.shouldContainInOrder("O", "Pardonnez", "grand")
+        quickSorted.shouldNotContain("Peter")
     }
 })

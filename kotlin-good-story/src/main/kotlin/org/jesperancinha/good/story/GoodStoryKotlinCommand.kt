@@ -1,11 +1,12 @@
 package org.jesperancinha.good.story
 
-import com.opencsv.CSVWriter
+import com.opencsv.CSVWriter.DEFAULT_SEPARATOR
 import com.opencsv.bean.CsvToBean
 import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
@@ -86,7 +87,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         val dumpFile = File(dumpDir, "dump.csv")
         if (dumpFile.exists()) {
-            val fileReader = withContext(Dispatchers.IO) {
+            val fileReader = withContext(IO) {
                 FileReader(dumpFile)
             }
             val csvReader: CsvToBean<FunctionReading> = CsvToBeanBuilder<FunctionReading>(fileReader)
@@ -99,7 +100,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             functionReadings.addAll(functionReadingList)
         }
 
-        dumpWriter = withContext(Dispatchers.IO) {
+        dumpWriter = withContext(IO) {
             FileWriter(dumpFile)
         }
 
@@ -190,18 +191,30 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
+        performTest(
+            testName = "Quick sort",
+            methodName =  AlgorithmManager::quickSort.name,
+            timeComplexity = "O(n * log n)",
+            spaceComplexity = "O(log n)",
+            sampleTest = { algorithmManager.quickSort(
+                algorithmManager.findAllUniqueWords("He never took things as a suggestion, advice, or ideas.")
+            ) },
+            toTest = { algorithmManager.quickSort(allWords.toList()) },
+            repeats = algoRepeats ?: 0
+        )
+
         performGenericTests()
 
         val sbc: StatefulBeanToCsv<FunctionReading> = StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
-            .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+            .withSeparator(DEFAULT_SEPARATOR)
             .build()
         sbc.write(functionReadings)
-        withContext(Dispatchers.IO) {
+        withContext(IO) {
             dumpWriter?.close()
         }
 
 
-        withContext(Dispatchers.IO) {
+        withContext(IO) {
             FileOutputStream(logFile).use { oos ->
                 oos.write(
                     "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
@@ -249,7 +262,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             "***> Processing took ${
                 measureTimeMillisSave(testName, methodName, timeComplexity, spaceComplexity, repeats = repeats) {
                     GlobalScope.launch {
-                        withContext(Dispatchers.IO) {
+                        withContext(IO) {
                             FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
                                 (0..repeats).map {
                                     startProcessAsync(oos) {
@@ -350,7 +363,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("----====>>>> Starting generalTest <<<<====----")
         val startTime = LocalDateTime.now()
         GlobalScope.launch {
-            withContext(Dispatchers.IO) {
+            withContext(IO) {
                 FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
                     (1..(massiveRepeats ?: 0)).map {
                         startProcessAsync(oos) {
@@ -366,7 +379,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
     }
 
-    private suspend fun readFullContent(textFile: File): String = String(withContext(Dispatchers.IO) {
+    private suspend fun readFullContent(textFile: File): String = String(withContext(IO) {
         Files.readAllBytes(textFile.toPath())
     })
 
@@ -381,7 +394,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             log.info("----====>>>> Starting controlTest <<<<====----")
             val startTimeT = LocalDateTime.now()
             val aiThread = AtomicInteger(0)
-            withContext(Dispatchers.IO) {
+            withContext(IO) {
                 (1..repeats).map {
                     Thread { aiThread.getAndIncrement() }
                         .apply { start() }

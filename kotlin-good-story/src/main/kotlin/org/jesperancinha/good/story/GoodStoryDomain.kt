@@ -35,6 +35,8 @@ interface AlgorithmInterface {
     suspend fun findPrimeSecret(content: String): String
     suspend fun findAllUniqueWordsArray(content: String): Array<String>
     suspend fun createSplayTree(allWords: Array<String>): SplayTree?
+    suspend fun quickSort(allWords: List<String>): List<String>
+
 }
 
 class AlgorithmManager : AlgorithmInterface {
@@ -108,10 +110,34 @@ class AlgorithmManager : AlgorithmInterface {
      * @param allWords
      * @return
      */
-    override suspend fun createSplayTree(allWords: Array<String>): SplayTree? {
+    override suspend fun createSplayTree(allWords: Array<String>): SplayTree {
         val splayTree = SplayTree()
         allWords.forEach { word: String -> splayTree.insertWord(word) }
         return splayTree
+    }
+
+    /**
+     * Quick Sort
+     * Time complexity O(n * log n)
+     * Space complexity O(log n)
+     **/
+    override suspend fun quickSort(allWords: List<String>): List<String> {
+        if (allWords.size <= 1) {
+            return allWords
+        }
+        val left = ArrayList<String>()
+        val right = ArrayList<String>()
+        val top = allWords[0]
+        val length = allWords.size - 1
+
+        for (i in 1 until length) {
+            if (allWords[i] < top) {
+                left.add(allWords[i])
+            } else {
+                right.add(allWords[i])
+            }
+        }
+        return quickSort(left) + top + quickSort(right)
     }
 
     /**
