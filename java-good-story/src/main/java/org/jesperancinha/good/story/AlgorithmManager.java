@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import static java.lang.Math.abs;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * Created by jofisaes on 29/05/2022
@@ -45,7 +46,7 @@ public class AlgorithmManager implements AlgorithmInterface {
     public Long repetitionCount(String content) {
         return stream(content.split(" "))
                 .map(word -> word.replaceAll(",", "").replaceAll("\\.", "").replaceAll("\\?", "").toLowerCase())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(groupingBy(Function.identity(), Collectors.counting()))
                 .values().stream().filter(repetitions -> repetitions > 1)
                 .reduce(0L, (a, b) -> a + b - 1);
     }
@@ -69,7 +70,7 @@ public class AlgorithmManager implements AlgorithmInterface {
 
     @Override
     public Map<String, Long> findAllUniqueWordsWithCount(String content) {
-        return makeWordsList(content).sorted().collect(Collectors.groupingBy(identity(), Collectors.counting()));
+        return makeWordsList(content).sorted().collect(groupingBy(identity(), Collectors.counting()));
     }
 
     @Override

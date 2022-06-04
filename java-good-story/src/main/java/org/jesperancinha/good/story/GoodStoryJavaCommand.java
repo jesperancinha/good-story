@@ -1,7 +1,6 @@
 package org.jesperancinha.good.story;
 
 import com.opencsv.CSVWriter;
-import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -20,21 +19,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static java.lang.Math.abs;
 import static java.lang.Thread.startVirtualThread;
 import static java.time.Duration.between;
-import static java.util.function.Function.identity;
 import static java.util.stream.IntStream.range;
 
 /**
