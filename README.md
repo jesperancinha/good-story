@@ -88,6 +88,7 @@ TBD
 
 #### Online
 
+https://blogs.oracle.com/javamagazine/post/java-loom-virtual-threads-platform-threads
 - [Big O Notation and Time/Space Complexity](https://medium.com/swlh/big-o-notation-and-time-space-complexity-1806936e6330)
 - [Analysis of Algorithms | Big-O analysis](https://www.geeksforgeeks.org/analysis-algorithms-big-o-analysis/)
 - [BTech smart class - Introduction to algorithms](http://www.btechsmartclass.com/data_structures/introduction-to-algorithms.html)
