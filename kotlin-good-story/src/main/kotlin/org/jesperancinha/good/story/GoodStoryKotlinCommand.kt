@@ -203,6 +203,18 @@ class GoodStoryKotlinCommand : Callable<Int> {
             repeats = algoRepeats ?: 0
         )
 
+        performTest(
+            testName = "Make text from word Flow",
+            methodName =  AlgorithmManager::makeTextFromWordFlow.name,
+            timeComplexity = "n/a",
+            spaceComplexity = "n/a",
+            sampleTest = { algorithmManager.makeTextFromWordFlow(
+                algorithmManager.findAllUniqueWords("I think they use a strange trick. They just ask the Big O question.")
+            ) },
+            toTest = { algorithmManager.makeTextFromWordFlow(allWords.toList()) },
+            repeats = algoRepeats ?: 0
+        )
+
         performGenericTests()
 
         val sbc: StatefulBeanToCsv<FunctionReading> = StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)

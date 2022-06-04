@@ -2,6 +2,7 @@ package org.jesperancinha.good.story
 
 import com.opencsv.bean.CsvBindByName
 import org.jesperancinha.good.story.avl.AvlTree
+import org.jesperancinha.good.story.flows.FlowManager
 import org.jesperancinha.good.story.splay.SplayTree
 
 /**
@@ -36,10 +37,13 @@ interface AlgorithmInterface {
     suspend fun findAllUniqueWordsArray(content: String): Array<String>
     suspend fun createSplayTree(allWords: Array<String>): SplayTree?
     suspend fun quickSort(allWords: List<String>): List<String>
-
+    suspend fun makeTextFromWordFlow(words: List<String>): String
 }
 
 class AlgorithmManager : AlgorithmInterface {
+
+    private val flowManager by lazy { FlowManager() }
+
     /**
      * Counts how many repeated words are in text.
      * If one word is repeated 3 times, that counts as 2 repetitions.
@@ -139,6 +143,8 @@ class AlgorithmManager : AlgorithmInterface {
         }
         return quickSort(left) + top + quickSort(right)
     }
+
+    override suspend fun makeTextFromWordFlow(words: List<String>) = flowManager.readWordFlowBack(words)
 
     /**
      * Avl tree algorithm implementation.

@@ -4,6 +4,7 @@
 package org.jesperancinha.good.story
 
 import kotlinx.coroutines.*
+import org.jesperancinha.good.story.flows.FlowManager
 import picocli.CommandLine
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.exitProcess
@@ -19,7 +20,6 @@ class App {
 
 @DelicateCoroutinesApi
 fun main(args: Array<String>) {
-//    GoodStoryCommand.generalTest(DEFAULT_MASSIVE_REPEATS.toInt())
     val exitCode = CommandLine(GoodStoryKotlinCommand()).execute(*args)
     exitProcess(exitCode)
 }
