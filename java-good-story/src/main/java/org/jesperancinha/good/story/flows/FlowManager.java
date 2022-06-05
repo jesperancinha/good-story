@@ -25,6 +25,6 @@ public class FlowManager {
             } while (subscriber.getWords().size() < wordsSize);
         } catch (Exception ignored) {
         }
-        return String.join(",", subscriber.getWords());
+        return String.join(" ", subscriber.getWords());
     }
 }

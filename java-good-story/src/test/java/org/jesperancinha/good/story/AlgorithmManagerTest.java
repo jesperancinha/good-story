@@ -132,4 +132,26 @@ public class AlgorithmManagerTest {
         final List<String> wordsLists = algorithmInterface.quickSort(Arrays.stream(algorithmInterface.findAllUniqueWordsArray("I'll book you a meeting. Just not the one you are thinking of.")).toList());
         assertThat(wordsLists).containsExactly("Just", "a", "are", "book", "not");
     }
+
+    @Test
+    public void testJavaFlow(){
+        final var text = algorithmInterface.makeTextFromWordFlow(
+            algorithmInterface.findAllUniqueWords("""
+                    Hi Lucy,
+                                        
+                    We want to thank you for the time you invested in Jumping Dogs Refuge and interviewing with us. We know there are many fantastic companies that are hiring, and we feel honored that you chose to spend time allowing us to learn more about your unique background and accomplishments.
+                                        
+                    I know these emails are never fun to receive, but unfortunately, we have decided to pass on your candidacy.
+                    If you wish to discuss the outcome a bit, we can schedule a 10 min Zoom and I can give some high level feedback.
+                                        
+                    We wish you the best of luck in your job search, and again express our sincere appreciation for the time you invested in Jumping Dogs.
+                                        
+                    Regards,
+                                        
+                    Goo
+                    """));
+
+        assertThat(text).startsWith("Dogs Hi I Jumping Refuge We Zoom a about again allowing");
+    }
+
 }
