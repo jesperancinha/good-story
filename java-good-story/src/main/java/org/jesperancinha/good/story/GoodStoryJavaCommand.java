@@ -170,15 +170,22 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "Create Splay Tree",
                 "createSplayTree",
                 "O(log n)", "O(n)",
-                () -> algorithmManager.createSplayTree(  algorithmManager.findAllUniqueWordsArray("My concern is that I need tools. So many tools. So little time!")),
+                () -> algorithmManager.createSplayTree(algorithmManager.findAllUniqueWordsArray("My concern is that I need tools. So many tools. So little time!")),
                 () -> algorithmManager.createSplayTree(allWords), algoRepeats);
 
         performTest(
                 "Quick sort",
                 "quickSort",
                 "O(n * log n)", "O(log n)",
-                () -> algorithmManager.quickSort( List.of(algorithmManager.findAllUniqueWordsArray("If you ask me I think the great Inflexion Point is coming. Like winter"))),
+                () -> algorithmManager.quickSort(List.of(algorithmManager.findAllUniqueWordsArray("If you ask me I think the great Inflexion Point is coming. Like winter"))),
                 () -> algorithmManager.quickSort(List.of(allWords)), algoRepeats);
+
+        performTest(
+                "Make text from word Flow",
+                "makeTextFromWordFlow",
+                "n/a", "n/a",
+                () -> algorithmManager.makeTextFromWordFlow(List.of(algorithmManager.findAllUniqueWordsArray("As I saw the lift skipping the 13th floor I realised that there was no mission. I had to pay for my hotel"))),
+                () -> algorithmManager.makeTextFromWordFlow(List.of(allWords)), algoRepeats);
 
         performGenericTests();
 

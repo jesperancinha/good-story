@@ -1,6 +1,7 @@
 package org.jesperancinha.good.story;
 
 import org.jesperancinha.good.story.avl.AvlTree;
+import org.jesperancinha.good.story.flows.FlowManager;
 import org.jesperancinha.good.story.splay.SplayTree;
 
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ import static java.util.stream.Collectors.groupingBy;
  * Created by jofisaes on 29/05/2022
  */
 public class AlgorithmManager implements AlgorithmInterface {
+
+    private FlowManager flowManager = new FlowManager();
+
     /**
      * Double iteration of an array of words.
      * Result is the absolute sum of all the differences of sizes between words
@@ -193,6 +197,11 @@ public class AlgorithmManager implements AlgorithmInterface {
         targetArray.add(top);
         targetArray.addAll(quickSort(right));
         return targetArray;
+    }
+
+    @Override
+    public String makeTextFromWordFlow(List<String> words) {
+        return flowManager.readWordFlowBack(words);
     }
 
     private static boolean filterWords(String possibleWord) {

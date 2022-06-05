@@ -29,4 +29,6 @@ public interface AlgorithmInterface {
     SplayTree createSplayTree(String[] allWords);
 
     List<String> quickSort(List<String> allWords);
+
+    String makeTextFromWordFlow(List<String> words);
 }
