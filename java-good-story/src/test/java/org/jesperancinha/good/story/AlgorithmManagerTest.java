@@ -159,7 +159,9 @@ public class AlgorithmManagerTest {
         final var intersectionLists = algorithmInterface.createIntersectionWordList("That sir is a mystery", "That gentleman is a mystery");
 
         assertThat(intersectionLists).isNotNull();
-        assertThat(intersectionLists.get(0).next.next).isSameAs(intersectionLists.get(0).next.next);
+        assertThat(intersectionLists.get(0).next).isNotSameAs(intersectionLists.get(1).next);
+        assertThat(intersectionLists.get(0).next.next).isSameAs(intersectionLists.get(1).next.next);
+        assertThat(intersectionLists.get(0).next.next.next).isSameAs(intersectionLists.get(1).next.next.next);
     }
 
 }
