@@ -39,10 +39,15 @@ build-run:
 	$(foreach module,$(MODULES), \
 			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run && \
 			cd ..)
+run:
+	make create-headers
+	$(foreach module,$(MODULES), \
+			echo $(module) && cd $(module) && pwd && make set-jdk && make run && \
+			cd ..)
 build-run-local:
 	make create-headers
-	make run-local
-run-local:
+	make sub-build-run-local
+sub-build-run-local:
 	$(foreach module,$(MODULES), \
 			echo $(module) && cd $(module) && pwd && make set-jdk && make build-run-local && \
 			cd ..)

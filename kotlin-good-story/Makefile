@@ -1,8 +1,11 @@
 include ../Makefile
-.SILENT: build-run build-run-local
+.SILENT: build-run build-run-local run
 SHELL := /bin/bash
 
 run:
+	echo "╔═══════════════════════════════════════════════════════╗"
+	echo "║ Welcome to the Kotlin Good Story Run Performance Test ║"
+	echo "╚═══════════════════════════════════════════════════════╝"
 	bash run.sh
 run-local:
 	bash run-local.sh

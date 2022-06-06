@@ -1,11 +1,14 @@
 include ../Makefile
-.SILENT: build-run build-run-local
+.SILENT: build-run build-run-local run
 SHELL := /bin/bash
 
-run:
-	bash run.sh
 set-jdk:
 	cd .. && source loom-jdk.sh
+run:
+	echo "╔═════════════════════════════════════════════════════╗"
+	echo "║ Welcome to the Java Good Story Run Performance Test ║"
+	echo "╚═════════════════════════════════════════════════════╝"
+	bash run.sh
 build-run:
 	echo "╔═════════════════════════════════════════════════╗"
 	echo "║ Welcome to the Java Good Story Performance Test ║"
