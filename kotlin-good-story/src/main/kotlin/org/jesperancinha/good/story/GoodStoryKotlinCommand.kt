@@ -7,6 +7,7 @@ import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
+import org.jesperancinha.good.story.intersection.InterNode
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
@@ -19,6 +20,7 @@ import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
+import java.util.function.Supplier
 import kotlin.system.measureTimeMillis
 
 @Command(
@@ -171,7 +173,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         performTest(
             testName = "Secret word in Sieve of Eratosthenes",
-            methodName =  AlgorithmManager::findPrimeSecret.name,
+            methodName = AlgorithmManager::findPrimeSecret.name,
             timeComplexity = "O(n * log(log n))",
             spaceComplexity = "O(n)",
             sampleTest = { algorithmManager.findPrimeSecret("We should always test the functionality product needs but they said otherwise.") },
@@ -181,37 +183,63 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         performTest(
             testName = "Create Splay Tree",
-            methodName =  AlgorithmManager::createSplayTree.name,
+            methodName = AlgorithmManager::createSplayTree.name,
             timeComplexity = "O(log n)",
             spaceComplexity = "O(n)",
-            sampleTest = { algorithmManager.createSplayTree(
-                algorithmManager.findAllUniqueWordsArray("And then the Wolf said refrain this, refrain that.")
-            ) },
+            sampleTest = {
+                algorithmManager.createSplayTree(
+                    algorithmManager.findAllUniqueWordsArray("And then the Wolf said refrain this, refrain that.")
+                )
+            },
             toTest = { algorithmManager.createSplayTree(allWords) },
             repeats = algoRepeats ?: 0
         )
 
         performTest(
             testName = "Quick sort",
-            methodName =  AlgorithmManager::quickSort.name,
+            methodName = AlgorithmManager::quickSort.name,
             timeComplexity = "O(n * log n)",
             spaceComplexity = "O(log n)",
-            sampleTest = { algorithmManager.quickSort(
-                algorithmManager.findAllUniqueWords("He never took things as a suggestion, advice, or ideas.")
-            ) },
+            sampleTest = {
+                algorithmManager.quickSort(
+                    algorithmManager.findAllUniqueWords("He never took things as a suggestion, advice, or ideas.")
+                )
+            },
             toTest = { algorithmManager.quickSort(allWords.toList()) },
             repeats = algoRepeats ?: 0
         )
 
         performTest(
             testName = "Make text from word Flow",
-            methodName =  AlgorithmManager::makeTextFromWordFlow.name,
+            methodName = AlgorithmManager::makeTextFromWordFlow.name,
             timeComplexity = "n/a",
             spaceComplexity = "n/a",
-            sampleTest = { algorithmManager.makeTextFromWordFlow(
-                algorithmManager.findAllUniqueWords("I think they use a strange trick. They just ask the Big O question.")
-            ) },
+            sampleTest = {
+                algorithmManager.makeTextFromWordFlow(
+                    algorithmManager.findAllUniqueWords("I think they use a strange trick. They just ask the Big O question.")
+                )
+            },
             toTest = { algorithmManager.makeTextFromWordFlow(allWords.toList()) },
+            repeats = algoRepeats ?: 0
+        )
+
+        performTest(
+            testName = "Intersection Text Algorithm",
+            methodName = AlgorithmManager::createIntersectionWordList.name,
+            timeComplexity = "O(n)",
+            spaceComplexity = "O(n)",
+            sampleTest = {
+                algorithmManager.createIntersectionWordList(
+                    "It was great to do the monitoring setup and implementation",
+                    "Time to think about the logging setup and implementation"
+                )
+            },
+            toTest = {
+                algorithmManager.createIntersectionWordList(
+                    content.substring(0, 500),
+                    content.substring(0, 500)
+                )
+            },
             repeats = algoRepeats ?: 0
         )
 
