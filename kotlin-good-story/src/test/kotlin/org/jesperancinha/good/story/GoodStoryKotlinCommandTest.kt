@@ -4,11 +4,15 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldContainInOrder
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.collections.shouldNotContain
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import kotlinx.coroutines.DelicateCoroutinesApi
+import org.jesperancinha.good.story.intersection.InterNode
 
 @DelicateCoroutinesApi
 class GoodStoryKotlinCommandTest : StringSpec({
@@ -160,4 +164,30 @@ class GoodStoryKotlinCommandTest : StringSpec({
         quickSorted.shouldContainInOrder("O", "Pardonnez", "grand")
         quickSorted.shouldNotContain("Peter")
     }
+
+    "should createIntersectionWordList" {
+        val intersectionLists = algorithmManager.createIntersectionWordList(
+            "I didn't invited you because you did the eye roll in the last meeting",
+            "You could have asked... I have a tic that I cannot control and this is why I did the eye roll in the last meeting")
+
+        intersectionLists.shouldNotBeNull();
+        intersectionLists.shouldHaveSize(2)
+        intersectionLists[0] shouldNotBeSameInstanceAs intersectionLists[1]
+        intersectionLists[0].next(5) shouldNotBeSameInstanceAs
+                intersectionLists[1].next(16)
+        intersectionLists[0].next(6) shouldBeSameInstanceAs
+                intersectionLists[1].next(17)
+        intersectionLists[0].next(7) shouldBeSameInstanceAs
+                intersectionLists[1].next(18)
+        intersectionLists[0].next(8) shouldBeSameInstanceAs
+                intersectionLists[1].next(19)
+    }
 })
+
+private fun InterNode.next(i: Int): InterNode? {
+    return if(i==0){
+        this
+    } else {
+        this.next?.next(i-1)
+    }
+}

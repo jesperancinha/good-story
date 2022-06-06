@@ -3,6 +3,7 @@ package org.jesperancinha.good.story
 import com.opencsv.bean.CsvBindByName
 import org.jesperancinha.good.story.avl.AvlTree
 import org.jesperancinha.good.story.flows.FlowManager
+import org.jesperancinha.good.story.intersection.InterNode
 import org.jesperancinha.good.story.splay.SplayTree
 
 /**
@@ -38,6 +39,7 @@ interface AlgorithmInterface {
     suspend fun createSplayTree(allWords: Array<String>): SplayTree?
     suspend fun quickSort(allWords: List<String>): List<String>
     suspend fun makeTextFromWordFlow(words: List<String>): String
+    suspend fun createIntersectionWordList(sentenceLeft: String, sentenceRight: String): List<InterNode>
 }
 
 class AlgorithmManager : AlgorithmInterface {
@@ -196,6 +198,57 @@ class AlgorithmManager : AlgorithmInterface {
             }
             primeNumbers.map { i -> content[i] }.joinToString("")
         }
+    }
+
+    /**
+     * Creates a [InterNode] cascading linked node tree from two sentences.
+     * The intersection node is where both sentences have exactly the same words in exactly the same order.
+     * Time complexity is O(max(n,m)) => O(n)
+     * Space complexity is O(n + m) => O(n)
+     * @param sentenceLeft
+     * @param sentenceRight
+     * @return
+     */
+    override suspend fun createIntersectionWordList(sentenceLeft: String, sentenceRight: String): List<InterNode> {
+        val wordsLeft = sentenceLeft.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val wordsRight = sentenceRight.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val leftI = wordsLeft.size - 1
+        val rightI = wordsRight.size - 1
+        var interCurrNode: InterNode? = null
+        var leftCurrNode: InterNode? = null
+        var rightCurrNode: InterNode? = null
+        for (i in 0..leftI.coerceAtLeast(rightI)) {
+            val currL = leftI - i
+            val currR = rightI - i
+            if (currL >= 0 && currR > 0 && wordsLeft[currL] == wordsRight[currR]) {
+                if (interCurrNode == null) {
+                    interCurrNode = InterNode(wordsLeft[currL])
+                    leftCurrNode = interCurrNode
+                    rightCurrNode = interCurrNode
+                } else {
+                    val prevNode = InterNode(wordsLeft[currL])
+                    prevNode.next = interCurrNode
+                    interCurrNode = prevNode
+                    leftCurrNode = interCurrNode
+                    rightCurrNode = interCurrNode
+                }
+            } else {
+                if (currL >= 0) {
+                    val prevNode = InterNode(wordsLeft[currL])
+                    prevNode.next = leftCurrNode
+                    leftCurrNode = prevNode
+                }
+                if (currR >= 0) {
+                    val prevNode = InterNode(wordsRight[currR])
+                    prevNode.next = rightCurrNode
+                    rightCurrNode = prevNode
+                }
+            }
+        }
+        return if (leftCurrNode != null && rightCurrNode != null) listOf(
+            leftCurrNode,
+            rightCurrNode
+        ) else throw RuntimeException("Something went wrong!")
     }
 
     private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
