@@ -12,6 +12,9 @@ jobs:
       - name: Build and make new Report
         run: make build-run
 
+      - name: Build and Test
+        run:  mvn clean install jacoco:prepare-agent package jacoco:report
+
       - name: Coverage Reports
         run: source loom-jdk.sh && mvn omni-coveragereporter:report
         env:
