@@ -9,6 +9,13 @@ jobs:
       - name: Local installation of Loom JDK
         run: make sdk-linux && ls -d loom*
 
+      - name: Coverage Reports
+        run: source loom-jdk.sh && mvn omni-coveragereporter:report
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+
       - name: Build and make new Report
         run: make build-run
 
