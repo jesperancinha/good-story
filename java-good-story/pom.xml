@@ -6,15 +6,12 @@
     <properties>
         <opencsv.version>5.6</opencsv.version>
     </properties>
-
     <parent>
         <artifactId>good-story</artifactId>
         <groupId>org.jesperancinha.gs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>java-good-story</artifactId>
-
     <dependencies>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -105,22 +102,12 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <argLine>--enable-preview</argLine>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -133,6 +120,17 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <argLine>${argLine} --enable-preview</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
