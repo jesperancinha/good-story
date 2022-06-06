@@ -2,16 +2,19 @@ package org.jesperancinha.good.story;
 
 import org.jesperancinha.good.story.avl.AvlTree;
 import org.jesperancinha.good.story.flows.FlowManager;
+import org.jesperancinha.good.story.intersection.InterNode;
 import org.jesperancinha.good.story.splay.SplayTree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
@@ -172,6 +175,7 @@ public class AlgorithmManager implements AlgorithmInterface {
      * Quick Sort
      * Time complexity O(n * log n)
      * Space complexity O(log n)
+     *
      * @param allWords
      * @return
      */
@@ -202,6 +206,56 @@ public class AlgorithmManager implements AlgorithmInterface {
     @Override
     public String makeTextFromWordFlow(List<String> words) {
         return flowManager.readWordFlowBack(words);
+    }
+
+    /**
+     * Creates a {@link InterNode} cascading linked node tree from two sentences.
+     * The intersection node is where both sentences have exactly the same words in exactly the same order.
+     * Time complexity is O(max(n,m)) => O(n)
+     * Space complexity is O(n + m) => O(n)
+     * @param sentenceLeft
+     * @param sentenceRight
+     * @return
+     */
+    @Override
+    public List<InterNode> createIntersectionWordList(String sentenceLeft, String sentenceRight) {
+        var wordsLeft = sentenceLeft.split(" ");
+        var wordsRight = sentenceRight.split(" ");
+        var leftI = wordsLeft.length - 1;
+        var rightI = wordsRight.length - 1;
+        InterNode interCurrNode = null;
+        InterNode leftCurrNode = null;
+        InterNode rightCurrNode = null;
+        for (int i = 0; i <= max(leftI, rightI); i++) {
+            var currL = leftI - i;
+            var currR = rightI - i;
+            if (currL >= 0 && currR > 0 && Objects.equals(wordsLeft[currL], wordsRight[currR])) {
+                if (interCurrNode == null) {
+                    interCurrNode = new InterNode(wordsLeft[currL]);
+                    leftCurrNode = interCurrNode;
+                    rightCurrNode = interCurrNode;
+                } else {
+                    var prevNode = new InterNode(wordsLeft[currL]);
+                    prevNode.next = interCurrNode;
+                    interCurrNode = prevNode;
+                    leftCurrNode = interCurrNode;
+                    rightCurrNode = interCurrNode;
+                }
+            } else {
+                if (currL >= 0) {
+                    var prevNode = new InterNode(wordsLeft[currL]);
+                    prevNode.next = leftCurrNode;
+                    leftCurrNode = prevNode;
+                }
+                if (currR >= 0) {
+                    var prevNode = new InterNode(wordsRight[currR]);
+                    prevNode.next = rightCurrNode;
+                    rightCurrNode = prevNode;
+                }
+            }
+
+        }
+        return List.of(leftCurrNode, rightCurrNode);
     }
 
     private static boolean filterWords(String possibleWord) {

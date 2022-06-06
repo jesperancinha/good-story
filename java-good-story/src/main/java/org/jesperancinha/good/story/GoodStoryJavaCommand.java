@@ -187,6 +187,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> algorithmManager.makeTextFromWordFlow(List.of(algorithmManager.findAllUniqueWordsArray("As I saw the lift skipping the 13th floor I realised that there was no mission. I had to pay for my hotel"))),
                 () -> algorithmManager.makeTextFromWordFlow(List.of(allWords)), algoRepeats);
 
+        performTest(
+                "Intersection Text Algorithm",
+                "createIntersectionWordList",
+                "O(n)", "O(n)",
+                () -> algorithmManager.createIntersectionWordList("Nobody gave me a business card", "Nobody told me about a business card"),
+                () -> algorithmManager.createIntersectionWordList(content.substring(0, 500), content.substring(0, 500)), algoRepeats);
+
         performGenericTests();
 
         tearDownAlgorithmManager();

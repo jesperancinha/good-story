@@ -1,6 +1,7 @@
 package org.jesperancinha.good.story;
 
 import org.jesperancinha.good.story.avl.AvlTree;
+import org.jesperancinha.good.story.intersection.InterNode;
 import org.jesperancinha.good.story.splay.SplayTree;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public interface AlgorithmInterface {
     List<String> quickSort(List<String> allWords);
 
     String makeTextFromWordFlow(List<String> words);
+
+    List<InterNode> createIntersectionWordList(String sentenceLeft, String sentenceRight);
 }

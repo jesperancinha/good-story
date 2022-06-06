@@ -154,4 +154,12 @@ public class AlgorithmManagerTest {
         assertThat(text).startsWith("Dogs Hi I Jumping Refuge We Zoom a about again allowing");
     }
 
+    @Test
+    public void testCreateIntersectionWordList(){
+        final var intersectionLists = algorithmInterface.createIntersectionWordList("That sir is a mystery", "That gentleman is a mystery");
+
+        assertThat(intersectionLists).isNotNull();
+        assertThat(intersectionLists.get(0).next.next).isSameAs(intersectionLists.get(0).next.next);
+    }
+
 }
