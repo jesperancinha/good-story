@@ -13,6 +13,7 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.jesperancinha.good.story.intersection.InterNode
+import java.util.Stack
 
 @DelicateCoroutinesApi
 class GoodStoryKotlinCommandTest : StringSpec({
@@ -26,7 +27,8 @@ class GoodStoryKotlinCommandTest : StringSpec({
     }
 
     "should contentSplitIterateSubtractAndSum" {
-        val sum = algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.findAllUniqueWordsArray("ab abc abcd abcde"))
+        val sum =
+            algorithmManager.contentSplitIterateSubtractAndSum(algorithmManager.findAllUniqueWordsArray("ab abc abcd abcde"))
 
         sum shouldBe 20
     }
@@ -118,7 +120,8 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should create splay tree 1" {
         val splayTree = algorithmManager.createSplayTree(
-            algorithmManager.findAllUniqueWordsArray("Here is van-guardian idea. How about we stop talking about being positive over negative, end this mystical idea of positive over negative and get our act together and solve the problems in our lives? How about that huh? Isn't that also positive"))
+            algorithmManager.findAllUniqueWordsArray("Here is van-guardian idea. How about we stop talking about being positive over negative, end this mystical idea of positive over negative and get our act together and solve the problems in our lives? How about that huh? Isn't that also positive")
+        )
 
 
         splayTree.shouldNotBeNull()
@@ -139,7 +142,8 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should create splay tree 2" {
         val splayTree = algorithmManager.createSplayTree(
-            algorithmManager.findAllUniqueWordsArray("Regarde la haut! C'est le grand O ! Oui Oui Seb! C'est vrai"))
+            algorithmManager.findAllUniqueWordsArray("Regarde la haut! C'est le grand O ! Oui Oui Seb! C'est vrai")
+        )
 
 
         splayTree.shouldNotBeNull()
@@ -160,7 +164,8 @@ class GoodStoryKotlinCommandTest : StringSpec({
 
     "should quickSort" {
         val quickSorted = algorithmManager.quickSort(
-            algorithmManager.findAllUniqueWords("Pardonnez moi Seb! J'ais oublie le grand O"))
+            algorithmManager.findAllUniqueWords("Pardonnez moi Seb! J'ais oublie le grand O")
+        )
         quickSorted.shouldContainInOrder("O", "Pardonnez", "grand")
         quickSorted.shouldNotContain("Peter")
     }
@@ -168,7 +173,8 @@ class GoodStoryKotlinCommandTest : StringSpec({
     "should createIntersectionWordList" {
         val intersectionLists = algorithmManager.createIntersectionWordList(
             "I didn't invited you because you did the eye roll in the last meeting",
-            "You could have asked... I have a tic that I cannot control and this is why I did the eye roll in the last meeting")
+            "You could have asked... I have a tic that I cannot control and this is why I did the eye roll in the last meeting"
+        )
 
         intersectionLists.shouldNotBeNull();
         intersectionLists.shouldHaveSize(2)
@@ -185,9 +191,9 @@ class GoodStoryKotlinCommandTest : StringSpec({
 })
 
 private fun InterNode.next(i: Int): InterNode? {
-    return if(i==0){
+    return if (i == 0) {
         this
     } else {
-        this.next?.next(i-1)
+        this.next?.next(i - 1)
     }
 }
