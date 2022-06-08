@@ -81,13 +81,13 @@ This project makes usage of one single action:
 You can run the whole test in one go by running:
 
 ```shell
-make build-run
+make clean build-run
 ```
 
 For heavier tests please run:
 
 ```shell
-make build-run-loccal
+make clean build-run-loccal
 ```
 
 Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in the [Makefile](./Makefile) for distribution choices for the Loom JDK.
@@ -150,6 +150,7 @@ TBD
 #### Books
 
 -   Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
+-   Cormen, T. Leiserson, C. Rivest, R. Stein, C. (2009). <i>Introduction to Algorithms</i>. (Third Edition). MIT Press
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
