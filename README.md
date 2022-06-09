@@ -96,11 +96,7 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 -   [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
 
-## 7.  Playbook
-
-TBD
-
-## 8.  References
+## 7.  References
 
 #### Online
 
