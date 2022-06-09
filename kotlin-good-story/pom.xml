@@ -61,7 +61,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <kotlin.version>1.6.21</kotlin.version>
+        <kotlin.version>1.7.0</kotlin.version>
     </properties>
 
     <build>
