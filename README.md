@@ -143,6 +143,17 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 -   [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
 -   [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
 
+
+#### Videos
+
+<div align="center">
+      <a title="The Complete Guide to Big O Notation & Complexity Analysis for Algorithms: Part 1 of 2" href="https://www.youtube.com/watch?v=HfIH3czXc-8">
+     <img 
+          src="https://img.youtube.com/vi/HfIH3czXc-8/0.jpg" 
+          style="width:20%;">
+      </a>
+</div>
+
 #### Books
 
 -   Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
