@@ -100,6 +100,7 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 #### Online
 
+- [JetBrains’ Statement on Ukraine 🇺🇦](https://blog.jetbrains.com/blog/2022/03/11/jetbrains-statement-on-ukraine/)
 - [Scala (programming language)](https://en.wikipedia.org/wiki/Scala_(programming_language))
 - [History of Scala](https://www.javatpoint.com/history-of-scala)
 - [Project Loom (Java 19)](https://github.com/openjdk/loom)
