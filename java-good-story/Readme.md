@@ -58,6 +58,11 @@ Easy run:
           src="https://img.youtube.com/vi/UqlF6Mfhnz0/0.jpg" 
           style="width:20%;">
       </a>
+      <a title="Java 19 Virtual Threads - JEP Café #11" href="https://www.youtube.com/watch?v=lKSSBvRDmTg">
+     <img 
+          src="https://img.youtube.com/vi/lKSSBvRDmTg/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
