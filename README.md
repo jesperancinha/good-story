@@ -157,6 +157,11 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
           src="https://img.youtube.com/vi/HfIH3czXc-8/0.jpg" 
           style="width:20%;">
       </a>
+      <a title="P99 CONF: High-Performance Networking Using eBPF, XDP, and io_uring" href="https://www.youtube.com/watch?v=dWfA5460HYU">
+     <img 
+          src="https://img.youtube.com/vi/dWfA5460HYU/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 #### Books
