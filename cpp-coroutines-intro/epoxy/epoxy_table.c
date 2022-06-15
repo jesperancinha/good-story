@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
-int64_t currentMillis()
+int64_t currentTSMills()
 {
     struct timespec now;
     timespec_get(&now, TIME_UTC);
@@ -22,11 +22,11 @@ int processes(int startIndex, int endIndex)
                 for (i = startIndex; i < endIndex; i++)
                 {
                     sleep(1);
-                    printf("👍 Ordering at %lld. This suspends the next run (coroutine)\n",currentMillis());
+                    printf("👍 Ordering at %lld. This suspends the next run (coroutine)\n",currentTSMills());
                     return i;
                     case 1:
                         sleep(1);
-                        printf("✅ Ending step. This is the callback (start of the coroutine): %lld at %lld with id %d\n",i, currentMillis(),pthread_self());
+                        printf("✅ Ending step. This is the callback (start of the coroutine): %lld at %lld with id %d\n",i, currentTSMills(),pthread_self());
                  }
     }
     puts("┌──────────────┐");
