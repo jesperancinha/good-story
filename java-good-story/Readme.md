@@ -73,6 +73,11 @@ Easy run:
           src="https://img.youtube.com/vi/fOEPEXTpbJA/0.jpg" 
           style="width:20%;">
       </a>
+     <a title="Project Loom: Modern Scalable Concurrency for the Java - Ron Pressler" href="https://www.youtube.com/watch?v=23HjZBOIshY">
+     <img 
+          src="https://img.youtube.com/vi/23HjZBOIshY/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
