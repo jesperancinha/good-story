@@ -63,6 +63,11 @@ Easy run:
           src="https://img.youtube.com/vi/lKSSBvRDmTg/0.jpg" 
           style="width:20%;">
       </a>
+      <a title="Virtual Thread Deep Dive - Inside Java Newscast #23" href="https://www.youtube.com/watch?v=6dpHdo-UnCg">
+     <img 
+          src="https://img.youtube.com/vi/6dpHdo-UnCg/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
