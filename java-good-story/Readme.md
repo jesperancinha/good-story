@@ -78,6 +78,11 @@ Easy run:
           src="https://img.youtube.com/vi/23HjZBOIshY/0.jpg" 
           style="width:20%;">
       </a>
+     <a title="Java 19 - The Best Java Release? - Inside Java Newscast #27" href="https://www.youtube.com/watch?v=UG9nViGZCEw">
+     <img 
+          src="https://img.youtube.com/vi/UG9nViGZCEw/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
