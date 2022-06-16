@@ -2,10 +2,23 @@
 
 ## References
 
+#### Links
+
 - [Kotlin (programming language)](https://en.wikipedia.org/wiki/Kotlin_(programming_language))
 - [Kotlin / kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - [Kotlin coroutines on Android](https://developer.android.com/kotlin/coroutines)
 - [What are coroutines in Kotlin and how to write them](https://www.tabnine.com/blog/what-are-coroutines-in-kotlin-and-how-to-write-it/)
+
+
+#### Videos
+
+<div align="center">
+      <a title="The ABC of Coroutines - Kotlin Vocabulary" href="https://www.youtube.com/watch?v=bM7PVVL_5GM">
+     <img 
+          src="https://img.youtube.com/vi/bM7PVVL_5GM/0.jpg" 
+          style="width:20%;">
+      </a>
+</div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
