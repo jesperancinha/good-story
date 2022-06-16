@@ -100,14 +100,15 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 #### Online
 
+- [Coroutines overview](https://kotlinlang.org/docs/coroutines-overview.html)
 - [JetBrains’ Statement on Ukraine 🇺🇦](https://blog.jetbrains.com/blog/2022/03/11/jetbrains-statement-on-ukraine/)
 - [Scala (programming language)](https://en.wikipedia.org/wiki/Scala_(programming_language))
 - [History of Scala](https://www.javatpoint.com/history-of-scala)
 - [Project Loom (Java 19)](https://github.com/openjdk/loom)
-- [Java (programming language)](https://en.wikipedia.org/wiki/Java_(programming_language))
+- [Java (programming language) ☕](https://en.wikipedia.org/wiki/Java_(programming_language))
 - [Project Loom: Fibers and Continuations for the Java Virtual Machine](https://cr.openjdk.java.net/~rpressler/loom/Loom-Proposal.html)
 - [Coming to Java 19: Virtual threads and platform threads](https://blogs.oracle.com/javamagazine/post/java-loom-virtual-threads-platform-threads)
-- [STAR method interview](https://www.youtube.com/results?search_query=star+method+interview)
+- [STAR method interview ✨](https://www.youtube.com/results?search_query=star+method+interview)
 - [Amazon Leadership Examples on Youtube](https://www.youtube.com/results?search_query=amazon+leadership+examples)
 - [System Design Messenger on Youtube](https://www.youtube.com/results?search_query=system+design+messenger)
 - [Behavioral Interview Prep](https://www.algoexpert.io/behavioral-interviews)
@@ -125,7 +126,7 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 - [AVL Tree](https://www.programiz.com/dsa/avl-tree)
 - [Data Structure and Algorithms - AVL Trees](https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm)
 - [AVL Tree Insertion, Rotation, and Balance Factor Explained](https://www.freecodecamp.org/news/avl-tree-insertion-rotation-and-balance-factor/)
-- [What is an AVL tree?](https://www.educative.io/edpresso/what-is-an-avl-tree)
+- [What is an AVL tree? 🌳](https://www.educative.io/edpresso/what-is-an-avl-tree)
 - [AVL Tree program in Java](https://www.javatpoint.com/avl-tree-program-in-java)
 - [How to insert Strings into an AVL Tree](https://www.geeksforgeeks.org/how-to-insert-strings-into-an-avl-tree/)
 - [Big O Factorial Time Complexity](https://jarednielsen.com/big-o-factorial-time-complexity/)

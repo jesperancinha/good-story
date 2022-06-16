@@ -33,6 +33,11 @@
           src="https://img.youtube.com/vi/C38lG2wraoo/0.jpg" 
           style="width:20%;">
       </a>
+      <a title="Coroutine Scopes - Kotlin Coroutines" href="https://www.youtube.com/watch?v=kXSBkAA03Tc">
+     <img 
+          src="https://img.youtube.com/vi/kXSBkAA03Tc/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
