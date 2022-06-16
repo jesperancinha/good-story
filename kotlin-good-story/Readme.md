@@ -18,6 +18,21 @@
           src="https://img.youtube.com/vi/bM7PVVL_5GM/0.jpg" 
           style="width:20%;">
       </a>
+      <a title="WHAT IS A COROUTINE? - Kotlin Coroutines" href="https://www.youtube.com/watch?v=ShNhJ3wMpvQ">
+     <img 
+          src="https://img.youtube.com/vi/ShNhJ3wMpvQ/0.jpg" 
+          style="width:20%;">
+      </a>
+      <a title="KotlinConf 2018 - Exploring Coroutines in Kotlin by Venkat Subramaniam" href="https://www.youtube.com/watch?v=jT2gHPQ4Z1Q">
+     <img 
+          src="https://img.youtube.com/vi/jT2gHPQ4Z1Q/0.jpg" 
+          style="width:20%;">
+      </a>
+      <a title="Kotlin Coroutines: Explore what are coroutines in kotlin. Threads vs. Coroutine" href="https://www.youtube.com/watch?v=C38lG2wraoo">
+     <img 
+          src="https://img.youtube.com/vi/C38lG2wraoo/0.jpg" 
+          style="width:20%;">
+      </a>
 </div>
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
