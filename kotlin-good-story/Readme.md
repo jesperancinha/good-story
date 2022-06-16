@@ -9,7 +9,6 @@
 - [Kotlin coroutines on Android](https://developer.android.com/kotlin/coroutines)
 - [What are coroutines in Kotlin and how to write them](https://www.tabnine.com/blog/what-are-coroutines-in-kotlin-and-how-to-write-it/)
 
-
 #### Videos
 
 <div align="center">
@@ -36,6 +35,16 @@
       <a title="Coroutine Scopes - Kotlin Coroutines" href="https://www.youtube.com/watch?v=kXSBkAA03Tc">
      <img 
           src="https://img.youtube.com/vi/kXSBkAA03Tc/0.jpg" 
+          style="width:20%;">
+      </a>
+</div>
+
+#### Playlists
+
+<div align="center">
+      <a title="Kotlin Coroutines by Philipp Lackner" href="https://www.youtube.com/watch?v=ShNhJ3wMpvQ&list=PLQkwcJG4YTCQcFEPuYGuv54nYai_lwil_&index=1">
+     <img 
+          src="https://img.youtube.com/vi/ShNhJ3wMpvQ/0.jpg" 
           style="width:20%;">
       </a>
 </div>
