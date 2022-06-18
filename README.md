@@ -100,6 +100,7 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 #### Online
 
+- [Why Continuations are Coming to Java](https://www.infoq.com/presentations/continuations-java/)
 - [Coroutines overview](https://kotlinlang.org/docs/coroutines-overview.html)
 - [JetBrains’ Statement on Ukraine 🇺🇦](https://blog.jetbrains.com/blog/2022/03/11/jetbrains-statement-on-ukraine/)
 - [Scala (programming language)](https://en.wikipedia.org/wiki/Scala_(programming_language))
