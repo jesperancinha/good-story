@@ -5,10 +5,22 @@ import org.jesperancinha.good.story.flows.FlowManager;
 import org.jesperancinha.good.story.intersection.InterNode;
 import org.jesperancinha.good.story.splay.SplayTree;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -213,6 +225,7 @@ public class AlgorithmManager implements AlgorithmInterface {
      * The intersection node is where both sentences have exactly the same words in exactly the same order.
      * Time complexity is O(max(n,m)) => O(n)
      * Space complexity is O(n + m) => O(n)
+     *
      * @param sentenceLeft
      * @param sentenceRight
      * @return
@@ -256,6 +269,51 @@ public class AlgorithmManager implements AlgorithmInterface {
 
         }
         return List.of(leftCurrNode, rightCurrNode);
+    }
+
+    @Override
+    public String saveWords(List<String> words) {
+        final File tempFile;
+        try {
+            tempFile = File.createTempFile("test", "txt");
+            tempFile.deleteOnExit();
+            try (var fos = new FileOutputStream(tempFile)) {
+                words.forEach(w -> {
+                    try {
+                        fos.write(w.getBytes(StandardCharsets.UTF_8));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "saveWords OK!";
+    }
+
+
+    public String saveWordsNio(List<String> words) {
+        Set<StandardOpenOption> options = new HashSet<>();
+        options.add(StandardOpenOption.CREATE);
+        options.add(StandardOpenOption.APPEND);
+        try {
+            File tempFile = File.createTempFile("test", "txt");
+            tempFile.deleteOnExit();
+            Path path = Paths.get(tempFile.getAbsolutePath());
+            FileChannel fileChannel = FileChannel.open(path, options);
+            words.forEach(w -> {
+                try {
+                    fileChannel.write(ByteBuffer.wrap(w.getBytes(StandardCharsets.UTF_8)));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            fileChannel.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "saveWords OK!";
     }
 
     private static boolean filterWords(String possibleWord) {

@@ -112,11 +112,18 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
         log.info("===> Text size is {}", content.length());
 
+        performTest(
+                "Write to 1 file",
+                "saveWordsNio",
+                "n/a", "n/a",
+                () -> algorithmManager.saveWordsNio(algorithmManager.findAllUniqueWords("When I make meetings I always make sure they are technical, but tell me what did that with you")),
+                () -> algorithmManager.saveWordsNio(algorithmManager.findAllUniqueWords(content)), 2);
 
         performTest(
                 "All Unique Words",
                 "findAllUniqueWords",
-                "n/a", "n/a", () -> String.join(".",
+                "n/a", "n/a",
+                () -> String.join(".",
                         algorithmManager.findAllUniqueWords(content).subList(0, 10)),
                 () -> algorithmManager.findAllUniqueWords(content), algoRepeats);
 
@@ -271,11 +278,10 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
     private <T> void performTest(String testName, String methodName, String timeComplexity, String spaceComplexity, Supplier<T> sampleTest, Runnable toTest, int repeats) {
         try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
-            log.info("===> {}: {}", testName, sampleTest.get());
+            log.info("===> Starting test: {}: {}", testName, sampleTest.get());
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
-                final List<Thread> threadStream = range(0, massiveRepeats)
-                        .mapToObj(i -> startProcessAsync(toTest, oos)).toList();
-                log.info("Just sent {} threads", repeats);
+                final List<Thread> threadStream = range(0, repeats).mapToObj(i -> startProcessAsync(toTest, oos)).toList();
+                log.info("---> Just sent {} threads", repeats);
                 threadStream
                         .forEach(thread -> {
                             try {
