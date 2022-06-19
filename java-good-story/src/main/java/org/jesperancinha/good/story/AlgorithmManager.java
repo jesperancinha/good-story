@@ -293,7 +293,12 @@ public class AlgorithmManager implements AlgorithmInterface {
     }
 
 
-    public String saveWordsNio(List<String> words) {
+    public synchronized String saveWordsNio(List<String> words) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Set<StandardOpenOption> options = new HashSet<>();
         options.add(StandardOpenOption.CREATE);
         options.add(StandardOpenOption.APPEND);
