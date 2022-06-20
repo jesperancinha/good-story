@@ -116,6 +116,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
 
         performTest(
+            testName = "wait0Nanos",
+            methodName = AlgorithmManager::findAllUniqueWords.name,
+            sampleTest = { algorithmManager.wait0Nanos() },
+            toTest = { algorithmManager.wait0Nanos() },
+            repeats = 2
+        )
+
+        performTest(
             testName = "All Unique Words",
             methodName = AlgorithmManager::findAllUniqueWords.name,
             sampleTest = { algorithmManager.findAllUniqueWords(content).subList(0, 10) },

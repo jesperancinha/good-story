@@ -5,6 +5,15 @@ import org.jesperancinha.good.story.avl.AvlTree
 import org.jesperancinha.good.story.flows.FlowManager
 import org.jesperancinha.good.story.intersection.InterNode
 import org.jesperancinha.good.story.splay.SplayTree
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.ByteBuffer
+import java.nio.channels.FileChannel
+import java.nio.charset.StandardCharsets
+import java.nio.file.Paths
+import java.nio.file.StandardOpenOption
+import java.util.function.Consumer
 
 /**
  * Created by jofisaes on 28/05/2022
@@ -40,6 +49,9 @@ interface AlgorithmInterface {
     suspend fun quickSort(allWords: List<String>): List<String>
     suspend fun makeTextFromWordFlow(words: List<String>): String
     suspend fun createIntersectionWordList(sentenceLeft: String, sentenceRight: String): List<InterNode>
+    fun saveWords(words: List<String>): String?
+    fun saveWordsParking(words: List<String>): String?
+    fun wait0Nanos(): String?
 }
 
 class AlgorithmManager : AlgorithmInterface {
@@ -249,6 +261,80 @@ class AlgorithmManager : AlgorithmInterface {
             leftCurrNode,
             rightCurrNode
         ) else throw RuntimeException("Something went wrong!")
+    }
+
+    /**
+     *
+     */
+    override fun saveWords(words: List<String>): String? {
+        try {
+            Thread.sleep(100)
+        } catch (e: InterruptedException) {
+            throw RuntimeException(e)
+        }
+        val tempFile: File
+        try {
+            tempFile = File.createTempFile("test", "txt")
+            tempFile.deleteOnExit()
+            FileOutputStream(tempFile).use { fos ->
+                words.forEach(Consumer { w: String ->
+                    try {
+                        fos.write(w.toByteArray(StandardCharsets.UTF_8))
+                    } catch (e: IOException) {
+                        throw RuntimeException(e)
+                    }
+                })
+            }
+        } catch (e: IOException) {
+            throw RuntimeException(e)
+        }
+        return "saveWords OK!"
+    }
+
+
+    /**
+     *
+     */
+    @Synchronized
+    override fun saveWordsParking(words: List<String>): String? {
+        try {
+            Thread.sleep(100)
+        } catch (e: InterruptedException) {
+            throw RuntimeException(e)
+        }
+        val options: MutableSet<StandardOpenOption> = HashSet()
+        options.add(StandardOpenOption.CREATE)
+        options.add(StandardOpenOption.APPEND)
+        try {
+            val tempFile = File.createTempFile("test", "txt")
+            tempFile.deleteOnExit()
+            val path = Paths.get(tempFile.absolutePath)
+            val fileChannel = FileChannel.open(path, options)
+            words.forEach(Consumer { w: String ->
+                try {
+                    fileChannel.write(ByteBuffer.wrap(w.toByteArray(StandardCharsets.UTF_8)))
+                } catch (e: IOException) {
+                    throw RuntimeException(e)
+                }
+            })
+            fileChannel.close()
+        } catch (e: IOException) {
+            throw RuntimeException(e)
+        }
+        return "saveWords OK!"
+    }
+
+
+    /**
+     *
+     */
+    override fun wait0Nanos(): String? {
+        try {
+            Thread.sleep(0)
+        } catch (e: InterruptedException) {
+            throw RuntimeException(e)
+        }
+        return "Ok"
     }
 
     private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
