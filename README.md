@@ -34,7 +34,7 @@
 
 An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
 
-## 1.  Introduction
+## 1. Introduction
 
 This project started as an idea to explore differences in performance between different projects. It has grown now into a full fledge comparison between Java and Kotlin and ONLY for <b>engineering purposes</b>.
 
@@ -42,23 +42,32 @@ I won't dive into style IT discussions in this project. And of course the `elega
 
 If you understand these terms, then I think you'll find this project interesting.
 
-The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](https://jesperancinha.github.io/good-story/good.story/GoodStory.html) file. We will apply algorithms to it, make objects, and explore the limits of our own machines.
+The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](https://jesperancinha.github.io/good-story/good.story/GoodStory.html) file. We will apply algorithms to it, make objects, and explore the limits
+of our own machines.
 
-Further, you may find that I'm using `for`, `while` and a `do..while` in both `Java` and `Kotlin` implementations. This is purposely done in some cases. I may find that in some cases there is no point in using the already implemented algorithm for some situations. Especially if they can be implemented in exactly the same way in `Java` or `Kotlin` without the use of a DSL.
+Further, you may find that I'm using `for`, `while` and a `do..while` in both `Java` and `Kotlin` implementations. This is purposely done in some cases. I may find that in some cases there is no point in using the already implemented algorithm for some situations. Especially if they can be
+implemented in exactly the same way in `Java` or `Kotlin` without the use of a DSL.
 
 `Lombok` usage will be avoided as much as possible and so please do not be surprised if you get to see any manual implementation of the builder pattern.
 
-## 2.  Environment
+#### 1.1. About performance
+
+It caught my attention recently that in many blogs and videos, people are stressing out that coroutines and virtual threads are not about performance. That is of course directly true. What they are about is making a better use of a resource that has been there for ages. Sometimes called Continuation,
+sometimes called coroutines, but this is a concept that has been here for a long time. This repository is, regardless, about performance, because if we use our resources better, then that will ultimately result in better performance as a whole. So this repo is not about comparing the individual
+performance of one coroutine to one virtual thread. They work as a whole, both switch context, both can be suspended and both have different states. So I am measuring, or better yet, attempting to measure performance on a local machine and try to see if there is any significant difference there.
+These tests are also allowing to exhaust resources and therefore forcing each implementation to manage itself. It's here where the performance study comes in.
+
+## 2. Environment
 
 [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main) is itself a JDK and in order to use it, you need first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
 
->check the [Makefile](./Makefile) for the most appropriate script for your operating system.
+> check the [Makefile](./Makefile) for the most appropriate script for your operating system.
 
 ```shell
 make sdk-install
 ```
 
-## 3.  Tech comparisons
+## 3. Tech comparisons
 
 We cannot 100% compare Kotlin and Java in a direct way, but we will compare them using their best performant version:
 
@@ -70,13 +79,13 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the comparisons. It gets updated per commit.
 You can also check the detailed file for [Java](./dump/java/Log.md) and the detailed file for [Kotlin](./dump/kotlin/Log.md).
 
-## 4.  Actions
+## 4. Actions
 
-This project makes usage of one single action: 
+This project makes usage of one single action:
 
--   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+- [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
 
-## 5.  How top run
+## 5. How top run
 
 You can run the whole test in one go by running:
 
@@ -94,9 +103,9 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 ## 6.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 
--   [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
+- [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
 
-## 7.  References
+## 7. References
 
 #### Online
 
@@ -153,7 +162,6 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 - [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
 - [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
 
-
 #### Videos
 
 <div align="center">
@@ -171,8 +179,8 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 #### Books
 
--   Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
--   Cormen, T. Leiserson, C. Rivest, R. Stein, C. (2009). <i>Introduction to Algorithms</i>. (Third Edition). MIT Press
+- Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
+- Cormen, T. Leiserson, C. Rivest, R. Stein, C. (2009). <i>Introduction to Algorithms</i>. (Third Edition). MIT Press
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
