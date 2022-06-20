@@ -216,6 +216,15 @@ public class AlgorithmManager implements AlgorithmInterface {
         return targetArray;
     }
 
+
+    /**
+     * Make Virtual Thread go through states
+     * RUNNING
+     * PARKING
+     * RUNNING
+     * @param words
+     * @return
+     */
     @Override
     public String makeTextFromWordFlow(List<String> words) {
         return flowManager.readWordFlowBack(words);
@@ -274,12 +283,19 @@ public class AlgorithmManager implements AlgorithmInterface {
 
     /**
      * An example of an IO operation that doesn't seem to change the behaviour of Virtual Threads.
-     *
+     * Goes through state
+     * RUNNING
+     * PARKING
      * @param words
      * @return
      */
     @Override
     public String saveWords(List<String> words) {
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         final File tempFile;
         try {
             tempFile = File.createTempFile("test", "txt");
@@ -303,13 +319,18 @@ public class AlgorithmManager implements AlgorithmInterface {
     /**
      * This method doesn't seem to be doing much, but notice that it is synchronized.
      * Synchronized in virtual threads, generates the need to Park threads while they wait
+     * Makes Virtual Thread go through states
+     * RUNNING
+     * PARKING
+     * PINNED
+     * RUNNING
      *
      * @param words
      * @return
      */
     public synchronized String saveWordsParking(List<String> words) {
         try {
-            sleep(1000);
+            sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
