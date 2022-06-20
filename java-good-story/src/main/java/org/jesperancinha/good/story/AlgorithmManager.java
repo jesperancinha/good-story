@@ -356,6 +356,23 @@ public class AlgorithmManager implements AlgorithmInterface {
         return "saveWords OK!";
     }
 
+    /**
+     * Goes through states
+     * RUNNING
+     * YIELDING
+     *
+     * @return
+     */
+    @Override
+    public String wait0Nanos() {
+        try {
+            sleep(0);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "Ok";
+    }
+
     private static boolean filterWords(String possibleWord) {
         return possibleWord.matches("[a-zA-Z]+");
     }

@@ -113,6 +113,13 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("===> Text size is {}", content.length());
 
         performTest(
+                "Wait 0 Nanos - Running - Yield - Virtual Thread",
+                "wait0Nanos",
+                "n/a", "n/a",
+                algorithmManager::wait0Nanos,
+                algorithmManager::wait0Nanos, 2);
+
+        performTest(
                 "Write to 1 file - Yield - Virtual Thread",
                 "saveWordsNio",
                 "n/a", "n/a",
@@ -285,7 +292,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
     private <T> void performTest(String testName, String methodName, String timeComplexity, String spaceComplexity, Supplier<T> sampleTest, Runnable toTest, int repeats) {
         try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
-            log.info("===> Starting test: {}: {}", testName, sampleTest.get());
+            log.info("===> Starting test: {}: {} <===", testName, sampleTest.get());
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
                 final List<Thread> threadStream = range(0, repeats).mapToObj(i -> startProcessAsync(toTest, oos)).toList();
                 log.info("---> Just sent {} threads", repeats);

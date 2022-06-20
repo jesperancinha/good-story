@@ -38,4 +38,6 @@ public interface AlgorithmInterface {
     String saveWords(List<String> words);
 
    String saveWordsParking(List<String> words);
+
+   String wait0Nanos();
 }
