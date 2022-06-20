@@ -116,8 +116,8 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 "Write to 1 file - No Parking - Virtual Thread",
                 "saveWordsNio",
                 "n/a", "n/a",
-                () -> algorithmManager.saveWordsParking(algorithmManager.findAllUniqueWords("I had problem B, but he understood problem A, then he created problem C out of problem A, said problem C was mine and presented me with a solution to problem C. My original problem was never solved and he ended up getting a promotion.")),
-                () -> algorithmManager.saveWordsParking(algorithmManager.findAllUniqueWords(content)), 2);
+                () -> algorithmManager.saveWords(algorithmManager.findAllUniqueWords("I had problem B, but he understood problem A, then he created problem C out of problem A, said problem C was mine and presented me with a solution to problem C. My original problem was never solved and he ended up getting a promotion.")),
+                () -> algorithmManager.saveWords(algorithmManager.findAllUniqueWords(content)), 2);
 
         performTest(
                 "Write to 1 file - Parking - Virtual Thread",
