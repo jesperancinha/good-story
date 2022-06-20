@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
+import static java.lang.Thread.sleep;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
@@ -271,6 +272,12 @@ public class AlgorithmManager implements AlgorithmInterface {
         return List.of(leftCurrNode, rightCurrNode);
     }
 
+    /**
+     * An example of an IO operation that doesn't seem to change the behaviour of Virtual Threads.
+     *
+     * @param words
+     * @return
+     */
     @Override
     public String saveWords(List<String> words) {
         final File tempFile;
@@ -293,9 +300,16 @@ public class AlgorithmManager implements AlgorithmInterface {
     }
 
 
-    public synchronized String saveWordsNio(List<String> words) {
+    /**
+     * This method doesn't seem to be doing much, but notice that it is synchronized.
+     * Synchronized in virtual threads, generates the need to Park threads while they wait
+     *
+     * @param words
+     * @return
+     */
+    public synchronized String saveWordsParking(List<String> words) {
         try {
-            Thread.sleep(1000);
+            sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

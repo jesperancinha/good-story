@@ -113,11 +113,18 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("===> Text size is {}", content.length());
 
         performTest(
-                "Write to 1 file",
+                "Write to 1 file - No Parking - Virtual Thread",
                 "saveWordsNio",
                 "n/a", "n/a",
-                () -> algorithmManager.saveWordsNio(algorithmManager.findAllUniqueWords("When I make meetings I always make sure they are technical, but tell me what did that with you")),
-                () -> algorithmManager.saveWordsNio(algorithmManager.findAllUniqueWords(content)), 2);
+                () -> algorithmManager.saveWordsParking(algorithmManager.findAllUniqueWords("I had problem B, but he understood problem A, then he created problem C out of problem A, said problem C was mine and presented me with a solution to problem C. My original problem was never solved and he ended up getting a promotion.")),
+                () -> algorithmManager.saveWordsParking(algorithmManager.findAllUniqueWords(content)), 2);
+
+        performTest(
+                "Write to 1 file - Parking - Virtual Thread",
+                "saveWordsNio",
+                "n/a", "n/a",
+                () -> algorithmManager.saveWordsParking(algorithmManager.findAllUniqueWords("When I make meetings I always make sure they are technical, but tell me what did that with you")),
+                () -> algorithmManager.saveWordsParking(algorithmManager.findAllUniqueWords(content)), 2);
 
         performTest(
                 "All Unique Words",

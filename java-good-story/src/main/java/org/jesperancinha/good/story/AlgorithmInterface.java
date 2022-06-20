@@ -4,7 +4,6 @@ import org.jesperancinha.good.story.avl.AvlTree;
 import org.jesperancinha.good.story.intersection.InterNode;
 import org.jesperancinha.good.story.splay.SplayTree;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -38,5 +37,5 @@ public interface AlgorithmInterface {
 
     String saveWords(List<String> words);
 
-   String  saveWordsNio(List<String> words);
+   String saveWordsParking(List<String> words);
 }
