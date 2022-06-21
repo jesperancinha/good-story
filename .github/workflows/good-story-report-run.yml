@@ -1,5 +1,9 @@
 name: GS - Report Run
-on: [push, pull_request]
+
+on:
+  push:
+    branches: [ master ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
