@@ -309,22 +309,19 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info(
             "***> Processing took ${
                 measureTimeMillisSave(testName, methodName, timeComplexity, spaceComplexity, repeats = repeats) {
-                    GlobalScope.launch {
-                        withContext(IO) {
-                            FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
-                                (0..repeats).map {
-                                    startProcessAsync(oos) {
-                                        toTest()
-                                    }
-                                }.awaitAll()
-                            }
+                    withContext(IO) {
+                        FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
+                            (0..repeats).map {
+                                startProcessAsync(oos) {
+                                    toTest()
+                                }
+                            }.awaitAll()
                         }
-                    }.join()
+                    }
                     log.info("Just sent {} threads", repeats)
                 }
             } milliseconds"
         )
-
     }
 
     private suspend fun performGenericTests() {
@@ -410,17 +407,15 @@ class GoodStoryKotlinCommand : Callable<Int> {
     suspend fun generalTest() {
         log.info("----====>>>> Starting generalTest <<<<====----")
         val startTime = LocalDateTime.now()
-        GlobalScope.launch {
-            withContext(IO) {
-                FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
-                    (1..(massiveRepeats ?: 0)).map {
-                        startProcessAsync(oos) {
-                            virtualCounter.incrementAndGet()
-                        }
-                    }.awaitAll()
-                }
+        withContext(IO) {
+            FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
+                (1..(massiveRepeats ?: 0)).map {
+                    startProcessAsync(oos) {
+                        virtualCounter.incrementAndGet()
+                    }
+                }.awaitAll()
             }
-        }.join()
+        }
         val endTime = LocalDateTime.now()
         log.info("Imma be the main Thread")
         log.info(virtualCounter.get().toString())
