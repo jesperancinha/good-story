@@ -262,6 +262,33 @@ class GoodStoryKotlinCommand : Callable<Int> {
         }
 
 
+        dumpDir?.let { root ->
+            File(root, "kotlin").listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
+                ?.forEach { source ->
+                    FileOutputStream(File(File(root, "kotlin"), "${source.name}-ms.csv"), true)
+                        .use { oos ->
+                            val pairList = source.readLines()
+                                .map {
+                                    val (start, end) = it.split(",")
+                                    LocalDateTime.parse(start) to LocalDateTime.parse(end)
+                                }
+                                .sortedBy { it.first }
+                            val first = pairList.first().first
+                            val last = pairList.last().first
+
+                            val delta = Duration.between(first, last).toMillis() / 100
+                            (1..100).map { n ->
+                                val size = pairList.filter {
+                                    first.plusNanos(n * delta * 1000) > it.first && first.plusNanos(n * delta * 1000) <it.second
+                                }.size
+                                oos.write("$n,$size\n".toByteArray(StandardCharsets.UTF_8))
+                            }
+                            oos.flush()
+                        }
+
+                }
+        }
+
         withContext(IO) {
             FileOutputStream(logFile).use { oos ->
                 oos.write(
