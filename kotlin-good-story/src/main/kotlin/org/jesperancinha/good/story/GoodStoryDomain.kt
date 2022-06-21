@@ -326,7 +326,10 @@ class AlgorithmManager : AlgorithmInterface {
 
 
     /**
-     *
+     * Makes worker go through these states:
+     * BLOCKING
+     * PARKING
+     * CPU_ACQUIRED
      */
     override fun wait0Nanos(): String? {
         try {
