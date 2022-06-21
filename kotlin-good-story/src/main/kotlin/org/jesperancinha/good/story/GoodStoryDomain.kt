@@ -330,8 +330,9 @@ class AlgorithmManager : AlgorithmInterface {
      * BLOCKING
      * PARKING
      * CPU_ACQUIRED
+     * DORMANT
      */
-    override fun wait0Nanos(): String? {
+    override fun wait0Nanos(): String {
         try {
             Thread.sleep(0)
         } catch (e: InterruptedException) {
