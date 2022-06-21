@@ -252,7 +252,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
         )
 
         performGenericTests()
+        tearDownAlgorithmManager()
 
+        0
+    }
+
+    private suspend fun tearDownAlgorithmManager() {
         val sbc: StatefulBeanToCsv<FunctionReading> = StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
             .withSeparator(DEFAULT_SEPARATOR)
             .build()
@@ -260,7 +265,6 @@ class GoodStoryKotlinCommand : Callable<Int> {
         withContext(IO) {
             dumpWriter?.close()
         }
-
 
         dumpDir?.let { root ->
             File(root, "kotlin").listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
@@ -279,7 +283,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                             val delta = Duration.between(first, last).toMillis() / 100
                             (1..100).map { n ->
                                 val size = pairList.filter {
-                                    first.plusNanos(n * delta * 1000) > it.first && first.plusNanos(n * delta * 1000) <it.second
+                                    first.plusNanos(n * delta * 1000) > it.first && first.plusNanos(n * delta * 1000) < it.second
                                 }.size
                                 oos.write("$n,$size\n".toByteArray(StandardCharsets.UTF_8))
                             }
@@ -319,8 +323,6 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 })
             }
         }
-
-        0
     }
 
     private suspend fun <T> performTest(

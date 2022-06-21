@@ -5,28 +5,39 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static java.lang.Thread.startVirtualThread;
 import static java.time.Duration.between;
+import static java.time.Duration.parse;
+import static java.util.Map.Entry.comparingByKey;
 import static java.util.stream.IntStream.range;
 
 /**
@@ -216,19 +227,59 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                 () -> algorithmManager.createIntersectionWordList(content.substring(0, 500), content.substring(0, 500)), algoRepeats);
 
         performGenericTests();
-
         tearDownAlgorithmManager();
         return 0;
     }
 
     private void tearDownAlgorithmManager() throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-        var sbc = new StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
+        final var sbc = new StatefulBeanToCsvBuilder<FunctionReading>(dumpWriter)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                 .build();
         sbc.write(functionReadings);
         dumpWriter.close();
 
-        try (FileOutputStream oos = new FileOutputStream(logFile)) {
+        final var root = new File(dumpDir, "java");
+        Arrays.stream(Objects.requireNonNull(root
+                        .listFiles(pathname -> pathname.getName().endsWith(".csv") && !pathname.getName().endsWith("-ms.csv"))))
+                .forEach(source -> {
+
+                    try (final var oos = new FileOutputStream(new File(
+                            root,
+                            "" + source.getName() + "-ms.csv"), true)) {
+                        final var pairList = Files.readAllLines(source.toPath())
+                                .stream()
+                                .map(it -> {
+                                    final var all = it.split(",");
+                                    final var left = all[0];
+                                    final var right = all[1];
+                                    return Pair.of(LocalDateTime.parse(left), LocalDateTime.parse(right));
+                                })
+                                .sorted(comparingByKey()).toList();
+
+                        final var first = pairList.get(0).getKey();
+                        final var last = pairList.get(pairList.size() - 1).getKey();
+
+                        final var delta = Duration.between(first, last).toMillis() / 100;
+                        range(1, 101).asLongStream().forEach(n -> {
+                            final var localDateTime = first.plusNanos(n * delta * 1000);
+                            final var size = pairList.stream().filter(it ->
+                                    localDateTime.compareTo(it.getKey()) > 0 && localDateTime.compareTo(it.getValue()) < -0).count();
+                            try {
+                                oos.write(("" + n + "," + size + "\n").getBytes(StandardCharsets.UTF_8));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        oos.flush();
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                });
+
+        try (
+                FileOutputStream oos = new FileOutputStream(logFile)) {
             oos.write("| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".getBytes(StandardCharsets.UTF_8));
             oos.write("|---|---|---|---|---|---|---|---|\n".getBytes(StandardCharsets.UTF_8));
             functionReadings.forEach(fr -> {
@@ -360,6 +411,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
     @FunctionalInterface
     private interface VoidSupplier {
         void calculate();
+
     }
 
     private void controlTest() throws InterruptedException {
