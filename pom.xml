@@ -19,6 +19,7 @@
     </properties>
 
     <modules>
+        <module>coroutines-intro</module>
         <module>java-good-story</module>
         <module>kotlin-good-story</module>
     </modules>

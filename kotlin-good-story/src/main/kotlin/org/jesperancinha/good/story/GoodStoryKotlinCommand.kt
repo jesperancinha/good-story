@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.*
+import java.lang.Thread.currentThread
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.time.Duration
@@ -269,7 +270,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         dumpDir?.let { root ->
             File(root, "kotlin").listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
                 ?.forEach { source ->
-                    FileOutputStream(File(File(root, "kotlin"), "${source.name}-ms.csv"), true)
+                    FileOutputStream(File(File(root, "kotlin"), "${source.name.split(".")[0]}-ms.csv"), true)
                         .use { oos ->
                             val pairList = source.readLines()
                                 .map {
@@ -382,9 +383,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
             function()
             val end = LocalDateTime.now()
             oos?.let {
-
                 oos.write(
-                    "$start,$end,${Thread.currentThread()}\n".toByteArray(StandardCharsets.UTF_8)
+                    "$start,$end,${currentThread()}\n".toByteArray(StandardCharsets.UTF_8)
                 )
                 oos.flush()
             }

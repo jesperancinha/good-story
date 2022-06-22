@@ -245,7 +245,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
                     try (final var oos = new FileOutputStream(new File(
                             root,
-                            "" + source.getName() + "-ms.csv"), true)) {
+                            "" + source.getName().split("\\.")[0] + "-ms.csv"), true)) {
                         final var pairList = Files.readAllLines(source.toPath())
                                 .stream()
                                 .map(it -> {
