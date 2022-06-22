@@ -17,7 +17,7 @@ public class VirtualThreadIntro {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        })).collect(Collectors.toList()).forEach(task -> {
+        })).toList().forEach(task -> {
             try {
                 task.join();
             } catch (InterruptedException e) {
