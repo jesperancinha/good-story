@@ -7,7 +7,6 @@ import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import org.jesperancinha.good.story.intersection.InterNode
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
@@ -21,7 +20,6 @@ import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
-import java.util.function.Supplier
 import kotlin.system.measureTimeMillis
 
 @Command(
