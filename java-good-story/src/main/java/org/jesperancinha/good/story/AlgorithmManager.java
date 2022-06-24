@@ -5,14 +5,12 @@ import org.jesperancinha.good.story.flows.FlowManager;
 import org.jesperancinha.good.story.intersection.InterNode;
 import org.jesperancinha.good.story.splay.SplayTree;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,6 +25,8 @@ import java.util.stream.Stream;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Thread.sleep;
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.CREATE;
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
@@ -47,7 +46,7 @@ public class AlgorithmManager implements AlgorithmInterface {
     @Override
     public Integer contentSplitIterateSubtractAndSum(String[] allWords) {
         var sum = 0;
-        for (String element : allWords)
+        for (var element : allWords)
             for (int j = allWords.length - 1; j >= 0; j--) {
                 sum += abs(element.length() - allWords[j].length());
             }
@@ -140,10 +139,10 @@ public class AlgorithmManager implements AlgorithmInterface {
         if (contentLength < 2) {
             return "";
         } else {
-            boolean[] nonPrimes = new boolean[contentLength];
+            final var nonPrimes = new boolean[contentLength];
             nonPrimes[1] = true;
             int nonPrimesCount = 1;
-            for (int number = 2; number < contentLength; number++) {
+            for (var number = 2; number < contentLength; number++) {
                 if (nonPrimes[number]) {
                     continue;
                 }
@@ -156,8 +155,8 @@ public class AlgorithmManager implements AlgorithmInterface {
                     multiple += number;
                 }
             }
-            final int primesCount = contentLength - nonPrimesCount;
-            int[] primeNumbers = new int[primesCount];
+            final var primesCount = contentLength - nonPrimesCount;
+            final var primeNumbers = new int[primesCount];
             int currentPrime = 0;
             for (int number = 0; number < nonPrimes.length; number++) {
                 if (!nonPrimes[number]) {
@@ -178,7 +177,7 @@ public class AlgorithmManager implements AlgorithmInterface {
     @Override
     public SplayTree createSplayTree(String[] allWords) {
         var splayTree = new SplayTree();
-        for (String word : allWords) {
+        for (var word : allWords) {
             splayTree.insert(word);
         }
         return splayTree;
@@ -222,6 +221,7 @@ public class AlgorithmManager implements AlgorithmInterface {
      * RUNNING
      * PARKING
      * RUNNING
+     *
      * @param words
      * @return
      */
@@ -242,10 +242,10 @@ public class AlgorithmManager implements AlgorithmInterface {
      */
     @Override
     public List<InterNode> createIntersectionWordList(String sentenceLeft, String sentenceRight) {
-        var wordsLeft = sentenceLeft.split(" ");
-        var wordsRight = sentenceRight.split(" ");
-        var leftI = wordsLeft.length - 1;
-        var rightI = wordsRight.length - 1;
+        final var wordsLeft = sentenceLeft.split(" ");
+        final var wordsRight = sentenceRight.split(" ");
+        final var leftI = wordsLeft.length - 1;
+        final var rightI = wordsRight.length - 1;
         InterNode interCurrNode = null;
         InterNode leftCurrNode = null;
         InterNode rightCurrNode = null;
@@ -286,6 +286,7 @@ public class AlgorithmManager implements AlgorithmInterface {
      * Goes through state
      * RUNNING
      * PARKING
+     *
      * @param words
      * @return
      */
@@ -334,14 +335,14 @@ public class AlgorithmManager implements AlgorithmInterface {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Set<StandardOpenOption> options = new HashSet<>();
-        options.add(StandardOpenOption.CREATE);
-        options.add(StandardOpenOption.APPEND);
+        var options = new HashSet<StandardOpenOption>();
+        options.add(CREATE);
+        options.add(APPEND);
         try {
-            File tempFile = File.createTempFile("test", "txt");
+            var tempFile = File.createTempFile("test", "txt");
             tempFile.deleteOnExit();
-            Path path = Paths.get(tempFile.getAbsolutePath());
-            FileChannel fileChannel = FileChannel.open(path, options);
+            var path = Paths.get(tempFile.getAbsolutePath());
+            var fileChannel = FileChannel.open(path, options);
             words.forEach(w -> {
                 try {
                     fileChannel.write(ByteBuffer.wrap(w.getBytes(StandardCharsets.UTF_8)));

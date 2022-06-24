@@ -11,11 +11,7 @@ import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -26,17 +22,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static java.lang.Thread.startVirtualThread;
 import static java.time.Duration.between;
-import static java.time.Duration.parse;
 import static java.util.Map.Entry.comparingByKey;
 import static java.util.stream.IntStream.range;
 
@@ -349,7 +342,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
             Supplier<T> sampleTest,
             Runnable toTest,
             int repeats) {
-        try (FileOutputStream oos = new FileOutputStream(
+        try (var oos = new FileOutputStream(
                 new File(
                         new File(dumpDir, "java"),
                         String.format("%s.csv", methodName)),
