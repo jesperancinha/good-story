@@ -1,6 +1,7 @@
 package org.jesperancinha.good.story
 
 import com.opencsv.bean.CsvBindByName
+import kotlinx.coroutines.runBlocking
 import org.jesperancinha.good.story.avl.AvlTree
 import org.jesperancinha.good.story.flows.FlowManager
 import org.jesperancinha.good.story.intersection.InterNode

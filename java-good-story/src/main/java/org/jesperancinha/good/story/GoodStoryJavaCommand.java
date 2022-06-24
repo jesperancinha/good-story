@@ -247,10 +247,11 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                                     final var right = all[1];
                                     return Pair.of(LocalDateTime.parse(left), LocalDateTime.parse(right));
                                 })
+                                .distinct()
                                 .sorted(comparingByKey()).toList();
 
                         final var first = pairList.get(0).getKey();
-                        final var last = pairList.get(pairList.size() - 1).getKey();
+                        final var last = pairList.get(pairList.size() - 1).getValue();
 
                         final var delta = Duration.between(first, last).toMillis() / 100;
                         range(1, 101).asLongStream().forEach(n -> {

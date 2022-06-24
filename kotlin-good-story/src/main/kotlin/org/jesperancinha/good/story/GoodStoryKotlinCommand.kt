@@ -275,9 +275,10 @@ class GoodStoryKotlinCommand : Callable<Int> {
                                     val (start, end) = it.split(",")
                                     LocalDateTime.parse(start) to LocalDateTime.parse(end)
                                 }
+                                .distinct()
                                 .sortedBy { it.first }
                             val first = pairList.first().first
-                            val last = pairList.last().first
+                            val last = pairList.last().second
 
                             val delta = Duration.between(first, last).toMillis() / 100
                             (1..100).map { n ->

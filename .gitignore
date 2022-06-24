@@ -49,3 +49,7 @@ dump/kotlin/*.csv
 !Log.md
 !dump.csv
 article.txt
+
+## Draw.IO
+*.bkp
+*.dtmp

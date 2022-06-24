@@ -1,5 +1,13 @@
 # kotlin-good-story
 
+## Intellij
+
+Easy run:
+
+```shell
+-f docs/good.story/GoodStory.md -lf Log.md  -dump dump
+```
+
 ## References
 
 #### Links
