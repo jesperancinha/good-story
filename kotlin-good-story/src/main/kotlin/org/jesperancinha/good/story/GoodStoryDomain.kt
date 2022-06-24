@@ -342,6 +342,6 @@ class AlgorithmManager : AlgorithmInterface {
         return "Ok"
     }
 
-    private suspend fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
+    private fun String.filterWords(): Boolean = matches(Regex("[a-zA-Z]+"))
 
 }

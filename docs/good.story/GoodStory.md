@@ -6,7 +6,7 @@ NOTE: The story at the bottom does not describe an actual occurrence, but it is 
 
 ## Synopsis
 
-This story finds its inspiration on my personal life. The story revolves around Lucy, a young woman who seeks a meaning in her life, still carrying the weight of the world on her shoulders, but still with a vigorous heart-beat that reminds her that she's not done yet. Life still has a lot to offer
+This story finds its inspiration on my own personal life. The story revolves around Lucy, a young woman who seeks a meaning in her life, still carrying the weight of the world on her shoulders, but still with a vigorous heart-beat that reminds her that she's not done yet. Life still has a lot to offer
 Lucy.
 The story is told in a metaphoric fashion with imaginary deities and characters. It encompasses the materialization of feelings and how they can manifest.
 
