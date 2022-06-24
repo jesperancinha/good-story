@@ -7,7 +7,7 @@ import picocli.CommandLine;
 
 public class GoodStoryJava {
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new GoodStoryJavaCommand()).execute(args);
+        final var exitCode = new CommandLine(new GoodStoryJavaCommand()).execute(args);
         System.exit(exitCode);
     }
 }

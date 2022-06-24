@@ -336,9 +336,24 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("===> {} : {}", testName, sampleTest())
         log.info(
             "***> Processing took ${
-                measureTimeMillisSave(testName, methodName, timeComplexity, spaceComplexity, repeats = repeats) {
+                measureTimeMillisSave(
+                    testName,
+                    methodName,
+                    timeComplexity,
+                    spaceComplexity,
+                    repeats = repeats
+                ) {
                     withContext(IO) {
-                        FileOutputStream(File(File(dumpDir, "kotlin"), "$methodName.csv"), true).use { oos ->
+                        FileOutputStream(
+                            File(
+                                File(
+                                    dumpDir,
+                                    "kotlin"
+                                ),
+                                "$methodName.csv"
+                            ),
+                            true
+                        ).use { oos ->
                             (0..repeats).map {
                                 startProcessAsync(oos) {
                                     toTest()
@@ -375,7 +390,10 @@ class GoodStoryKotlinCommand : Callable<Int> {
         )
     }
 
-    private fun <T> CoroutineScope.startProcessAsync(oos: FileOutputStream?, function: suspend () -> T) =
+    private fun <T> CoroutineScope.startProcessAsync(
+        oos: FileOutputStream?,
+        function: suspend () -> T
+    ) =
         async {
             val start = LocalDateTime.now()
             function()

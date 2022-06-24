@@ -367,7 +367,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
     }
 
     private Thread startProcessAsync(Runnable runnable, FileOutputStream oos) {
-        Runnable threadRunnable = () -> {
+        final Runnable threadRunnable = () -> {
             var start = LocalDateTime.now();
             runnable.run();
             var end = LocalDateTime.now();
