@@ -341,11 +341,23 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         }
     }
 
-    private <T> void performTest(String testName, String methodName, String timeComplexity, String spaceComplexity, Supplier<T> sampleTest, Runnable toTest, int repeats) {
-        try (FileOutputStream oos = new FileOutputStream(new File(new File(dumpDir, "java"), String.format("%s.csv", methodName)), true)) {
+    private <T> void performTest(
+            String testName,
+            String methodName,
+            String timeComplexity,
+            String spaceComplexity,
+            Supplier<T> sampleTest,
+            Runnable toTest,
+            int repeats) {
+        try (FileOutputStream oos = new FileOutputStream(
+                new File(
+                        new File(dumpDir, "java"),
+                        String.format("%s.csv", methodName)),
+                true)) {
             log.info("===> Starting test: {}: {} <===", testName, sampleTest.get());
             log.info("***> Processing took {} milliseconds", measureTimeMillis(() -> {
-                final List<Thread> threadStream = range(0, repeats).mapToObj(i -> startProcessAsync(toTest, oos)).toList();
+                final List<Thread> threadStream = range(0, repeats).mapToObj(i ->
+                        startProcessAsync(toTest, oos)).toList();
                 log.info("---> Just sent {} threads", repeats);
                 threadStream
                         .forEach(thread -> {
@@ -359,7 +371,6 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private Thread startProcessAsync(Runnable runnable, FileOutputStream oos) {
