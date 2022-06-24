@@ -16,7 +16,7 @@ class CoroutineYealding {
                 }
 
                 println("The end main on Thread ${Thread.currentThread()}")
-                println("Check the order. Yield gives a hint for another thred to be used ${Thread.currentThread()}")
+                println("Check the order. Yield gives a hint for another thread to be used ${Thread.currentThread()}")
         }
 
         private suspend fun insideChapter() {
