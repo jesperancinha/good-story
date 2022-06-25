@@ -107,6 +107,8 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 #### Online
 
+- [Coroutines are not about multi-threading at all](https://elizarov.medium.com/coroutines-are-not-about-multi-threading-at-all-1b2c6e97ec02)
+- [Structured concurrency by Roman Elizarov](https://elizarov.medium.com/structured-concurrency-722d765aa952)
 - [libdill: Structured Concurrency for C](http://libdill.org/structured-concurrency.html)
 - [Java Virtual Threads by Gaetano Piazzolla](https://medium.com/dev-genius/java-virtual-threads-715c162c6c39)
 - [Carrier Kernel Thread Pinning of Virtual Threads (Project Loom)](https://paluch.biz/blog/183-carrier-kernel-thread-pinning-of-virtual-threads-project-loom.html)
