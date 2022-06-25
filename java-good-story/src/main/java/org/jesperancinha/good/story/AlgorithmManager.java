@@ -374,6 +374,22 @@ public class AlgorithmManager implements AlgorithmInterface {
         return "Ok";
     }
 
+    /**
+     * Goes through states
+     * RUNNING
+     * PARKING
+     * YIELDING
+     *
+     * @return
+     */ @Override
+    public String wait100Mills() {
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "Ok";    }
+
     private static boolean filterWords(String possibleWord) {
         return possibleWord.matches("[a-zA-Z]+");
     }

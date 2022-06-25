@@ -8,7 +8,7 @@ import static java.util.stream.IntStream.range;
  * Created by jofisaes on 22/06/2022
  */
 public class VirtualThreadIntro {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         var start = LocalDateTime.now();
         range(0, 1000).mapToObj(i -> Thread.startVirtualThread(() -> {
             try {

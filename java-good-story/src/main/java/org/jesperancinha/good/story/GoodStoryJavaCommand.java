@@ -117,11 +117,18 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         log.info("===> Text size is {}", content.length());
 
         performTest(
-                "Wait 0 Nanos - Running - Yield - Virtual Thread",
+                "Wait 0 Nanos - Running - Yielding - Virtual Thread",
                 "wait0Nanos",
                 "n/a", "n/a",
                 algorithmManager::wait0Nanos,
                 algorithmManager::wait0Nanos, 2);
+
+        performTest(
+                "Wait 100 Mills - Running - Parking - Yield - Virtual Thread",
+                "wait100Mills",
+                "n/a", "n/a",
+                algorithmManager::wait100Mills,
+                algorithmManager::wait100Mills, 2);
 
         performTest(
                 "Write to 1 file - Yield - Virtual Thread",

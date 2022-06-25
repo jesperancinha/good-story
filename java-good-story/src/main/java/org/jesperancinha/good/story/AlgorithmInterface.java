@@ -40,4 +40,6 @@ public interface AlgorithmInterface {
    String saveWordsParking(List<String> words);
 
    String wait0Nanos();
+
+   String wait100Mills();
 }
