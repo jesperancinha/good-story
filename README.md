@@ -30,9 +30,9 @@
 
 ---
 
-An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
-
 ## 1. Introduction
+
+An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
 
 This project started as an idea to explore differences in performance between different projects. It has grown now into a full fledge comparison between Java and Kotlin and ONLY for <b>engineering purposes</b>.
 
@@ -55,6 +55,20 @@ sometimes called coroutines, but this is a concept that has been here for a long
 performance of one coroutine to one virtual thread. They work as a whole, both switch context, both can be suspended and both have different states. So I am measuring, or better yet, attempting to measure performance on a local machine and try to see if there is any significant difference there.
 These tests are also allowing to exhaust resources and therefore forcing each implementation to manage itself. It's here where the performance study comes in.
 
+This repo is the official support repo to my article on medium:
+
+[![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-20/medium-20.png "Medium")](https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb) [Kotlin Coroutines vs Java Virtual Threads — A good story, but just that…](https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb)
+
+<div align="center">
+      <a title="Kotlin Coroutines vs Java Virtual Threads — A good story, but just that…" href="https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb">
+     <img 
+          src="./docs/article-coroutines-banner.jpeg" 
+          style="width:100%;">
+      </a>
+</div>
+
+---
+
 ## 2. Environment
 
 [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main) is itself a JDK and in order to use it, you need first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
@@ -64,6 +78,8 @@ These tests are also allowing to exhaust resources and therefore forcing each im
 ```shell
 make sdk-install
 ```
+
+---
 
 ## 3. Tech comparisons
 
@@ -77,11 +93,15 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the comparisons. It gets updated per commit.
 You can also check the detailed file for [Java](./dump/java/Log.md) and the detailed file for [Kotlin](./dump/kotlin/Log.md).
 
+---
+
 ## 4. Actions
 
 This project makes usage of one single action:
 
 - [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+
+---
 
 ## 5. How top run
 
@@ -99,9 +119,13 @@ make clean build-run-loccal
 
 Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in the [Makefile](./Makefile) for distribution choices for the Loom JDK.
 
+---
+
 ## 6.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 
 - [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
+
+---
 
 ## 7. References
 
@@ -182,6 +206,8 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 - Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
 - Cormen, T. Leiserson, C. Rivest, R. Stein, C. (2009). <i>Introduction to Algorithms</i>. (Third Edition). MIT Press
+
+---
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
