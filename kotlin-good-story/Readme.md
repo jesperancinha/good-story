@@ -12,13 +12,13 @@ Easy run:
 
 #### Links
 
-- [Analysis of Kotlin coroutine principle](https://blog.birost.com/a?ID=00000-f605a49e-f816-4f4d-9d52-61547016cd65)
-- [Lock-free algorithms for Kotlin Coroutines by Roman Elizarov](https://www.slideshare.net/elizarov/lockfree-algorithms-for-kotlin-coroutines)
-- [Kotlin (programming language)](https://en.wikipedia.org/wiki/Kotlin_(programming_language))
-- [Kotlin / kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
-- [Kotlin coroutines on Android](https://developer.android.com/kotlin/coroutines)
-- [What are coroutines in Kotlin and how to write them](https://www.tabnine.com/blog/what-are-coroutines-in-kotlin-and-how-to-write-it/)
-- [What is suspend function in Kotlin Coroutines?](https://blog.mindorks.com/suspend-function-in-kotlin-coroutines)
+-   [Analysis of Kotlin coroutine principle](https://blog.birost.com/a?ID=00000-f605a49e-f816-4f4d-9d52-61547016cd65)
+-   [Lock-free algorithms for Kotlin Coroutines by Roman Elizarov](https://www.slideshare.net/elizarov/lockfree-algorithms-for-kotlin-coroutines)
+-   [Kotlin (programming language)](https://en.wikipedia.org/wiki/Kotlin_(programming_language))
+-   [Kotlin / kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+-   [Kotlin coroutines on Android](https://developer.android.com/kotlin/coroutines)
+-   [What are coroutines in Kotlin and how to write them](https://www.tabnine.com/blog/what-are-coroutines-in-kotlin-and-how-to-write-it/)
+-   [What is suspend function in Kotlin Coroutines?](https://blog.mindorks.com/suspend-function-in-kotlin-coroutines)
 
 #### Videos
 
