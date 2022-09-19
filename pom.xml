@@ -12,7 +12,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <picocli.version>4.6.3</picocli.version>
         <maven-compiler.release>${java.version}</maven-compiler.release>
-        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <omni-coveragereporter-maven-plugin.version>0.3.0</omni-coveragereporter-maven-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
