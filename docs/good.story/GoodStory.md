@@ -39,7 +39,7 @@ Her name was Hara Arre.
 
 ## Temporary notes
 
-These are temporary notes/tips for further writing towards completion of this big novel spread out through different articles.
+These are temporary notes/tips for further writing towards completion of this big novel spread out through different projects.
 
 > Ik geloof niet dat je dat kan.
 >
