@@ -1,7 +1,5 @@
 # Good Story by João Esperancinha TL;DR
 
-🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧 !!! UNDER CONSTRUCTION !!! 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
-
 NOTE: The story at the bottom does not describe an actual occurrence, but it is inspired by personal events. All characters described can be metaphors to real people and real events. In spite of this being inspired by true events, the story itself is pure fiction.
 
 ## Synopsis
@@ -10,7 +8,7 @@ This story finds its inspiration on my own personal life. The story revolves aro
 Lucy.
 The story is told in a metaphoric fashion with imaginary deities and characters. It encompasses the materialization of feelings and how they can manifest.
 
-## Escaping the Beast
+## Chapter I - Escaping the Beast
 
 Lucy, was a young woman in her thirties who came to live on a remote island on the coast of Portugal after being diagnosed with a neurological unknown disability. It caused her not to move well, not to coordinate her arms well and this made her eligible to ask for an abrupt early retirement. At the
 same time, all her relatives past way, and she inherited a fortune. Lucy was alone in the world, and she didn't have any friends. In her house, on this island, she spent her days figuring out what further meaning could she give to live. In her home country, The Netherlands, there was no one
@@ -37,11 +35,11 @@ Flipping through her photos, Lucy came across an old photo of her colleagues whe
 Back then Lucy had dreams and believed in a better future. Everything seemed to smile to her, and she had amazing successes. As she was looking deeply in the foto, a woman in the front stood out. Lucy knew who she was.
 Her name was Hara Arre.
 
-\[to be continued...\]
+[to be continued...]
 
 ## Temporary notes
 
-These are temporary notes/tips for further writing towards completion of this small novel.
+These are temporary notes/tips for further writing towards completion of this big novel spread out through different articles.
 
 > Ik geloof niet dat je dat kan.
 >
