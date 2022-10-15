@@ -35,7 +35,7 @@ Flipping through her photos, Lucy came across an old photo of her colleagues whe
 Back then Lucy had dreams and believed in a better future. Everything seemed to smile to her, and she had amazing successes. As she was looking deeply in the foto, a woman in the front stood out. Lucy knew who she was.
 Her name was Hara Arre.
 
-[to be continued...]
+[to be continued...] => [Chapter II - The Cat That Helped Lucy](https://github.com/jesperancinha/whiskers-kotlin-native/blob/main/docs/good.story/good.story.chapter.2.md)
 
 ## Temporary notes
 
