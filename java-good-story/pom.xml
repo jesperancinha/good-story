@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <properties>
-        <opencsv.version>5.7.0</opencsv.version>
+        <opencsv.version>5.7.1</opencsv.version>
     </properties>
     <parent>
         <artifactId>good-story</artifactId>
