@@ -66,6 +66,10 @@ This repo is the official support repo to my article on medium:
       </a>
 </div>
 
+#### Stable releases
+
+- [1.0.0](https://github.com/jesperancinha/good-story/tree/1.0.0) - [315e7260b1214c8be1bc48a4af5446c8ad68bd9f](https://github.com/jesperancinha/good-story/tree/1.0.0) - JDK19 runs with [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+
 ---
 
 ## 2.  Environment
