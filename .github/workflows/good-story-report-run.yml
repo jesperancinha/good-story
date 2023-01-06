@@ -18,7 +18,10 @@ jobs:
       - name: Java version check
         run: java -version
 
-      - name: Build and make new Report
+      - name: Build
+        run: make build-run
+
+      - name: Make new Report
         run: make build-run
 
       - name: Build and Test
