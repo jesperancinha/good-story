@@ -29,30 +29,44 @@
 
 ---
 
-## 1.  Introduction
+## 1. Introduction
 
-An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
+An investigation and comparison between Kotlin and Java on an engineering level. Since beauty is in the eye of the
+beholder, this repository is not meant to evaluate Java or Kotlin on an aesthetic level.
 
-This project started as an idea to explore differences in performance between different projects. It has grown now into a full fledge comparison between Java and Kotlin and ONLY for <b>engineering purposes</b>.
+This project started as an idea to explore differences in performance between different projects. It has grown now into
+a full fledge comparison between Java and Kotlin and ONLY for <b>engineering purposes</b>.
 
 I won't dive into style IT discussions in this project. And of course the `elegant` card is not the focal point here.
 
 If you understand these terms, then I think you'll find this project interesting.
 
-The way we are going to compare performance, response times and memory usage is going to be by processing a small novel I'm developing in the [GoodStory](https://jesperancinha.github.io/good-story/good.story/GoodStory.html) file. We will apply algorithms to it, make objects, and explore the limits
+The way we are going to compare performance, response times and memory usage is going to be by processing a small novel
+I'm developing in the [GoodStory](https://jesperancinha.github.io/good-story/good.story/GoodStory.html) file. We will
+apply algorithms to it, make objects, and explore the limits
 of our own machines.
 
-Further, you may find that I'm using `for`, `while` and a `do..while` in both `Java` and `Kotlin` implementations. This is purposely done in some cases. I may find that in some cases there is no point in using the already implemented algorithm for some situations. Especially if they can be
+Further, you may find that I'm using `for`, `while` and a `do..while` in both `Java` and `Kotlin` implementations. This
+is purposely done in some cases. I may find that in some cases there is no point in using the already implemented
+algorithm for some situations. Especially if they can be
 implemented in exactly the same way in `Java` or `Kotlin` without the use of a DSL.
 
-`Lombok` usage will be avoided as much as possible and so please do not be surprised if you get to see any manual implementation of the builder pattern.
+`Lombok` usage will be avoided as much as possible and so please do not be surprised if you get to see any manual
+implementation of the builder pattern.
 
 #### 1.1. About performance
 
-It caught my attention recently that in many blogs and videos, people are stressing out that coroutines and virtual threads are not about performance. That is of course directly true. What they are about is making a better use of a resource that has been there for ages. Sometimes called Continuation,
-sometimes called coroutines, but this is a concept that has been here for a long time. This repository is, regardless, about performance, because if we use our resources better, then that will ultimately result in better performance as a whole. So this repo is not about comparing the individual
-performance of one coroutine to one virtual thread. They work as a whole, both switch context, both can be suspended and both have different states. So I am measuring, or better yet, attempting to measure performance on a local machine and try to see if there is any significant difference there.
-These tests are also allowing to exhaust resources and therefore forcing each implementation to manage itself. It's here where the performance study comes in.
+It caught my attention recently that in many blogs and videos, people are stressing out that coroutines and virtual
+threads are not about performance. That is of course directly true. What they are about is making a better use of a
+resource that has been there for ages. Sometimes called Continuation,
+sometimes called coroutines, but this is a concept that has been here for a long time. This repository is, regardless,
+about performance, because if we use our resources better, then that will ultimately result in better performance as a
+whole. So this repo is not about comparing the individual
+performance of one coroutine to one virtual thread. They work as a whole, both switch context, both can be suspended and
+both have different states. So I am measuring, or better yet, attempting to measure performance on a local machine and
+try to see if there is any significant difference there.
+These tests are also allowing to exhaust resources and therefore forcing each implementation to manage itself. It's here
+where the performance study comes in.
 
 This repo is the official support repo to my article on medium:
 
@@ -68,45 +82,39 @@ This repo is the official support repo to my article on medium:
 
 #### Stable releases
 
-- [1.0.0](https://github.com/jesperancinha/good-story/tree/1.0.0) - [315e7260b1214c8be1bc48a4af5446c8ad68bd9f](https://github.com/jesperancinha/good-story/tree/1.0.0) - JDK19 runs with [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+- [1.0.0](https://github.com/jesperancinha/good-story/tree/1.0.0) - [315e7260b1214c8be1bc48a4af5446c8ad68bd9f](https://github.com/jesperancinha/good-story/tree/1.0.0) -
+  JDK19 runs with [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
 
 ---
 
-## 2.  Environment
+## 2. Environment
 
-[Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main) is itself a JDK and in order to use it, you need first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
+[Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main) is itself a JDK and in order to use it, you need
+first to [install it](https://wiki.openjdk.java.net/display/loom/Main)
 
-> check the [Makefile](./Makefile) for the most appropriate script for your operating system.
+Be sure to run `. ./sdk19.sh`  before running any of the commands, but only if you don't have JDK19 installed. This
+script installs JDK19 using SDK-MAN.
 
-```shell
-make sdk-install
-```
-
----
-
-## 3.  Tech comparisons
-
-We cannot 100% compare Kotlin and Java in a direct way, but we will compare them using their best performant version:
-
-| Solution                                                               | VM Name                           | VM Version                                                 | Base JDK | Type   |
-|------------------------------------------------------------------------|-----------------------------------|------------------------------------------------------------|----------|--------|
-| [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html) | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
-| [Project Loom](https://wiki.openjdk.java.net/display/loom/Main)        | [Loom](http://jdk.java.net/loom/) | 19-loom+6-625 (2022/4/29)                                  | 19       | JDK    |
-
-Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the comparisons. It gets updated per commit.
-You can also check the detailed file for [Java](./dump/java/Log.md) and the detailed file for [Kotlin](./dump/kotlin/Log.md).
 
 ---
 
-## 4.  Actions
+## 3. Tech comparisons
 
-This project makes usage of one single action:
+We cannot 100% compare Kotlin and Java in a direct way, but we will compare them using their best performant version.
 
--   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+JDK 19 is now available to install in different ways and it has been released. This means that this project is being updated as standard.
+
+[Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
+[Project Loom](https://wiki.openjdk.java.net/display/loom/Main) 
+
+Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the
+comparisons. It gets updated per commit.
+You can also check the detailed file for [Java](./dump/java/Log.md) and the detailed file
+for [Kotlin](./dump/kotlin/Log.md).
 
 ---
 
-## 5.  How top run
+## 4. How top run
 
 You can run the whole test in one go by running:
 
@@ -120,75 +128,76 @@ For heavier tests please run:
 make clean build-run-loccal
 ```
 
-Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in the [Makefile](./Makefile) for distribution choices for the Loom JDK.
+Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in
+the [Makefile](./Makefile) for distribution choices for the Loom JDK.
 
 ---
 
-## 6.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
+## 5.  [Coffee Sessions](https://www.buymeacoffee.com/jesperancinha/posts) ☕️
 
--   [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
+- [How I created a JDK 19 Loom GitHub Action](https://www.buymeacoffee.com/jesperancinha/how-i-created-jdk-19-loom-github-action)
 
 ---
 
-## 7.  References
+## 6. References
 
 #### Online
 
--   [Coroutines are not about multi-threading at all](https://elizarov.medium.com/coroutines-are-not-about-multi-threading-at-all-1b2c6e97ec02)
--   [Structured concurrency by Roman Elizarov](https://elizarov.medium.com/structured-concurrency-722d765aa952)
--   [libdill: Structured Concurrency for C](http://libdill.org/structured-concurrency.html)
--   [Java Virtual Threads by Gaetano Piazzolla](https://medium.com/dev-genius/java-virtual-threads-715c162c6c39)
--   [Carrier Kernel Thread Pinning of Virtual Threads (Project Loom)](https://paluch.biz/blog/183-carrier-kernel-thread-pinning-of-virtual-threads-project-loom.html)
--   [GitHub's "Our response to the war in Ukraine" 🇺🇦](https://github.blog/2022-03-02-our-response-to-the-war-in-ukraine/)
--   [Why Continuations are Coming to Java](https://www.infoq.com/presentations/continuations-java/)
--   [Coroutines overview](https://kotlinlang.org/docs/coroutines-overview.html)
--   [JetBrains’ Statement on Ukraine 🇺🇦](https://blog.jetbrains.com/blog/2022/03/11/jetbrains-statement-on-ukraine/)
--   [Scala (programming language)](https://en.wikipedia.org/wiki/Scala_(programming_language))
--   [History of Scala](https://www.javatpoint.com/history-of-scala)
--   [Project Loom (Java 19)](https://github.com/openjdk/loom)
--   [Java (programming language) ☕](https://en.wikipedia.org/wiki/Java_(programming_language))
--   [Project Loom: Fibers and Continuations for the Java Virtual Machine](https://cr.openjdk.java.net/~rpressler/loom/Loom-Proposal.html)
--   [Coming to Java 19: Virtual threads and platform threads](https://blogs.oracle.com/javamagazine/post/java-loom-virtual-threads-platform-threads)
--   [STAR method interview ✨](https://www.youtube.com/results?search_query=star+method+interview)
--   [Amazon Leadership Examples on Youtube](https://www.youtube.com/results?search_query=amazon+leadership+examples)
--   [System Design Messenger on Youtube](https://www.youtube.com/results?search_query=system+design+messenger)
--   [Behavioral Interview Prep](https://www.algoexpert.io/behavioral-interviews)
--   [System - Design - Primer](https://github.com/donnemartin/system-design-primer)
--   [Grokking the System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
--   [Grokking the Coding Interview: Patterns for Coding Questions](https://designgurus.org/course/grokking-the-coding-interview)
--   [Big O Notation and Time/Space Complexity](https://medium.com/swlh/big-o-notation-and-time-space-complexity-1806936e6330)
--   [Analysis of Algorithms | Big-O analysis](https://www.geeksforgeeks.org/analysis-algorithms-big-o-analysis/)
--   [BTech smart class - Introduction to algorithms](http://www.btechsmartclass.com/data_structures/introduction-to-algorithms.html)
--   [Splay tree](https://en.wikipedia.org/wiki/Splay_tree)
--   [Big-O Quiz](https://bigoquiz.com/home)
--   [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
--   [Binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
--   [The height of an AVL tree containing n nodes](http://www.mathcs.emory.edu/~cheung/Courses/253/Syllabus/Trees/AVL-height.html)
--   [AVL Tree](https://www.programiz.com/dsa/avl-tree)
--   [Data Structure and Algorithms - AVL Trees](https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm)
--   [AVL Tree Insertion, Rotation, and Balance Factor Explained](https://www.freecodecamp.org/news/avl-tree-insertion-rotation-and-balance-factor/)
--   [What is an AVL tree? 🌳](https://www.educative.io/edpresso/what-is-an-avl-tree)
--   [AVL Tree program in Java](https://www.javatpoint.com/avl-tree-program-in-java)
--   [How to insert Strings into an AVL Tree](https://www.geeksforgeeks.org/how-to-insert-strings-into-an-avl-tree/)
--   [Big O Factorial Time Complexity](https://jarednielsen.com/big-o-factorial-time-complexity/)
--   [BIG O NOTATION PRIMER](https://www.topcoder.com/blog/big-o-notation-primer)
--   [What would cause an algorithm to have O(log log n) complexity?](https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity)
--   [What does O(log n) mean exactly?](https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314)
--   [Big O Notation, Part Two: Space Complexity](https://careerkarma.com/blog/big-o-notation-space/)
--   [ALGORITHMS IN KOTLIN, BIG-O-NOTATION, PART 1/7](http://developerlife.com/2018/08/16/algorithms-in-kotlin-1/)
--   [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
--   [Time complexity vs. space complexity](https://www.educative.io/edpresso/time-complexity-vs-space-complexity)
--   [Complexity and Big-O Notation](https://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html)
--   [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
--   [Kotlin Coroutines dispatchers](https://kt.academy/article/cc-dispatchers)
--   [VisualVM](https://visualvm.github.io/)
--   [Picocli](https://picocli.info/)
--   [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
--   [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
--   [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main)
--   [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
--   [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
--   [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
+- [Coroutines are not about multi-threading at all](https://elizarov.medium.com/coroutines-are-not-about-multi-threading-at-all-1b2c6e97ec02)
+- [Structured concurrency by Roman Elizarov](https://elizarov.medium.com/structured-concurrency-722d765aa952)
+- [libdill: Structured Concurrency for C](http://libdill.org/structured-concurrency.html)
+- [Java Virtual Threads by Gaetano Piazzolla](https://medium.com/dev-genius/java-virtual-threads-715c162c6c39)
+- [Carrier Kernel Thread Pinning of Virtual Threads (Project Loom)](https://paluch.biz/blog/183-carrier-kernel-thread-pinning-of-virtual-threads-project-loom.html)
+- [GitHub's "Our response to the war in Ukraine" 🇺🇦](https://github.blog/2022-03-02-our-response-to-the-war-in-ukraine/)
+- [Why Continuations are Coming to Java](https://www.infoq.com/presentations/continuations-java/)
+- [Coroutines overview](https://kotlinlang.org/docs/coroutines-overview.html)
+- [JetBrains’ Statement on Ukraine 🇺🇦](https://blog.jetbrains.com/blog/2022/03/11/jetbrains-statement-on-ukraine/)
+- [Scala (programming language)](https://en.wikipedia.org/wiki/Scala_(programming_language))
+- [History of Scala](https://www.javatpoint.com/history-of-scala)
+- [Project Loom (Java 19)](https://github.com/openjdk/loom)
+- [Java (programming language) ☕](https://en.wikipedia.org/wiki/Java_(programming_language))
+- [Project Loom: Fibers and Continuations for the Java Virtual Machine](https://cr.openjdk.java.net/~rpressler/loom/Loom-Proposal.html)
+- [Coming to Java 19: Virtual threads and platform threads](https://blogs.oracle.com/javamagazine/post/java-loom-virtual-threads-platform-threads)
+- [STAR method interview ✨](https://www.youtube.com/results?search_query=star+method+interview)
+- [Amazon Leadership Examples on Youtube](https://www.youtube.com/results?search_query=amazon+leadership+examples)
+- [System Design Messenger on Youtube](https://www.youtube.com/results?search_query=system+design+messenger)
+- [Behavioral Interview Prep](https://www.algoexpert.io/behavioral-interviews)
+- [System - Design - Primer](https://github.com/donnemartin/system-design-primer)
+- [Grokking the System Design Interview](https://www.educative.io/courses/grokking-the-system-design-interview)
+- [Grokking the Coding Interview: Patterns for Coding Questions](https://designgurus.org/course/grokking-the-coding-interview)
+- [Big O Notation and Time/Space Complexity](https://medium.com/swlh/big-o-notation-and-time-space-complexity-1806936e6330)
+- [Analysis of Algorithms | Big-O analysis](https://www.geeksforgeeks.org/analysis-algorithms-big-o-analysis/)
+- [BTech smart class - Introduction to algorithms](http://www.btechsmartclass.com/data_structures/introduction-to-algorithms.html)
+- [Splay tree](https://en.wikipedia.org/wiki/Splay_tree)
+- [Big-O Quiz](https://bigoquiz.com/home)
+- [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [Binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
+- [The height of an AVL tree containing n nodes](http://www.mathcs.emory.edu/~cheung/Courses/253/Syllabus/Trees/AVL-height.html)
+- [AVL Tree](https://www.programiz.com/dsa/avl-tree)
+- [Data Structure and Algorithms - AVL Trees](https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm)
+- [AVL Tree Insertion, Rotation, and Balance Factor Explained](https://www.freecodecamp.org/news/avl-tree-insertion-rotation-and-balance-factor/)
+- [What is an AVL tree? 🌳](https://www.educative.io/edpresso/what-is-an-avl-tree)
+- [AVL Tree program in Java](https://www.javatpoint.com/avl-tree-program-in-java)
+- [How to insert Strings into an AVL Tree](https://www.geeksforgeeks.org/how-to-insert-strings-into-an-avl-tree/)
+- [Big O Factorial Time Complexity](https://jarednielsen.com/big-o-factorial-time-complexity/)
+- [BIG O NOTATION PRIMER](https://www.topcoder.com/blog/big-o-notation-primer)
+- [What would cause an algorithm to have O(log log n) complexity?](https://stackoverflow.com/questions/16472012/what-would-cause-an-algorithm-to-have-olog-log-n-complexity)
+- [What does O(log n) mean exactly?](https://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly/2307314#2307314)
+- [Big O Notation, Part Two: Space Complexity](https://careerkarma.com/blog/big-o-notation-space/)
+- [ALGORITHMS IN KOTLIN, BIG-O-NOTATION, PART 1/7](http://developerlife.com/2018/08/16/algorithms-in-kotlin-1/)
+- [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
+- [Time complexity vs. space complexity](https://www.educative.io/edpresso/time-complexity-vs-space-complexity)
+- [Complexity and Big-O Notation](https://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html)
+- [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
+- [Kotlin Coroutines dispatchers](https://kt.academy/article/cc-dispatchers)
+- [VisualVM](https://visualvm.github.io/)
+- [Picocli](https://picocli.info/)
+- [Issues with Spring, how Micronaut solves it, and latter’s support for GraalVM](https://medium.com/dev-genius/micronaut-application-comparison-with-spring-boot-and-support-for-graalvm-d0fb0d933d55)
+- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
+- [Java Project Loom](https://wiki.openjdk.java.net/display/loom/Main)
+- [GitHub Action for GraalVM](https://github.com/marketplace/actions/github-action-for-graalvm)
+- [Project Loom: Understand the new Java concurrency model](https://www.infoworld.com/article/3652596/project-loom-understand-the-new-java-concurrency-model.html)
+- [Going inside Java’s Project Loom and virtual threads](https://blogs.oracle.com/javamagazine/post/going-inside-javas-project-loom-and-virtual-threads)
 
 #### Videos
 
@@ -207,8 +216,9 @@ Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of th
 
 #### Books
 
--   Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th Edition). CareerCup
--   Cormen, T. Leiserson, C. Rivest, R. Stein, C. (2009). <i>Introduction to Algorithms</i>. (Third Edition). MIT Press
+- Mcdowell, G. (23rd April 2020). <i>Cracking the Coding Interview 189 Programming Questions and Solutions</i>. (6th
+  Edition). CareerCup
+- Cormen, T. Leiserson, C. Rivest, R. Stein, C. (2009). <i>Introduction to Algorithms</i>. (Third Edition). MIT Press
 
 ---
 

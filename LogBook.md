@@ -1,5 +1,16 @@
 # Good Story Log Book
 
+<ins>2023/01/06</ins>
+
+No need for manual JDK19 for project loom installation. The following is deprecated:
+
+> ## 4.  Actions
+>
+>This project makes usage of one single action:
+>
+>-   [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+
+
 <ins>2022/05/29</ins>
 
 One more knowledge at risk found. The simple `compareTo` ceases to be necessary to use. A simple `>` or `<` suffices. Sounds like trying to mix vinegar with oil.
