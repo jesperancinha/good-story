@@ -13,7 +13,6 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.jesperancinha.good.story.intersection.InterNode
-import java.util.Stack
 
 @DelicateCoroutinesApi
 class GoodStoryKotlinCommandTest : StringSpec({
@@ -176,7 +175,7 @@ class GoodStoryKotlinCommandTest : StringSpec({
             "You could have asked... I have a tic that I cannot control and this is why I did the eye roll in the last meeting"
         )
 
-        intersectionLists.shouldNotBeNull();
+        intersectionLists.shouldNotBeNull()
         intersectionLists.shouldHaveSize(2)
         intersectionLists[0] shouldNotBeSameInstanceAs intersectionLists[1]
         intersectionLists[0].next(5) shouldNotBeSameInstanceAs
