@@ -8,6 +8,8 @@ build-java:
 	cd java-good-story && mvn clean install
 build-kotlin:
 	cd kotlin-good-story && mvn clean install
+build-intro:
+	cd coroutines-intro && mvn clean install
 sdk-macos:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_macos-x64_bin.tar.gz --output openjdk-19.tar.gz
 	make sdk-unpack
