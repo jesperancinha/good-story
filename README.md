@@ -104,8 +104,8 @@ We cannot 100% compare Kotlin and Java in a direct way, but we will compare them
 
 JDK 19 is now available to install in different ways and it has been released. This means that this project is being updated as standard.
 
-[Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
-[Project Loom](https://wiki.openjdk.java.net/display/loom/Main) 
+- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-guide.html)
+- [Project Loom](https://wiki.openjdk.java.net/display/loom/Main) 
 
 Please keep checking the evolution of file [Log.md](Log.md) if you want to keep up to date with the results of the
 comparisons. It gets updated per commit.
