@@ -3,10 +3,10 @@ import kotlinx.coroutines.*
 /**
  * Created by jofisaes on 24/06/2022
  */
-class CoroutineYealding {
+internal class CoroutineYealding {
     companion object {
         @JvmStatic
-        fun main(args: Array<String>)  {
+        fun main(args: Array<String> = emptyArray())  {
                 println("The beginning on Thread ${Thread.currentThread()}")
 
                 runBlocking {

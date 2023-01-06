@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: JEsperancinhaOrg Loom Action
-        uses: JEsperancinhaOrg/loom-action@0.0.0-alfa-j
+      - name: Set up JDK 19
+        uses: actions/setup-java@v3
+        with:
+          java-version: '19'
+          distribution: 'adopt'
 
       - name: Java version check
         run: java -version
 
-      - name: Maven Build
-        run: cd java-good-story; mvn clean install
+      - name: Build
+        run: make build-java

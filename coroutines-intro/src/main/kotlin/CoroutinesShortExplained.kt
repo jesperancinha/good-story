@@ -12,7 +12,7 @@ class CoroutinesShortExplained {
 
     companion object {
         @JvmStatic
-        fun main(args: Array<String>) {
+        fun main(args: Array<String> = emptyArray()) {
             println(measureTimeMillis {
                 runSleepExample()
             })
