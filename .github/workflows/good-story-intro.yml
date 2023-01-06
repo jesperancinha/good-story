@@ -1,4 +1,4 @@
-name: GS - Kotlin
+name: GS - Coroutines Intro
 on: [push, pull_request]
 jobs:
   build:
