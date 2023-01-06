@@ -2,13 +2,15 @@ MODULES := java-good-story kotlin-good-story
 export GS_MASSIVE_REPEATS := 10000
 
 b: build
-build:
+pre-build:
+	mvn clean install -DskipTests
+build: pre-build
 	mvn clean install
-build-java:
+build-java: pre-build
 	cd java-good-story && mvn clean install
-build-kotlin:
+build-kotlin: pre-build
 	cd kotlin-good-story && mvn clean install
-build-intro:
+build-intro: pre-build
 	cd coroutines-intro && mvn clean install
 sdk-macos:
 	curl https://download.java.net/java/early_access/loom/6/openjdk-19-loom+6-625_macos-x64_bin.tar.gz --output openjdk-19.tar.gz
