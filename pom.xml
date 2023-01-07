@@ -11,8 +11,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-compiler.release>${java.version}</maven-compiler.release>
-        <maven-compiler-plugin.source>${java.version}</maven-compiler-plugin.source>
-        <maven-compiler-plugin.target>${java.version}</maven-compiler-plugin.target>
         <kotlin.version>1.8.0</kotlin.version>
 
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
