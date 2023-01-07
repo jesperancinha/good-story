@@ -84,6 +84,7 @@ This repo is the official support repo to my article on medium:
 
 - [1.0.0](https://github.com/jesperancinha/good-story/tree/1.0.0) - [315e7260b1214c8be1bc48a4af5446c8ad68bd9f](https://github.com/jesperancinha/good-story/tree/1.0.0) -
   JDK19 runs with [Jesperancinha GitHub Action for LoomJDK](https://github.com/JEsperancinhaOrg/loom-action)
+- [1.0.1](https://github.com/jesperancinha/good-story/tree/1.0.1) - [64fcf38b3448f692353dffcc3a7150bdd1b2b645](https://github.com/jesperancinha/good-story/tree/1.0.1) - JDK19 is now installed as available
 
 ---
 
