@@ -38,14 +38,6 @@ Her name was Hara Arre.
 
 [to be continued...] => [Chapter II - The Cat That Helped Lucy](https://github.com/jesperancinha/whiskers-kotlin-native/blob/main/docs/good.story/good.story.chapter.2.md)
 
-## Temporary notes
-
-These are temporary notes/tips for further writing towards completion of this big novel spread out through different projects.
-
-> Ik geloof niet dat je dat kan.
->
-> Ja pffrrfrfrffrff... Ne ne ne, dat gaan we niet doen! Dat gaan we niet doen!
-
 ## Character List
 
 1. Lucy - Main character
@@ -57,35 +49,3 @@ These are temporary notes/tips for further writing towards completion of this bi
 7. Hara Arre: Team leader
 8. Mr. Fallout: The shadow of Cap Maiyau.
 9. Cap Maiyau: TBD
-
-## Inspiring Music
-
-This is the music selection that has inspired the above fiction story:
-
-<div align="center">
-      <a title="Röyksopp - What Else Is There ?" href="https://www.youtube.com/watch?v=ADBKdSCbmiM">
-     <img 
-          src="https://img.youtube.com/vi/ADBKdSCbmiM/0.jpg" 
-          style="width:20%;">
-      </a>
-      <a title="Florence + The Machine - Never Let Me Go" href="https://www.youtube.com/watch?v=zMBTvuUlm98">
-     <img 
-          src="https://img.youtube.com/vi/zMBTvuUlm98/0.jpg" 
-          style="width:20%;">
-      </a>
-      <a title="Hurt - Nine Inch Nails" href="https://www.youtube.com/watch?v=ZHd5f_HkT44">
-     <img 
-          src="https://img.youtube.com/vi/ZHd5f_HkT44/0.jpg" 
-          style="width:20%;">
-      </a>
-      <a title="Metallica: Until It Sleeps (Official Music Video)" href="https://www.youtube.com/watch?v=eRV9uPr4Dz4">
-     <img 
-          src="https://img.youtube.com/vi/eRV9uPr4Dz4/0.jpg" 
-          style="width:20%;">
-      </a>
-</div>
-
-
-And these are related spotify mixes:
-
-[Arabic Tech Swinging Sounds](https://open.spotify.com/playlist/1DqpQ9uS6dnJN0YXXjg9jI?si=0d60ca94bfb04f2b) | [Lucy and Mr.Comp](https://open.spotify.com/playlist/0s0mfwBKQPK3aKWNfOVBaR?si=8318e3473a444cb9) | [I’m done with the excel and now I’m going to boogie](https://open.spotify.com/playlist/3lSoz51sEfB30LQSshFeIg?si=6a268fa948e24e3d)
