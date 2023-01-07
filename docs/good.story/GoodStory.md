@@ -84,3 +84,8 @@ This is the music selection that has inspired the above fiction story:
           style="width:20%;">
       </a>
 </div>
+
+
+And these are related spotify mixes:
+
+[Arabic Tech Swinging Sounds](https://open.spotify.com/playlist/1DqpQ9uS6dnJN0YXXjg9jI?si=0d60ca94bfb04f2b) | [Lucy and Mr.Comp](https://open.spotify.com/playlist/0s0mfwBKQPK3aKWNfOVBaR?si=8318e3473a444cb9) | [I’m done with the excel and now I’m going to boogie](https://open.spotify.com/playlist/3lSoz51sEfB30LQSshFeIg?si=6a268fa948e24e3d)

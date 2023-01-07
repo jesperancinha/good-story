@@ -79,8 +79,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${maven-compiler-plugin.source}</source>
-                    <target>${maven-compiler-plugin.target}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <release>${maven-compiler.release}</release>
                     <compilerArgs>
                         <arg>--enable-preview</arg>
