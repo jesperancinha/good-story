@@ -8,6 +8,7 @@
 [![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 [![GS - Report Run](https://github.com/jesperancinha/good-story/actions/workflows/good-story-report-run.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-report-run.yml)
+
 [![GS - Coroutines Intro - CPP](https://github.com/jesperancinha/good-story/actions/workflows/good-story-cpp.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-cpp.yml)
 [![GS - Coroutines Intro - JVM](https://github.com/jesperancinha/good-story/actions/workflows/good-story-intro.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-intro.yml)
 
