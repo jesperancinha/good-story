@@ -9,6 +9,7 @@
 
 [![GS - Report Run](https://github.com/jesperancinha/good-story/actions/workflows/good-story-report-run.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-report-run.yml)
 [![GS - Coroutines Intro - CPP](https://github.com/jesperancinha/good-story/actions/workflows/good-story-cpp.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-cpp.yml)
+[![GS - Coroutines Intro - JVM](https://github.com/jesperancinha/good-story/actions/workflows/good-story-intro.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-intro.yml)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e3c9eeb7325842b4852bd6065a3007fa)](https://www.codacy.com/gh/jesperancinha/good-story/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/good-story&amp;utm_campaign=Badge_Grade)
 [![Known Vulnerabilities](https://snyk.io/test/github/jesperancinha/good-story/badge.svg)](https://snyk.io/test/github/jesperancinha/good-story)
