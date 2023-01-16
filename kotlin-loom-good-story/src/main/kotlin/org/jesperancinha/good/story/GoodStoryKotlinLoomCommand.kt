@@ -452,7 +452,7 @@ class GoodStoryKotlinLoomCommand : Callable<Int> {
                 if (destination == null) {
                     functionReadings.add(functionReading)
                 } else {
-                    destination.kotlinDuration = totalDurationMillis
+                    destination.kotlinLoomDuration = totalDurationMillis
                 }
                 objectOutputStream.flush()
             }
