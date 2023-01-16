@@ -15,7 +15,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import org.jesperancinha.good.story.intersection.InterNode
 
 @DelicateCoroutinesApi
-class GoodStoryKotlinCommandTest : StringSpec({
+class GoodStoryKotlinLoomCommandTest : StringSpec({
 
     val algorithmManager by lazy { AlgorithmManager() }
 
