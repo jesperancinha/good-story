@@ -1,4 +1,14 @@
-# kotlin-good-story
+# kotlin-loom-good-story
+
+## Introduction
+
+This module is not part of the article, but it was an idea suggested by user [apatrida](https://github.com/apatrida).
+
+Essentially it creates a `LOOM` dispatcher offering Virtual Thread alternative that work together with Kotlin Coroutines. It seemed quit a strange concept to me, but it works and so I included it here.
+
+Big thanks 🙏 to [apatrida](https://github.com/apatrida) for suggesting it and opening issue:
+
+- [Kotlin Coroutines can dispatch on LOOM threads](https://github.com/jesperancinha/good-story/issues/74)
 
 ## Intellij
 
