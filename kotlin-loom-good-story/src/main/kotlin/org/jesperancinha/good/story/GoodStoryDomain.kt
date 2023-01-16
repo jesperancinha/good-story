@@ -1,7 +1,6 @@
 package org.jesperancinha.good.story
 
 import com.opencsv.bean.CsvBindByName
-import kotlinx.coroutines.runBlocking
 import org.jesperancinha.good.story.avl.AvlTree
 import org.jesperancinha.good.story.flows.FlowManager
 import org.jesperancinha.good.story.intersection.InterNode
@@ -81,12 +80,12 @@ class AlgorithmManager : AlgorithmInterface {
      * This function follows has a quadratic big O time complexity notation of O(n^2) and a space complexity of O(1)
      */
     override suspend fun contentSplitIterateSubtractAndSum(allWords: Array<String>): Int {
-        var sum = 0;
+        var sum = 0
         for (element in allWords)
             for (j in allWords.size - 1 downTo 0) {
                 sum += kotlin.math.abs(element.length - allWords[j].length)
             }
-        return sum;
+        return sum
     }
 
 
@@ -269,7 +268,7 @@ class AlgorithmManager : AlgorithmInterface {
     /**
      *
      */
-    override fun saveWords(words: List<String>): String? {
+    override fun saveWords(words: List<String>): String {
         try {
             Thread.sleep(100)
         } catch (e: InterruptedException) {

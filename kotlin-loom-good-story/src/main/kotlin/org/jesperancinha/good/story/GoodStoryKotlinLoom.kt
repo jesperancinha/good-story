@@ -10,10 +10,10 @@ import kotlin.system.exitProcess
 
 val virtualCounter = AtomicInteger(0)
 
-const val greeting: String = "Welcome to the Kotlin Coroutines Test!"
+const val greeting: String = "Welcome to the Kotlin Coroutines on Loom Test!"
 
 @DelicateCoroutinesApi
 fun main(args: Array<String>) {
-    val exitCode = CommandLine(GoodStoryKotlinCommand()).execute(*args)
+    val exitCode = CommandLine(GoodStoryKotlinLoomCommand()).execute(*args)
     exitProcess(exitCode)
 }

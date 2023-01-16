@@ -1,4 +1,4 @@
-MODULES := java-good-story kotlin-good-story
+MODULES := java-good-story kotlin-good-story kotlin-loom-good-story
 export GS_MASSIVE_REPEATS := 10000
 
 b: build
@@ -10,6 +10,8 @@ build-java: pre-build
 	cd java-good-story && mvn clean install
 build-kotlin: pre-build
 	cd kotlin-good-story && mvn clean install
+build-kotlin-loom: pre-build
+	cd kotlin-loom-good-story && mvn clean install
 build-intro: pre-build
 	cd coroutines-intro && mvn clean install
 sdk-macos:
@@ -42,9 +44,12 @@ create-headers:
 	echo "|---|---|---|---|---|---|---|" >> dump/java/Log.md
 	echo "| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |" > dump/kotlin/Log.md
 	echo "|---|---|---|---|---|---|---|" >> dump/kotlin/Log.md
+	echo "| Module | Method | Time Complexity | Space Complexity | Repetitions | Measured Duration | Machine |" > dump/kotlin-loom/Log.md
+	echo "|---|---|---|---|---|---|---|" >> dump/kotlin-loom/Log.md
 clean:
 	cd dump && rm -r java/*.csv &
 	cd dump && rm -r kotlin/*.csv &
+	cd dump && rm -r kotlin-loom/*.csv &
 build-run:
 	make create-headers
 	$(foreach module,$(MODULES), \

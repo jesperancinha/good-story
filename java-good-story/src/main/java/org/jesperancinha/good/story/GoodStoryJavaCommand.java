@@ -42,6 +42,10 @@ import static java.util.stream.IntStream.range;
         description = "Test Algorithms and measures their performance time")
 class GoodStoryJavaCommand implements Callable<Integer> {
 
+    public static final String JAVA = "java";
+    public static final String KOTLIN = "kotlin";
+    public static final String KOTLIN_LOOM = "kotlin-loom";
+    public static final String DUMP_CSV = "dump.csv";
     @Option(names = {"-f", "--file"},
             description = "Text.md file to be processed",
             required = true)
@@ -264,7 +268,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
                         range(1, 101).asLongStream().forEach(n -> {
                             final var localDateTime = first.plusNanos(n * delta * 1000);
                             final var size = pairList.stream().filter(it ->
-                                    localDateTime.compareTo(it.getKey()) > 0 && localDateTime.compareTo(it.getValue()) < -0).count();
+                                    localDateTime.isAfter(it.getKey()) && localDateTime.isBefore(it.getValue())).count();
                             try {
                                 oos.write(("" + n + "," + size + "\n").getBytes(StandardCharsets.UTF_8));
                             } catch (IOException e) {
@@ -281,14 +285,14 @@ class GoodStoryJavaCommand implements Callable<Integer> {
 
         try (
                 FileOutputStream oos = new FileOutputStream(logFile)) {
-            oos.write("| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".getBytes(StandardCharsets.UTF_8));
-            oos.write("|---|---|---|---|---|---|---|---|\n".getBytes(StandardCharsets.UTF_8));
+            oos.write("| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Kotlin Loom Duration | Machine |\n".getBytes(StandardCharsets.UTF_8));
+            oos.write("|---|---|---|---|---|---|---|---|---|\n".getBytes(StandardCharsets.UTF_8));
             functionReadings.forEach(fr -> {
                 try {
                     oos.write(
-                            String.format("| %s | %s | %s | %s | %d | %d | %d | %s |\n",
+                            String.format("| %s | %s | %s | %s | %d | %d | %d | %s | %s |\n",
                                     LocalDateTime.now(), fr.getMethod(), fr.getTimeComplexity(), fr.getSpaceComplexity(), fr.getRepetition(),
-                                    fr.getJavaDuration(), fr.getKotlinDuration(), fr.getMachine()).getBytes(StandardCharsets.UTF_8));
+                                    fr.getJavaDuration(), fr.getKotlinDuration(), fr.getKotlinLoomDuration(), fr.getMachine()).getBytes(StandardCharsets.UTF_8));
                     oos.flush();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -298,13 +302,22 @@ class GoodStoryJavaCommand implements Callable<Integer> {
     }
 
     private AlgorithmInterface setupAlgorithManager() throws IOException {
-        if (Objects.nonNull(dumpDir)) {
-            dumpDir.mkdirs();
-            new File(dumpDir, "java").mkdirs();
-            new File(dumpDir, "kotlin").mkdirs();
+        boolean mkdirs = dumpDir.mkdirs();
+        var directoryJava = new File(dumpDir, JAVA);
+        boolean mkdirsJava = directoryJava.mkdirs();
+        var directoryKotlin = new File(dumpDir, KOTLIN);
+        boolean mkdirsKotlin = directoryKotlin.mkdirs();
+        var directoryKotlinLoom = new File(dumpDir, KOTLIN_LOOM);
+        boolean mkdirsKotlinLoom = directoryKotlinLoom.mkdirs();
+
+        if (!((mkdirs || dumpDir.exists()) ||
+                (mkdirsJava || directoryJava.exists() )||
+                (mkdirsKotlin || directoryKotlin.exists()) ||
+                (mkdirsKotlinLoom || directoryKotlinLoom.exists()))) {
+            throw new RuntimeException("Not able to create directory in %s".formatted(dumpDir));
         }
 
-        final File dumpFile = new File(dumpDir, "dump.csv");
+        final File dumpFile = new File(dumpDir, DUMP_CSV);
         if (dumpFile.exists()) {
             var fileReader = new FileReader(dumpFile);
             var csvReader = new CsvToBeanBuilder<FunctionReading>(fileReader)

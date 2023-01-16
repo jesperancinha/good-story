@@ -11,6 +11,7 @@
         <groupId>org.jesperancinha.gs</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <name>Good Story : Loom Virtual Threads</name>
     <artifactId>java-good-story</artifactId>
     <dependencies>
         <dependency>

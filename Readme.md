@@ -9,6 +9,7 @@
 [![GS - Report Run](https://github.com/jesperancinha/good-story/actions/workflows/good-story-report-run.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-report-run.yml)
 [![GS - Coroutines Intro - CPP](https://github.com/jesperancinha/good-story/actions/workflows/good-story-cpp.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-cpp.yml)
 [![GS - Coroutines Intro - JVM](https://github.com/jesperancinha/good-story/actions/workflows/good-story-intro.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-intro.yml)
+[![GS - Kotlin - Loom](https://github.com/jesperancinha/good-story/actions/workflows/good-story-kotlin-loom.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-kotlin-loom.yml)
 
 [![GS - Java](https://github.com/jesperancinha/good-story/actions/workflows/good-story-java.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-java.yml)
 [![GS - Kotlin](https://github.com/jesperancinha/good-story/actions/workflows/good-story-kotlin.yml/badge.svg)](https://github.com/jesperancinha/good-story/actions/workflows/good-story-kotlin.yml)

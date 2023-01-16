@@ -46,6 +46,7 @@ gradle/**
 ## Good Story
 dump/java/*.csv
 dump/kotlin/*.csv
+dump/kotlin-loom/*.csv
 !Log.md
 !dump.csv
 article.txt

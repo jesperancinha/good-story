@@ -6,25 +6,29 @@ import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.*
 import java.lang.Thread.currentThread
-import java.nio.charset.StandardCharsets
+import java.lang.Thread.startVirtualThread
+import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.Files
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.concurrent.Callable
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.measureTimeMillis
 
 private const val JAVA = "java"
-private const val KOTLIN = "kotlin"
 private const val KOTLIN_LOOM = "kotlin-loom"
+private const val KOTLIN = "kotlin"
 private const val DUMP_CSV = "dump.csv"
+
+val LOOM: CoroutineDispatcher
+    get() = Executors.newVirtualThreadPerTaskExecutor().asCoroutineDispatcher()
 
 @Command(
     name = "GoodStory Java Algorithms",
@@ -33,7 +37,7 @@ private const val DUMP_CSV = "dump.csv"
     description = ["Test Algorithms and measures their performance time"]
 )
 @DelicateCoroutinesApi
-class GoodStoryKotlinCommand : Callable<Int> {
+class GoodStoryKotlinLoomCommand : Callable<Int> {
 
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
@@ -93,7 +97,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         val dumpFile = File(dumpDir, DUMP_CSV)
         if (dumpFile.exists()) {
-            val fileReader = withContext(IO) {
+            val fileReader = withContext(LOOM) {
                 FileReader(dumpFile)
             }
             val csvReader: CsvToBean<FunctionReading> = CsvToBeanBuilder<FunctionReading>(fileReader)
@@ -106,7 +110,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             functionReadings.addAll(functionReadingList)
         }
 
-        dumpWriter = withContext(IO) {
+        dumpWriter = withContext(LOOM) {
             FileWriter(dumpFile)
         }
 
@@ -266,14 +270,14 @@ class GoodStoryKotlinCommand : Callable<Int> {
             .withSeparator(DEFAULT_SEPARATOR)
             .build()
         sbc.write(functionReadings)
-        withContext(IO) {
+        withContext(LOOM) {
             dumpWriter?.close()
         }
 
         dumpDir?.let { root ->
-            File(root, "kotlin").listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
+            File(root, KOTLIN_LOOM).listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
                 ?.forEach { source ->
-                    FileOutputStream(File(File(root, "kotlin"), "${source.name.split(".")[0]}-ms.csv"), true)
+                    FileOutputStream(File(File(root, KOTLIN_LOOM), "${source.name.split(".")[0]}-ms.csv"), true)
                         .use { oos ->
                             val pairList = source.readLines()
                                 .map {
@@ -290,7 +294,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                                 val size = pairList.filter {
                                     first.plusNanos(n * delta * 1000) > it.first && first.plusNanos(n * delta * 1000) < it.second
                                 }.size
-                                oos.write("$n,$size\n".toByteArray(StandardCharsets.UTF_8))
+                                oos.write("$n,$size\n".toByteArray(UTF_8))
                             }
                             oos.flush()
                         }
@@ -298,15 +302,15 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 }
         }
 
-        withContext(IO) {
+        withContext(LOOM) {
             logFile?.let {
                 FileOutputStream(it).use { oos ->
                     oos.write(
                         "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Kotlin Loom Duration | Machine |\n".toByteArray(
-                            StandardCharsets.UTF_8
+                            UTF_8
                         )
                     )
-                    oos.write("|---|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
+                    oos.write("|---|---|---|---|---|---|---|---|---|\n".toByteArray(UTF_8))
                     functionReadings.forEach { fr: FunctionReading ->
                         try {
                             oos.write(
@@ -321,7 +325,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                                     fr.kotlinDuration,
                                     fr.kotlinLoomDuration,
                                     fr.machine
-                                ).toByteArray(StandardCharsets.UTF_8)
+                                ).toByteArray(UTF_8)
                             )
                             oos.flush()
                         } catch (e: IOException) {
@@ -352,12 +356,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
                     spaceComplexity,
                     repeats = repeats
                 ) {
-                    withContext(IO) {
+                    withContext(LOOM) {
                         FileOutputStream(
                             File(
                                 File(
                                     dumpDir,
-                                    "kotlin"
+                                    KOTLIN_LOOM
                                 ),
                                 "$methodName.csv"
                             ),
@@ -403,13 +407,13 @@ class GoodStoryKotlinCommand : Callable<Int> {
         oos: FileOutputStream?,
         function: suspend () -> T
     ) =
-        async {
+        async(LOOM) {
             val start = LocalDateTime.now()
             function()
             val end = LocalDateTime.now()
             oos?.let {
                 oos.write(
-                    "$start,$end,${currentThread()}\n".toByteArray(StandardCharsets.UTF_8)
+                    "$start,$end,${currentThread()}\n".toByteArray(UTF_8)
                 )
                 oos.flush()
             }
@@ -426,10 +430,10 @@ class GoodStoryKotlinCommand : Callable<Int> {
     ): Long {
         val totalDurationMillis = measureTimeMillis { function() }
         logFile?.let {
-            FileOutputStream(File(File(dumpDir, "kotlin"), logFile.name), true).use { objectOutputStream ->
+            FileOutputStream(File(File(dumpDir, KOTLIN_LOOM), logFile.name), true).use { objectOutputStream ->
                 objectOutputStream.write(
-                    "| Kotlin Coroutines | $methodName - $testName | $timeComplexity | $spaceComplexity | $repeats | $totalDurationMillis | $computer |\n"
-                        .toByteArray(StandardCharsets.UTF_8)
+                    "| Kotlin Coroutines on Loom | $methodName - $testName | $timeComplexity | $spaceComplexity | $repeats | $totalDurationMillis | $computer |\n"
+                        .toByteArray(UTF_8)
                 )
 
                 val functionReading = FunctionReading(
@@ -438,8 +442,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
                     spaceComplexity,
                     repeats.toLong(),
                     -1L,
-                    totalDurationMillis,
                     -1L,
+                    totalDurationMillis,
                     computer
                 )
                 val destination = functionReadings
@@ -448,7 +452,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                 if (destination == null) {
                     functionReadings.add(functionReading)
                 } else {
-                    destination.kotlinDuration = totalDurationMillis
+                    destination.kotlinLoomDuration = totalDurationMillis
                 }
                 objectOutputStream.flush()
             }
@@ -461,8 +465,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
     suspend fun generalTest() {
         log.info("----====>>>> Starting generalTest <<<<====----")
         val startTime = LocalDateTime.now()
-        withContext(IO) {
-            FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
+        withContext(LOOM) {
+            FileOutputStream(File(File(dumpDir, KOTLIN_LOOM), "generalTest.csv"), true).use { oos ->
                 (1..(massiveRepeats ?: 0)).map {
                     startProcessAsync(oos) {
                         virtualCounter.incrementAndGet()
@@ -476,33 +480,30 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("It took me {} ms to finish", Duration.between(startTime, endTime).toMillis())
     }
 
-    private suspend fun readFullContent(textFile: File): String = String(withContext(IO) {
+    private suspend fun readFullContent(textFile: File): String = String(withContext(LOOM) {
         Files.readAllBytes(textFile.toPath())
     })
 
     companion object {
 
-        private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinCommand::class.java)
+        private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinLoomCommand::class.java)
         const val DEFAULT_MASSIVE_REPEATS = "10000"
         const val DEFAULT_ALGORITHM_REPEATS = "10000"
 
         @DelicateCoroutinesApi
         suspend fun controlTest(repeats: Int) {
-            log.info("----====>>>> Starting controlTest <<<<====----")
+            log.info("----====>>>> Starting LOOM controlTest <<<<====----")
             val startTimeT = LocalDateTime.now()
             val aiThread = AtomicInteger(0)
-            withContext(IO) {
+            withContext(LOOM) {
                 (1..repeats).map {
-                    Thread { aiThread.getAndIncrement() }
-                        .apply { start() }
+                    startVirtualThread { aiThread.getAndIncrement() }
                 }.forEach { it.join() }
             }
             val endTimeT = LocalDateTime.now()
             log.info("Imma be the main Thread")
             log.info(aiThread.get().toString())
-            log.info("It took me {} ms to finish", Duration.between(startTimeT, endTimeT).toMillis())
-        }
-
+            log.info("It took me {} ms to finish", Duration.between(startTimeT, endTimeT).toMillis())     }
     }
 }
 
