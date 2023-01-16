@@ -33,6 +33,8 @@ data class FunctionReading(
     @CsvBindByName
     var kotlinDuration: Long? = -1L,
     @CsvBindByName
+    var kotlinLoomDuration: Long? = -1L,
+    @CsvBindByName
     var machine: String? = null
 )
 

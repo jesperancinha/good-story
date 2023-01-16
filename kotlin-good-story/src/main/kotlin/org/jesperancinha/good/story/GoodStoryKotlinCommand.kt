@@ -302,7 +302,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
             logFile?.let {
                 FileOutputStream(it).use { oos ->
                     oos.write(
-                        "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
+                        "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Kotlin Loom Duration | Machine |\n".toByteArray(
                             StandardCharsets.UTF_8
                         )
                     )
@@ -319,6 +319,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                                     fr.repetition,
                                     fr.javaDuration,
                                     fr.kotlinDuration,
+                                    fr.kotlinLoomDuration,
                                     fr.machine
                                 ).toByteArray(StandardCharsets.UTF_8)
                             )
@@ -438,6 +439,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                     repeats.toLong(),
                     -1L,
                     totalDurationMillis,
+                    -1L,
                     computer
                 )
                 val destination = functionReadings

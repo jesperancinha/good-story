@@ -20,7 +20,6 @@ import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.function.Consumer
 import kotlin.system.measureTimeMillis
 
 private const val JAVA = "java"
@@ -307,12 +306,12 @@ class GoodStoryKotlinLoomCommand : Callable<Int> {
             logFile?.let {
                 FileOutputStream(it).use { oos ->
                     oos.write(
-                        "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
+                        "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Kotlin Loom Duration | Machine |\n".toByteArray(
                             UTF_8
                         )
                     )
                     oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(UTF_8))
-                    functionReadings.forEach(Consumer { fr: FunctionReading ->
+                    functionReadings.forEach { fr: FunctionReading ->
                         try {
                             oos.write(
                                 String.format(
@@ -324,6 +323,7 @@ class GoodStoryKotlinLoomCommand : Callable<Int> {
                                     fr.repetition,
                                     fr.javaDuration,
                                     fr.kotlinDuration,
+                                    fr.kotlinLoomDuration,
                                     fr.machine
                                 ).toByteArray(UTF_8)
                             )
@@ -331,7 +331,7 @@ class GoodStoryKotlinLoomCommand : Callable<Int> {
                         } catch (e: IOException) {
                             throw RuntimeException(e)
                         }
-                    })
+                    }
                 }
             }
         }
@@ -441,6 +441,7 @@ class GoodStoryKotlinLoomCommand : Callable<Int> {
                     timeComplexity,
                     spaceComplexity,
                     repeats.toLong(),
+                    -1L,
                     -1L,
                     totalDurationMillis,
                     computer

@@ -19,6 +19,8 @@ public class FunctionReading{
     @CsvBindByName
     private Long kotlinDuration;
     @CsvBindByName
+    private Long kotlinLoomDuration;
+    @CsvBindByName
     private String machine;
 
     public FunctionReading(){
@@ -73,4 +75,9 @@ public class FunctionReading{
     public String getMachine() {
         return machine;
     }
+
+    public Long getKotlinLoomDuration() {
+        return kotlinLoomDuration;
+    }
+
 }
