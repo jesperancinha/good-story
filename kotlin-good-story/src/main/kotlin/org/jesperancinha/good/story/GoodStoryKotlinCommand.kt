@@ -78,7 +78,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
     private val functionReadings: MutableList<FunctionReading> = ArrayList()
 
     override fun call(): Int = runBlocking {
-        log.info(App().greeting)
+        log.info(greeting)
 
         log.info("File to read is {}", textFile)
         log.info("Configured repeats are {}", massiveRepeats)
@@ -440,9 +440,8 @@ class GoodStoryKotlinCommand : Callable<Int> {
                     totalDurationMillis,
                     computer
                 )
-                val destination = functionReadings.stream()
-                    .filter { fr: FunctionReading -> fr.method == functionReading.method }
-                    .findFirst().orElse(null)
+                val destination = functionReadings
+                    .firstOrNull { fr: FunctionReading -> fr.method == functionReading.method }
 
                 if (destination == null) {
                     functionReadings.add(functionReading)

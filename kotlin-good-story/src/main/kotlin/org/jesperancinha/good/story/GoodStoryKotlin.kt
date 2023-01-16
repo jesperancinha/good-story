@@ -3,20 +3,14 @@
  */
 package org.jesperancinha.good.story
 
-import kotlinx.coroutines.*
-import org.jesperancinha.good.story.flows.FlowManager
+import kotlinx.coroutines.DelicateCoroutinesApi
 import picocli.CommandLine
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.exitProcess
 
 val virtualCounter = AtomicInteger(0)
 
-class App {
-    val greeting: String
-        get() {
-            return "Welcome to the Kotlin Coroutines Test!"
-        }
-}
+const val greeting: String = "Welcome to the Kotlin Coroutines Test!"
 
 @DelicateCoroutinesApi
 fun main(args: Array<String>) {

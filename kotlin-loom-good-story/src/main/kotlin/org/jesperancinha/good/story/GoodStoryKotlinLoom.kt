@@ -10,12 +10,7 @@ import kotlin.system.exitProcess
 
 val virtualCounter = AtomicInteger(0)
 
-class App {
-    val greeting: String
-        get() {
-            return "Welcome to the Kotlin Coroutines on Loom Test!"
-        }
-}
+const val greeting: String = "Welcome to the Kotlin Coroutines on Loom Test!"
 
 @DelicateCoroutinesApi
 fun main(args: Array<String>) {
