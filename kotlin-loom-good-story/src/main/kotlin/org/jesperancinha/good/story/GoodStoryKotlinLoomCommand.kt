@@ -310,7 +310,7 @@ class GoodStoryKotlinLoomCommand : Callable<Int> {
                             UTF_8
                         )
                     )
-                    oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(UTF_8))
+                    oos.write("|---|---|---|---|---|---|---|---|---|\n".toByteArray(UTF_8))
                     functionReadings.forEach { fr: FunctionReading ->
                         try {
                             oos.write(

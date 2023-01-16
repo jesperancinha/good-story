@@ -286,7 +286,7 @@ class GoodStoryJavaCommand implements Callable<Integer> {
         try (
                 FileOutputStream oos = new FileOutputStream(logFile)) {
             oos.write("| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Kotlin Loom Duration | Machine |\n".getBytes(StandardCharsets.UTF_8));
-            oos.write("|---|---|---|---|---|---|---|---|\n".getBytes(StandardCharsets.UTF_8));
+            oos.write("|---|---|---|---|---|---|---|---|---|\n".getBytes(StandardCharsets.UTF_8));
             functionReadings.forEach(fr -> {
                 try {
                     oos.write(

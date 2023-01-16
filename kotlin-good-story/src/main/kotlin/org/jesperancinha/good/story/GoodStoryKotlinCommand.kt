@@ -306,7 +306,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                             StandardCharsets.UTF_8
                         )
                     )
-                    oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
+                    oos.write("|---|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
                     functionReadings.forEach { fr: FunctionReading ->
                         try {
                             oos.write(
