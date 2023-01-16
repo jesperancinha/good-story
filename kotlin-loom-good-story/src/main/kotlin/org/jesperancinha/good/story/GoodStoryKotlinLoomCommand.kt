@@ -22,6 +22,11 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 import kotlin.system.measureTimeMillis
 
+private const val JAVA = "java"
+private const val KOTLIN_LOOM = "kotlin-loom"
+private const val KOTLIN = "kotlin"
+private const val DUMP_CSV = "dump.csv"
+
 @Command(
     name = "GoodStory Java Algorithms",
     mixinStandardHelpOptions = true,
@@ -29,7 +34,7 @@ import kotlin.system.measureTimeMillis
     description = ["Test Algorithms and measures their performance time"]
 )
 @DelicateCoroutinesApi
-class GoodStoryKotlinCommand : Callable<Int> {
+class GoodStoryKotlinLoomCommand : Callable<Int> {
 
     @Option(names = ["-f", "--file"], description = ["Text.md file to be processed"], required = true)
     private var textFile: File? = null
@@ -82,11 +87,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         dumpDir?.let { root ->
             root.mkdirs()
-            File(root, "java").mkdirs()
-            File(root, "kotlin").mkdirs()
+            File(root, JAVA).mkdirs()
+            File(root, KOTLIN).mkdirs()
+            File(root, KOTLIN_LOOM).mkdirs()
         }
 
-        val dumpFile = File(dumpDir, "dump.csv")
+        val dumpFile = File(dumpDir, DUMP_CSV)
         if (dumpFile.exists()) {
             val fileReader = withContext(IO) {
                 FileReader(dumpFile)
@@ -266,9 +272,9 @@ class GoodStoryKotlinCommand : Callable<Int> {
         }
 
         dumpDir?.let { root ->
-            File(root, "kotlin").listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
+            File(root, KOTLIN_LOOM).listFiles(FileFilter { it.name.endsWith(".csv") && !it.name.endsWith("-ms.csv") })
                 ?.forEach { source ->
-                    FileOutputStream(File(File(root, "kotlin"), "${source.name.split(".")[0]}-ms.csv"), true)
+                    FileOutputStream(File(File(root, KOTLIN_LOOM), "${source.name.split(".")[0]}-ms.csv"), true)
                         .use { oos ->
                             val pairList = source.readLines()
                                 .map {
@@ -294,33 +300,35 @@ class GoodStoryKotlinCommand : Callable<Int> {
         }
 
         withContext(IO) {
-            FileOutputStream(logFile).use { oos ->
-                oos.write(
-                    "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
-                        StandardCharsets.UTF_8
-                    )
-                )
-                oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
-                functionReadings.forEach(Consumer { fr: FunctionReading ->
-                    try {
-                        oos.write(
-                            String.format(
-                                "| %s | %s | %s | %s | %d | %d | %d | %s |\n",
-                                LocalDateTime.now(),
-                                fr.method,
-                                fr.timeComplexity,
-                                fr.spaceComplexity,
-                                fr.repetition,
-                                fr.javaDuration,
-                                fr.kotlinDuration,
-                                fr.machine
-                            ).toByteArray(StandardCharsets.UTF_8)
+            logFile?.let {
+                FileOutputStream(it).use { oos ->
+                    oos.write(
+                        "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
+                            StandardCharsets.UTF_8
                         )
-                        oos.flush()
-                    } catch (e: IOException) {
-                        throw RuntimeException(e)
-                    }
-                })
+                    )
+                    oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
+                    functionReadings.forEach(Consumer { fr: FunctionReading ->
+                        try {
+                            oos.write(
+                                String.format(
+                                    "| %s | %s | %s | %s | %d | %d | %d | %s |\n",
+                                    LocalDateTime.now(),
+                                    fr.method,
+                                    fr.timeComplexity,
+                                    fr.spaceComplexity,
+                                    fr.repetition,
+                                    fr.javaDuration,
+                                    fr.kotlinDuration,
+                                    fr.machine
+                                ).toByteArray(StandardCharsets.UTF_8)
+                            )
+                            oos.flush()
+                        } catch (e: IOException) {
+                            throw RuntimeException(e)
+                        }
+                    })
+                }
             }
         }
     }
@@ -349,7 +357,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
                             File(
                                 File(
                                     dumpDir,
-                                    "kotlin"
+                                    KOTLIN_LOOM
                                 ),
                                 "$methodName.csv"
                             ),
@@ -418,9 +426,9 @@ class GoodStoryKotlinCommand : Callable<Int> {
     ): Long {
         val totalDurationMillis = measureTimeMillis { function() }
         logFile?.let {
-            FileOutputStream(File(File(dumpDir, "kotlin"), logFile.name), true).use { objectOutputStream ->
+            FileOutputStream(File(File(dumpDir, KOTLIN_LOOM), logFile.name), true).use { objectOutputStream ->
                 objectOutputStream.write(
-                    "| Kotlin Coroutines | $methodName - $testName | $timeComplexity | $spaceComplexity | $repeats | $totalDurationMillis | $computer |\n"
+                    "| Kotlin Coroutines on Loom | $methodName - $testName | $timeComplexity | $spaceComplexity | $repeats | $totalDurationMillis | $computer |\n"
                         .toByteArray(StandardCharsets.UTF_8)
                 )
 
@@ -454,7 +462,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
         log.info("----====>>>> Starting generalTest <<<<====----")
         val startTime = LocalDateTime.now()
         withContext(IO) {
-            FileOutputStream(File(File(dumpDir, "kotlin"), "generalTest.csv"), true).use { oos ->
+            FileOutputStream(File(File(dumpDir, KOTLIN_LOOM), "generalTest.csv"), true).use { oos ->
                 (1..(massiveRepeats ?: 0)).map {
                     startProcessAsync(oos) {
                         virtualCounter.incrementAndGet()
@@ -474,7 +482,7 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
     companion object {
 
-        private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinCommand::class.java)
+        private val log: Logger = LoggerFactory.getLogger(GoodStoryKotlinLoomCommand::class.java)
         const val DEFAULT_MASSIVE_REPEATS = "10000"
         const val DEFAULT_ALGORITHM_REPEATS = "10000"
 

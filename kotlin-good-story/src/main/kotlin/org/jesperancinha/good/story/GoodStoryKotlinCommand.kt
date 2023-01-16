@@ -19,8 +19,12 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.function.Consumer
 import kotlin.system.measureTimeMillis
+
+private const val JAVA = "java"
+private const val KOTLIN = "kotlin"
+private const val KOTLIN_LOOM = "kotlin-loom"
+private const val DUMP_CSV = "dump.csv"
 
 @Command(
     name = "GoodStory Java Algorithms",
@@ -82,11 +86,12 @@ class GoodStoryKotlinCommand : Callable<Int> {
 
         dumpDir?.let { root ->
             root.mkdirs()
-            File(root, "java").mkdirs()
-            File(root, "kotlin").mkdirs()
+            File(root, JAVA).mkdirs()
+            File(root, KOTLIN).mkdirs()
+            File(root, KOTLIN_LOOM).mkdirs()
         }
 
-        val dumpFile = File(dumpDir, "dump.csv")
+        val dumpFile = File(dumpDir, DUMP_CSV)
         if (dumpFile.exists()) {
             val fileReader = withContext(IO) {
                 FileReader(dumpFile)
@@ -294,33 +299,35 @@ class GoodStoryKotlinCommand : Callable<Int> {
         }
 
         withContext(IO) {
-            FileOutputStream(logFile).use { oos ->
-                oos.write(
-                    "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
-                        StandardCharsets.UTF_8
-                    )
-                )
-                oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
-                functionReadings.forEach(Consumer { fr: FunctionReading ->
-                    try {
-                        oos.write(
-                            String.format(
-                                "| %s | %s | %s | %s | %d | %d | %d | %s |\n",
-                                LocalDateTime.now(),
-                                fr.method,
-                                fr.timeComplexity,
-                                fr.spaceComplexity,
-                                fr.repetition,
-                                fr.javaDuration,
-                                fr.kotlinDuration,
-                                fr.machine
-                            ).toByteArray(StandardCharsets.UTF_8)
+            logFile?.let {
+                FileOutputStream(it).use { oos ->
+                    oos.write(
+                        "| Time | Method | Time Complexity | Space Complexity | Repetitions | Java Duration | Kotlin Duration | Machine |\n".toByteArray(
+                            StandardCharsets.UTF_8
                         )
-                        oos.flush()
-                    } catch (e: IOException) {
-                        throw RuntimeException(e)
+                    )
+                    oos.write("|---|---|---|---|---|---|---|---|\n".toByteArray(StandardCharsets.UTF_8))
+                    functionReadings.forEach { fr: FunctionReading ->
+                        try {
+                            oos.write(
+                                String.format(
+                                    "| %s | %s | %s | %s | %d | %d | %d | %s |\n",
+                                    LocalDateTime.now(),
+                                    fr.method,
+                                    fr.timeComplexity,
+                                    fr.spaceComplexity,
+                                    fr.repetition,
+                                    fr.javaDuration,
+                                    fr.kotlinDuration,
+                                    fr.machine
+                                ).toByteArray(StandardCharsets.UTF_8)
+                            )
+                            oos.flush()
+                        } catch (e: IOException) {
+                            throw RuntimeException(e)
+                        }
                     }
-                })
+                }
             }
         }
     }

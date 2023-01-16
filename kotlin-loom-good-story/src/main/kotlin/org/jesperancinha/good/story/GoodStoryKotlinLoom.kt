@@ -13,12 +13,12 @@ val virtualCounter = AtomicInteger(0)
 class App {
     val greeting: String
         get() {
-            return "Welcome to the Kotlin Coroutines Test!"
+            return "Welcome to the Kotlin Coroutines on Loom Test!"
         }
 }
 
 @DelicateCoroutinesApi
 fun main(args: Array<String>) {
-    val exitCode = CommandLine(GoodStoryKotlinCommand()).execute(*args)
+    val exitCode = CommandLine(GoodStoryKotlinLoomCommand()).execute(*args)
     exitProcess(exitCode)
 }

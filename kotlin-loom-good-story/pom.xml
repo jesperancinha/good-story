@@ -80,7 +80,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>org.jesperancinha.good.story.GoodStoryKotlinKt</mainClass>
+                            <mainClass>org.jesperancinha.good.story.GoodStoryKotlinLoomKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
