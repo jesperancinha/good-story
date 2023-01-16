@@ -6,6 +6,8 @@
     <artifactId>good-story</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>Good Story : Parent</name>
+
     <properties>
         <java.version>19</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -37,6 +39,7 @@
         <module>coroutines-intro</module>
         <module>java-good-story</module>
         <module>kotlin-good-story</module>
+        <module>kotlin-loom-good-story</module>
     </modules>
 
     <packaging>pom</packaging>
