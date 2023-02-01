@@ -3,6 +3,9 @@ name: GS - Report Run
 on:
   push:
     branches: [ main ]
+  pull_request_target:
+    types:
+      - closed
 
 jobs:
   build:
