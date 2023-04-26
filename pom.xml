@@ -28,7 +28,7 @@
         <slf4j.version>2.0.7</slf4j.version>
         <opencsv.version>5.7.1</opencsv.version>
 
-        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <omni-coveragereporter-maven-plugin.version>0.4.2</omni-coveragereporter-maven-plugin.version>
         <assertj.version>3.24.2</assertj.version>
 
