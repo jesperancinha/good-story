@@ -29,7 +29,7 @@
         <opencsv.version>5.7.1</opencsv.version>
 
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-        <omni-coveragereporter-maven-plugin.version>0.4.2</omni-coveragereporter-maven-plugin.version>
+        <omni-coveragereporter-maven-plugin.version>0.4.3</omni-coveragereporter-maven-plugin.version>
         <assertj.version>3.24.2</assertj.version>
 
         <argLine>-Xmx2048m</argLine>
