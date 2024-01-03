@@ -30,7 +30,7 @@
 
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
         <omni-coveragereporter-maven-plugin.version>0.4.3</omni-coveragereporter-maven-plugin.version>
-        <assertj.version>3.25.0</assertj.version>
+        <assertj.version>3.25.1</assertj.version>
 
         <argLine>-Xmx2048m</argLine>
     </properties>
