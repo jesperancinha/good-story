@@ -77,14 +77,6 @@ This repo is the official support repo to my article on medium:
 
 [![](https://img.shields.io/badge/Kotlin%20Coroutines%20vs%20Java%20Virtual%20Threads%20—%20A%20good%20story,%20but%20just%20that…-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb)
 
-<div align="center">
-      <a title="Kotlin Coroutines vs Java Virtual Threads — A good story, but just that…" href="https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb">
-     <img 
-          src="./docs/article-coroutines-banner.jpeg" 
-          style="width:100%;" alt="">
-      </a>
-</div>
-
 #### Stable releases
 
 -   [1.0.0](https://github.com/jesperancinha/good-story/tree/1.0.0) - [315e7260b1214c8be1bc48a4af5446c8ad68bd9f](https://github.com/jesperancinha/good-story/tree/1.0.0) -
