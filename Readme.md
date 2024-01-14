@@ -74,13 +74,14 @@ where the performance study comes in.
 
 This repo is the official support repo to my article on medium:
 
-[![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-20/medium-20.png "Medium")](https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb) [Kotlin Coroutines vs Java Virtual Threads — A good story, but just that…](https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb)
+
+[![](https://img.shields.io/badge/Kotlin%20Coroutines%20vs%20Java%20Virtual%20Threads%20—%20A%20good%20story,%20but%20just%20that…-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb)
 
 <div align="center">
       <a title="Kotlin Coroutines vs Java Virtual Threads — A good story, but just that…" href="https://itnext.io/kotlin-coroutines-vs-java-virtual-threads-a-good-story-but-just-that-91038c7d21eb">
      <img 
           src="./docs/article-coroutines-banner.jpeg" 
-          style="width:100%;">
+          style="width:100%;" alt="">
       </a>
 </div>
 
@@ -133,9 +134,6 @@ For heavier tests please run:
 ```shell
 make clean build-run-loccal
 ```
-
-Just make sure that loom-jdk is setup in [/loom-jdk](loom-jdk) at the root of this project. Check the sdk scripts in
-the [Makefile](./Makefile) for distribution choices for the Loom JDK.
 
 ---
 
