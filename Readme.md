@@ -145,7 +145,7 @@ the [Makefile](./Makefile) for distribution choices for the Loom JDK.
 
 ---
 
-## 6.  References
+## 6.  Resources
 
 #### Online
 
@@ -207,18 +207,8 @@ the [Makefile](./Makefile) for distribution choices for the Loom JDK.
 
 #### Videos
 
-<div align="center">
-      <a title="The Complete Guide to Big O Notation & Complexity Analysis for Algorithms: Part 1 of 2" href="https://www.youtube.com/watch?v=HfIH3czXc-8">
-     <img 
-          src="https://img.youtube.com/vi/HfIH3czXc-8/0.jpg" 
-          style="width:20%;">
-      </a>
-      <a title="P99 CONF: High-Performance Networking Using eBPF, XDP, and io_uring" href="https://www.youtube.com/watch?v=dWfA5460HYU">
-     <img 
-          src="https://img.youtube.com/vi/dWfA5460HYU/0.jpg" 
-          style="width:20%;">
-      </a>
-</div>
+-   [The Complete Guide to Big O Notation & Complexity Analysis for Algorithms: Part 1 of 2](https://www.youtube.com/watch?v=HfIH3czXc-8)
+-   [P99 CONF: High-Performance Networking Using eBPF, XDP, and io_uring](https://www.youtube.com/watch?v=dWfA5460HYU)
 
 #### Books
 
