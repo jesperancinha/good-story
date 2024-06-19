@@ -73,3 +73,5 @@ os-info-max:
 	/usr/sbin/system_profiler SPHardwareDataType
 system-info:
 	uname -mprsv
+deps-plugins-update:
+	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/pluginUpdatesOne.sh | bash
