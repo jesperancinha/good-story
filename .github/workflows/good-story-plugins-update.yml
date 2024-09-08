@@ -22,7 +22,7 @@ jobs:
         run: make deps-plugins-update
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Update plugins
           branch: update-plugins
