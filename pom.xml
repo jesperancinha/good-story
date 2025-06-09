@@ -22,7 +22,7 @@
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
 
         <picocli.version>4.7.7</picocli.version>
-        <junit-jupiter.version>5.13.0</junit-jupiter.version>
+        <junit-jupiter.version>5.13.1</junit-jupiter.version>
         <kotest.version>5.9.1</kotest.version>
         <kotlinx.version>1.10.2</kotlinx.version>
         <slf4j.version>2.0.17</slf4j.version>
