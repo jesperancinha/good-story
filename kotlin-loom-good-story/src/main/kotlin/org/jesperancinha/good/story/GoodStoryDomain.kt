@@ -15,9 +15,6 @@ import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 import java.util.function.Consumer
 
-/**
- * Created by jofisaes on 28/05/2022
- */
 data class FunctionReading(
     @CsvBindByName
     var method: String? = null,

@@ -1,9 +1,7 @@
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 
-/**
- * Created by jofisaes on 22/06/2022
- */
 class CoroutinesIntro {
     companion object {
         @DelicateCoroutinesApi
@@ -13,7 +11,7 @@ class CoroutinesIntro {
                 measureTimeMillis {
                     (1..1000).map {
                         async {
-                            delay(2000)
+                            delay(2000.milliseconds)
                         }
                     }.awaitAll()
                 }

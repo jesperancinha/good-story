@@ -4,10 +4,8 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Unconfined
 import java.lang.Thread.sleep
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 
-/**
- * Created by jofisaes on 22/06/2022
- */
 class CoroutinesExplained {
 
     companion object {
@@ -135,7 +133,7 @@ class CoroutinesExplained {
                 }"
             )
             launch {
-                delay(2000)
+                delay(2000.milliseconds)
                 println(
                     "1 - (launch) - This launches a coroutine in parallel ==> (${Thread.currentThread().name}) - ${
                         Thread.currentThread().threadId()
@@ -165,7 +163,7 @@ class CoroutinesExplained {
                         Thread.currentThread().threadId()
                     }"
                 )
-                delay(500)
+                delay(500.milliseconds)
                 println(
                     "2 - (IO) Although the coroutine has been parked, it is now unparked and it remains on the same thread ==> (${Thread.currentThread().name}) - ${
                         Thread.currentThread().threadId()
@@ -178,7 +176,7 @@ class CoroutinesExplained {
                         Thread.currentThread().threadId()
                     }"
                 )
-                delay(500)
+                delay(500.milliseconds)
                 println(
                     "6 - (Unconfined) Although the coroutine has been parked, it is now unparked and it remains on the same thread ==> (${Thread.currentThread().name}) - ${
                         Thread.currentThread().threadId()
@@ -191,7 +189,7 @@ class CoroutinesExplained {
                         Thread.currentThread().threadId()
                     }"
                 )
-                delay(500)
+                delay(500.milliseconds)
                 println(
                     "7 - (Default) Although the coroutine has been parked, it is now unparked and it remains on the same thread ==> (${Thread.currentThread().name}) - ${
                         Thread.currentThread().threadId()
@@ -204,7 +202,7 @@ class CoroutinesExplained {
                 }"
             )
             deferred.await()
-            delay(2000)
+            delay(2000.milliseconds)
         }
     }
 }

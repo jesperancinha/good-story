@@ -1,6 +1,6 @@
 package org.jesperancinha.good.story.splay
 
-class SplayNode(var word: String) {
+class SplayNode(val word: String) {
     var parent: SplayNode? = null
     var left: SplayNode? = null
     var right: SplayNode? = null

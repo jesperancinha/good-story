@@ -6,9 +6,6 @@ import kotlinx.coroutines.flow.toList
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-/**
- * Created by jofisaes on 04/06/2022
- */
 class FlowManager {
 
     private fun wordsFlow(words: List<String>): Flow<String> = flow {

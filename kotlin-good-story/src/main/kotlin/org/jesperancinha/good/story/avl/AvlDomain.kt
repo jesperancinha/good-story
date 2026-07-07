@@ -2,9 +2,6 @@ package org.jesperancinha.good.story.avl
 
 import org.slf4j.LoggerFactory
 
-/**
- * Created by jofisaes on 29/05/2022
- */
 class AvlNode(
     val word: String,
     var leftNode: AvlNode? = null,

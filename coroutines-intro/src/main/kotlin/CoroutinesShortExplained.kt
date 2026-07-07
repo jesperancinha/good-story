@@ -4,10 +4,8 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Unconfined
 import java.lang.Thread.sleep
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 
-/**
- * Created by jofisaes on 22/06/2022
- */
 class CoroutinesShortExplained {
 
     companion object {
@@ -83,7 +81,7 @@ class CoroutinesShortExplained {
         private fun runDelayExample() = runBlocking {
             println("3 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             launch {
-                delay(2000)
+                delay(2000.milliseconds)
                 println("1 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
                 println("1 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             }
@@ -93,22 +91,22 @@ class CoroutinesShortExplained {
             println("3 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             withContext(IO) {
                 println("2 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
-                delay(500)
+                delay(500.milliseconds)
                 println("2 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             }
             withContext(Unconfined) {
                 println("6 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
-                delay(500)
+                delay(500.milliseconds)
                 println("6 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             }
             withContext(Default) {
                 println("7 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
-                delay(500)
+                delay(500.milliseconds)
                 println("7 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             }
             println("3 ==> (${Thread.currentThread().name}) - ${Thread.currentThread().threadId()}")
             deferred.await()
-            delay(2000)
+            delay(2000.milliseconds)
         }
     }
 }

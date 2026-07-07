@@ -2,9 +2,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 
-/**
- * Created by jofisaes on 24/06/2022
- */
 internal class CoroutineYealding {
     companion object {
         @JvmStatic
