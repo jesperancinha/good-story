@@ -50,6 +50,7 @@ dump/kotlin-loom/*.csv
 !Log.md
 !dump.csv
 article.txt
+dependabot.yml.bak
 
 ## Draw.IO
 *.bkp
